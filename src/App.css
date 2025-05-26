@@ -16,3 +16,56 @@
 .chevron-bounce {
   animation: bounce 1s infinite;
 }
+
+/* Mobile Responsive Styles - Only applies to screens smaller than 768px */
+@media (max-width: 768px) {
+  /* Hero section adjustments */
+  .hero-title {
+    font-size: 3rem !important;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.1rem !important;
+    padding: 0 20px;
+  }
+  
+  .hero-small-text {
+    font-size: 0.7rem !important;
+  }
+  
+  /* About section mobile layout */
+  .about-container {
+    flex-direction: column !important;
+    gap: 30px !important;
+    padding: 20px !important;
+  }
+  
+  .about-image {
+    width: 200px !important;
+    height: 200px !important;
+  }
+  
+  .about-text h2 {
+    font-size: 2rem !important;
+    text-align: center;
+  }
+  
+  .about-text p {
+    font-size: 1rem !important;
+    text-align: center;
+  }
+  
+  /* Chevron adjustments */
+  .chevron-container {
+    bottom: 20px !important;
+  }
+  
+  .chevron-container svg {
+    width: 40px !important;
+    height: 30px !important;
+  }
+  
+  .chevron-container span {
+    font-size: 1rem !important;
+  }
+}

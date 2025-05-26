@@ -50,18 +50,18 @@ function App() {
             color: '#fff',
           }}
         >
-          <h1 className="gradient_text" style={{ fontSize: '5rem', fontWeight: 'bold', margin: '0', lineHeight: 1.1 }}>
+          <h1 className="gradient_text hero-title" style={{ fontSize: '5rem', fontWeight: 'bold', margin: '0', lineHeight: 1.1 }}>
             Hello<br />I'm Elvin
           </h1>
-          <p style={{ fontSize: '1.5rem', color: '#fff', marginTop: '20px' }}>
+          <p className="hero-subtitle" style={{ fontSize: '1.5rem', color: '#fff', marginTop: '20px' }}>
             I'm a passionate software engineer building cool things with code.
           </p>
-          <p style={{ fontSize: '.75rem', color: '#fff', marginTop: '20px' }}>
+          <p className="hero-small-text" style={{ fontSize: '.75rem', color: '#fff', marginTop: '20px' }}>
             This website is work in progress.
           </p>
         </div>
         {/* the chevron and Click Me */}
-        <div style={{
+        <div className="chevron-container" style={{
           position:'absolute',
           bottom: '40px',
           left: '50%',
@@ -112,6 +112,7 @@ function App() {
         }}
       >
         <div
+          className="about-container"
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -121,6 +122,7 @@ function App() {
         >
           {/* image container and actual image  */}
           <div
+            className="about-image"
             style={{
               width: '300px',
               height: '300px',
@@ -145,7 +147,7 @@ function App() {
           </div>
           
           {/* Text and Paragraphsin the about me section */}
-          <div style={{ flex: 1 }}>
+          <div className="about-text" style={{ flex: 1 }}>
             <h2 style={{ fontSize: '2.5rem', marginBottom: '20px', color: '#fff' }}>
               About Me
             </h2>
