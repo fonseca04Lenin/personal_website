@@ -40,6 +40,7 @@ function App() {
           src="/854277-hd_1280_720_30fps.mp4"
         />
         <div
+          className="hero-content"
           style={{
             position: 'relative',
             zIndex: 1,
@@ -152,10 +153,10 @@ function App() {
               About Me
             </h2>
             <p style={{ fontSize: '1.2rem', lineHeight: '1.6', color: '#ddd' }}>
-              I'm Elvin Fonseca, a junior studying Computer Science at the University of Nebraska Omaha with a deep passion for software engineering. I love turning ideas into real-world solutions — whether it's building full-stack apps, exploring new technologies, or contributing to projects that make people's lives easier.
+              I'm Elvin Fonseca, an upcoming senior studying Computer Science and AI at the University of Nebraska Omaha with a deep passion for software engineering. I love turning ideas into real-world solutions — whether it's building full-stack apps, exploring new technologies, or contributing to projects that make people's lives easier.
             </p>
             <p style={{ fontSize: '1.2rem', lineHeight: '1.6', color: '#ddd', marginTop: '16px' }}>
-              I've worked with everything from mobile development to cloud tools, and I'm always eager to learn, improve, and make an impact. My goal is simple: to grow as a developer and help build software that matters.
+              I've worked with everything from mobile development to AI tools, and I'm always eager to learn, improve, and make an impact. My goal is simple: to grow as a developer and help build software that matters.
             </p>
           </div>
         </div>
