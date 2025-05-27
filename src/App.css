@@ -19,7 +19,18 @@
 
 /* Mobile Responsive Styles - Only applies to screens smaller than 768px */
 @media (max-width: 768px) {
+  /* General mobile fixes */
+  body {
+    overflow-x: hidden !important;
+  }
+  
   /* Hero section adjustments */
+  .hero-content {
+    padding: 0 15px !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
   .hero-title {
     font-size: 3rem !important;
   }
@@ -27,10 +38,13 @@
   .hero-subtitle {
     font-size: 1.1rem !important;
     padding: 0 20px;
+    text-align: center !important;
   }
   
   .hero-small-text {
     font-size: 0.7rem !important;
+    text-align: center !important;
+    padding: 0 20px;
   }
   
   /* About section mobile layout */
@@ -58,6 +72,10 @@
   /* Chevron adjustments */
   .chevron-container {
     bottom: 20px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 100% !important;
+    text-align: center !important;
   }
   
   .chevron-container svg {
@@ -67,5 +85,6 @@
   
   .chevron-container span {
     font-size: 1rem !important;
+    white-space: nowrap !important;
   }
 }
