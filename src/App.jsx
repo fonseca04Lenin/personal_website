@@ -77,7 +77,8 @@ function App() {
             height="47" 
             viewBox="0 0 60 47"
             className='chevron-bounce'
-            style={{ display: 'block' }}
+            style={{ display: 'block', cursor: 'pointer' }}
+            onClick={handleClick}
           >
             <polyline
               points="15, 15 30, 30 45, 15"
