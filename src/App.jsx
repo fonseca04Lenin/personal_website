@@ -12,6 +12,17 @@ function App() {
 
   const projects = [
     {
+      id: 1,
+      name: "Personal Portfolio Website",
+      description: "Modern, responsive portfolio website built with React and Vite featuring interactive animations and professional design",
+      date: "December 2024",
+      tech: ["React", "Vite", "JavaScript", "CSS3", "HTML5", "Vercel Analytics", "Responsive Design", "Modern UI/UX"],
+      images: ["/portfolio-website-placeholder.jpg"],
+      details: "Designed and developed a fully responsive personal portfolio website from scratch using React and Vite, featuring a modern gradient-based design system, smooth scrolling navigation, and interactive animations. Implemented a dynamic project timeline with modal overlays, mobile-first responsive design, and optimized performance. The site showcases advanced CSS techniques including custom animations, gradient text effects, and glassmorphism design elements. Integrated Vercel Analytics for visitor tracking and deployed with modern web development best practices.",
+      github: "https://github.com/yourusername/personal-portfolio",
+      live: "elvinfonseca.com"
+    },
+    {
       id: 2,
       name: "Stock Market App",
       description: "A comprehensive stock tracking application with real-time data and analytics",
@@ -19,7 +30,7 @@ function App() {
       tech: ["Python", "Tkinter", "Matplotlib", "API Integration", "JSON", "Pickle"],
       images: ["/stock-app-placeholder.jpg"],
       details: "Spearheaded the conceptualization and development of a stock market app by integrating modules such as Tkinter, Matplotlib, datetime, pickle and an API resulting in a streamlined user experience that improved information retrieval speed by 40%. Executed a systematic timeline for app development, including idea generation, concept creation, building the app with real-time data visualization and user-friendly interface design.",
-      github: "https://github.com/fonseca04Lenin/Project-2.git",
+      github: "https://github.com/yourusername/stock-app",
       live: "https://your-stock-app.com"
     },
     {
@@ -30,8 +41,8 @@ function App() {
       tech: ["Python", "Flask", "HTML", "CSS", "Jinja2", "RESTful APIs", "JSON", "Geolocation"],
       images: ["/uv-checker-placeholder.jpg"],
       details: "Designed an interactive web application employing Python and Flask to provide instant UV index updates through geolocation services; streamlined data retrieval process, reducing load times by 60% and increasing user satisfaction. Created an intuitive and user-friendly interface with HTML, CSS, and Jinja2 templating to provide users with clear visual indicators of UV levels using color-coded categories for low, moderate, and high UV indexes. Implemented RESTful API calls to obtain current and forecasted UV index data, leveraging JSON data parsing to handle and display relevant information.",
-      github: "https://github.com/fonseca04Lenin/UV-Index-Web-Project.git",
-      live: "https://your-uv-checker.com"
+      github: "https://github.com/yourusername/uv-index-checker",
+      live: "https://uv-index-web-project.onrender.com/"
     }
   ];
 
