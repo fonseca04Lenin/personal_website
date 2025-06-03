@@ -4,10 +4,14 @@ import './App.css'
 
 function App() {
   const aboutRef = useRef(null);
+  const workRef = useRef(null);
+  const projectsRef = useRef(null);
+  const skillsRef = useRef(null);
+  const contactRef = useRef(null);
   const [selectedProject, setSelectedProject] = useState(null);
 
-  const handleClick = () => {
-    aboutRef.current.scrollIntoView({ behavior: 'smooth' });
+  const scrollToSection = (ref) => {
+    ref.current.scrollIntoView({ behavior: 'smooth' });
   };
 
   const projects = [
@@ -46,6 +50,15 @@ function App() {
     }
   ];
 
+  const skills = {
+    "Frontend": ["React", "JavaScript", "TypeScript", "HTML5", "CSS3", "Vue.js", "Responsive Design", "UI/UX Design"],
+    "Backend": ["Python", "Flask", "Laravel", "Node.js", "RESTful APIs", "JSON", "Firebase"],
+    "Mobile": ["React Native", "Cross-platform Development", "iOS Development"],
+    "Tools & Technologies": ["Git", "CI/CD", "Vite", "Vercel", "Render", "Matplotlib", "API Integration"],
+    "Databases": ["Firebase", "MySQL", "JSON Data Processing"],
+    "Soft Skills": ["Team Collaboration", "Agile Development", "Problem Solving", "Code Review", "Performance Optimization"]
+  };
+
   const openProject = (project) => {
     setSelectedProject(project);
   };
@@ -56,7 +69,76 @@ function App() {
 
   return (
     <div>
-      {/* first Section with Video */}
+      {/* Professional Navigation Header */}
+      <nav style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        background: 'rgba(34, 34, 34, 0.95)',
+        backdropFilter: 'blur(10px)',
+        borderBottom: '1px solid rgba(248, 87, 166, 0.3)',
+        zIndex: 1000,
+        padding: '15px 0',
+      }}>
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '0 20px',
+        }}>
+          <div className="gradient_text" style={{
+            fontSize: '1.5rem',
+            fontWeight: 'bold',
+            cursor: 'pointer',
+          }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            Elvin Fonseca
+          </div>
+          
+          <div style={{
+            display: 'flex',
+            gap: '30px',
+            alignItems: 'center',
+          }}>
+            {[
+              { label: 'About', ref: aboutRef },
+              { label: 'Experience', ref: workRef },
+              { label: 'Skills', ref: skillsRef },
+              { label: 'Projects', ref: projectsRef },
+              { label: 'Contact', ref: contactRef }
+            ].map((item, index) => (
+              <button
+                key={index}
+                onClick={() => scrollToSection(item.ref)}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  color: '#fff',
+                  fontSize: '1rem',
+                  cursor: 'pointer',
+                  padding: '8px 16px',
+                  borderRadius: '20px',
+                  transition: 'all 0.3s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.background = 'rgba(248, 87, 166, 0.2)';
+                  e.target.style.color = '#f857a6';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.background = 'transparent';
+                  e.target.style.color = '#fff';
+                }}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
       <section
         style={{
           position: 'relative',
@@ -67,6 +149,7 @@ function App() {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
+          paddingTop: '80px',
         }}
       >
         <video
@@ -102,11 +185,49 @@ function App() {
           <p className="hero-subtitle" style={{ fontSize: '1.5rem', color: '#fff', marginTop: '20px' }}>
             I'm a passionate software engineer building cool things with code.
           </p>
-          <p className="hero-small-text" style={{ fontSize: '.75rem', color: '#fff', marginTop: '20px' }}>
-            This website is work in progress.
+          <p style={{ fontSize: '1.2rem', color: '#ddd', marginBottom: '40px' }}>
+            React • Python • TypeScript • Laravel • Vue.js
           </p>
+          
+          {/* View Projects Button */}
+          <div style={{
+            display: 'flex',
+            gap: '20px',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            marginTop: '30px',
+          }}>
+            <button
+              onClick={() => scrollToSection(projectsRef)}
+              style={{
+                background: 'rgba(255, 255, 255, 0.1)',
+                color: '#fff',
+                padding: '16px 32px',
+                borderRadius: '30px',
+                border: '2px solid rgba(255, 255, 255, 0.3)',
+                fontWeight: 'bold',
+                fontSize: '1.1rem',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                backdropFilter: 'blur(10px)',
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+                e.target.style.border = '2px solid rgba(255, 255, 255, 0.6)';
+                e.target.style.transform = 'translateY(-3px)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'rgba(255, 255, 255, 0.1)';
+                e.target.style.border = '2px solid rgba(255, 255, 255, 0.3)';
+                e.target.style.transform = 'translateY(0)';
+              }}
+            >
+              🚀 View Projects
+            </button>
+          </div>
         </div>
-        {/* the chevron and Click Me */}
+        
+        {/* Scroll indicator */}
         <div className="chevron-container" style={{
           position:'absolute',
           bottom: '40px',
@@ -124,7 +245,7 @@ function App() {
             viewBox="0 0 60 47"
             className='chevron-bounce'
             style={{ display: 'block', cursor: 'pointer' }}
-            onClick={handleClick}
+            onClick={() => scrollToSection(aboutRef)}
           >
             <polyline
               points="15, 15 30, 30 45, 15"
@@ -146,12 +267,12 @@ function App() {
               textAlign: 'center',
               whiteSpace: 'nowrap'
             }}
-            onClick={handleClick}
+            onClick={() => scrollToSection(aboutRef)}
           >
             Click Me
           </span>
         </div>
-        {/* the black divide bwtween the video and the about me section */}
+        
         <div style={{
           position: 'absolute',
           bottom: 0,
@@ -163,7 +284,7 @@ function App() {
         }} />
       </section>
 
-      {/* About Me Section-page backfgorund etc */}
+      {/* About Me Section */}
       <section
         ref={aboutRef}
         id="next-section"
@@ -187,7 +308,6 @@ function App() {
             gap: '40px',
           }}
         >
-          {/* image container and actual image  */}
           <div
             className="about-image"
             style={{
@@ -213,7 +333,6 @@ function App() {
             />
           </div>
           
-          {/* Text and Paragraphsin the about me section */}
           <div className="about-text" style={{ flex: 1 }}>
             <h2 style={{ fontSize: '2.5rem', marginBottom: '20px', color: '#fff' }}>
               About Me
@@ -228,8 +347,99 @@ function App() {
         </div>
       </section>
 
+      {/* Skills Section */}
+      <section
+        ref={skillsRef}
+        style={{
+          background: '#222',
+          color: '#fff',
+          padding: '80px 20px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <h2 className="gradient_text" style={{ 
+          fontSize: '3.5rem', 
+          marginBottom: '50px', 
+          textAlign: 'center',
+          fontWeight: 'bold',
+          textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
+        }}>
+          Technical Skills
+        </h2>
+        
+        <div style={{
+          maxWidth: '1200px',
+          width: '100%',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gap: '30px',
+        }}>
+          {Object.entries(skills).map(([category, skillList], index) => (
+            <div key={index} style={{
+              background: 'linear-gradient(135deg, rgba(45, 45, 45, 0.8), rgba(25, 25, 25, 0.8))',
+              borderRadius: '15px',
+              padding: '25px',
+              border: '1px solid rgba(248, 87, 166, 0.3)',
+              backdropFilter: 'blur(10px)',
+              transition: 'all 0.3s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.6)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.3)';
+            }}
+            >
+              <h3 className="gradient_text" style={{
+                fontSize: '1.4rem',
+                marginBottom: '20px',
+                fontWeight: 'bold',
+              }}>
+                {category}
+              </h3>
+              <div style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '10px',
+              }}>
+                {skillList.map((skill, skillIndex) => (
+                  <span
+                    key={skillIndex}
+                    style={{
+                      background: 'rgba(248, 87, 166, 0.15)',
+                      color: '#f857a6',
+                      padding: '8px 16px',
+                      borderRadius: '20px',
+                      fontSize: '0.9rem',
+                      fontWeight: '500',
+                      border: '1px solid rgba(248, 87, 166, 0.3)',
+                      transition: 'all 0.2s ease',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.background = 'rgba(248, 87, 166, 0.25)';
+                      e.target.style.transform = 'translateY(-2px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.background = 'rgba(248, 87, 166, 0.15)';
+                      e.target.style.transform = 'translateY(0)';
+                    }}
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Work Experience Section */}
       <section
+        ref={workRef}
         style={{
           background: '#222',
           color: '#fff',
@@ -263,7 +473,7 @@ function App() {
             top: '0',
             bottom: '0',
             width: '4px',
-            background: 'linear-gradient(to bottom, #f857a6, #ff5858, #ffcc70)',
+            background: 'linear-gradient(to bottom, #f857a6, #ff5858)',
             transform: 'translateX(-50%)',
             boxShadow: '0 0 15px rgba(248, 87, 166, 0.6)',
             borderRadius: '2px',
@@ -571,6 +781,7 @@ function App() {
 
       {/* Projects Timeline Section */}
       <section
+        ref={projectsRef}
         style={{
           background: '#222',
           color: '#fff',
@@ -582,12 +793,42 @@ function App() {
           position: 'relative',
         }}
       >
+        {/* Timeline Connection from Work Experience */}
+        <div style={{
+          position: 'absolute',
+          top: '0',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '4px',
+          height: '60px',
+          background: 'linear-gradient(to bottom, #f857a6, #ff5858)',
+          zIndex: 1,
+        }} />
+        
+        {/* Curved Transition from Vertical to Horizontal */}
+        <div style={{
+          position: 'absolute',
+          top: '40px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '40px',
+          height: '40px',
+          borderRadius: '0 0 40px 40px',
+          border: '4px solid transparent',
+          borderBottomColor: '#ff5858',
+          borderLeftColor: '#ff5858',
+          borderRightColor: '#ffcc70',
+          background: 'transparent',
+          zIndex: 1,
+        }} />
+        
         <h2 className="gradient_text" style={{ 
           fontSize: '3.5rem', 
           marginBottom: '30px', 
           textAlign: 'center',
           fontWeight: 'bold',
-          textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
+          textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+          marginTop: '40px'
         }}>
           My Projects
         </h2>
@@ -606,7 +847,7 @@ function App() {
             right: '0',
             top: '50%',
             height: '6px',
-            background: 'linear-gradient(to right, #f857a6, #ff5858, #ffcc70)',
+            background: 'linear-gradient(to right, #ff5858, #ffcc70, #f857a6)',
             transform: 'translateY(-50%)',
             boxShadow: '0 0 15px rgba(248, 87, 166, 0.6)',
             borderRadius: '3px',
@@ -1000,10 +1241,11 @@ function App() {
       
       {/* Footer Section with Contributors */}
       <footer
+        ref={contactRef}
         style={{
           background: '#222',
           color: '#fff',
-          padding: '60px 20px 40px',
+          padding: '80px 20px 40px',
           borderTop: '1px solid rgba(248, 87, 166, 0.2)',
         }}
       >
@@ -1012,9 +1254,29 @@ function App() {
           margin: '0 auto',
           textAlign: 'center',
         }}>
+          {/* Enhanced Contact Section Title */}
+          <h2 className="gradient_text" style={{
+            fontSize: '3rem',
+            marginBottom: '20px',
+            fontWeight: 'bold',
+            textAlign: 'center',
+          }}>
+            Let's Build Something Amazing Together
+          </h2>
+          <p style={{
+            fontSize: '1.2rem',
+            color: '#ddd',
+            marginBottom: '50px',
+            maxWidth: '600px',
+            margin: '0 auto 50px auto',
+            lineHeight: '1.6',
+          }}>
+            Ready to bring technical excellence and innovation to your team. Let's discuss how I can contribute to your next project.
+          </p>
+
           {/* Contributors Section */}
           <div style={{ 
-            marginBottom: '30px',
+            marginBottom: '40px',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'flex-start',
@@ -1081,7 +1343,6 @@ function App() {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
-                    {/* Placeholder for dog image - user will need to add maggi-photo.jpg to public folder */}
                     <img
                       src="/maggi-photo.jpg"
                       alt="Maggi F. - Chief Editor"
@@ -1091,7 +1352,6 @@ function App() {
                         objectFit: 'cover',
                       }}
                       onError={(e) => {
-                        // Fallback to a placeholder if image doesn't exist
                         e.target.style.display = 'none';
                         e.target.nextElementSibling.style.display = 'flex';
                       }}
@@ -1110,7 +1370,6 @@ function App() {
                     </div>
                   </div>
                   
-                  {/* Contributor Info */}
                   <h4 style={{
                     fontSize: '1.2rem',
                     marginBottom: '6px',
