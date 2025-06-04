@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { Analytics } from '@vercel/analytics/react'
 import './App.css'
 
@@ -9,9 +9,25 @@ function App() {
   const skillsRef = useRef(null);
   const contactRef = useRef(null);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Handle body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.classList.add('mobile-menu-open');
+    } else {
+      document.body.classList.remove('mobile-menu-open');
+    }
+    
+    // Cleanup on unmount
+    return () => {
+      document.body.classList.remove('mobile-menu-open');
+    };
+  }, [mobileMenuOpen]);
 
   const scrollToSection = (ref) => {
     ref.current.scrollIntoView({ behavior: 'smooth' });
+    setMobileMenuOpen(false); // Close mobile menu after navigation
   };
 
   const projects = [
@@ -93,11 +109,15 @@ function App() {
             fontSize: '1.5rem',
             fontWeight: 'bold',
             cursor: 'pointer',
-          }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          }} onClick={() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setMobileMenuOpen(false);
+          }}>
             Elvin Fonseca
           </div>
           
-          <div style={{
+          {/* Desktop Navigation */}
+          <div className="desktop-nav" style={{
             display: 'flex',
             gap: '30px',
             alignItems: 'center',
@@ -121,6 +141,119 @@ function App() {
                   padding: '8px 16px',
                   borderRadius: '20px',
                   transition: 'all 0.3s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.background = 'rgba(248, 87, 166, 0.2)';
+                  e.target.style.color = '#f857a6';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.background = 'transparent';
+                  e.target.style.color = '#fff';
+                }}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Mobile Hamburger Menu Button */}
+          <button 
+            className="mobile-menu-button"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            style={{
+              display: 'none',
+              background: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '8px',
+              borderRadius: '4px',
+              transition: 'all 0.3s ease',
+            }}
+          >
+            <div style={{
+              width: '24px',
+              height: '18px',
+              position: 'relative',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}>
+              <span style={{
+                width: '100%',
+                height: '2px',
+                backgroundColor: '#fff',
+                borderRadius: '1px',
+                transition: 'all 0.3s ease',
+                transformOrigin: 'center',
+                transform: mobileMenuOpen ? 'rotate(45deg) translateY(8px)' : 'rotate(0deg)',
+              }} />
+              <span style={{
+                width: '100%',
+                height: '2px',
+                backgroundColor: '#fff',
+                borderRadius: '1px',
+                transition: 'all 0.3s ease',
+                opacity: mobileMenuOpen ? '0' : '1',
+              }} />
+              <span style={{
+                width: '100%',
+                height: '2px',
+                backgroundColor: '#fff',
+                borderRadius: '1px',
+                transition: 'all 0.3s ease',
+                transformOrigin: 'center',
+                transform: mobileMenuOpen ? 'rotate(-45deg) translateY(-8px)' : 'rotate(0deg)',
+              }} />
+            </div>
+          </button>
+        </div>
+
+        {/* Mobile Navigation Menu */}
+        <div 
+          className="mobile-nav-menu"
+          style={{
+            display: 'none',
+            position: 'absolute',
+            top: '100%',
+            left: 0,
+            right: 0,
+            background: 'rgba(34, 34, 34, 0.98)',
+            backdropFilter: 'blur(15px)',
+            borderBottom: '1px solid rgba(248, 87, 166, 0.3)',
+            transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-100%)',
+            opacity: mobileMenuOpen ? 1 : 0,
+            visibility: mobileMenuOpen ? 'visible' : 'hidden',
+            transition: 'all 0.3s ease',
+            padding: '20px 0',
+          }}
+        >
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '15px',
+            padding: '0 20px',
+          }}>
+            {[
+              { label: 'About', ref: aboutRef },
+              { label: 'Experience', ref: workRef },
+              { label: 'Skills', ref: skillsRef },
+              { label: 'Projects', ref: projectsRef },
+              { label: 'Contact', ref: contactRef }
+            ].map((item, index) => (
+              <button
+                key={index}
+                onClick={() => scrollToSection(item.ref)}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  color: '#fff',
+                  fontSize: '1.1rem',
+                  cursor: 'pointer',
+                  padding: '12px 16px',
+                  borderRadius: '8px',
+                  transition: 'all 0.3s ease',
+                  textAlign: 'left',
+                  width: '100%',
                 }}
                 onMouseEnter={(e) => {
                   e.target.style.background = 'rgba(248, 87, 166, 0.2)';
