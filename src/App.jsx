@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from 'react'
 import { Analytics } from '@vercel/analytics/react'
+import emailjs from '@emailjs/browser'
 import './App.css'
 
 function App() {
@@ -16,6 +17,26 @@ function App() {
     return saved ? parseInt(saved, 10) : 0;
   });
   const [showStats, setShowStats] = useState(false);
+
+  // Contact form state
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [formStatus, setFormStatus] = useState('idle'); // idle, sending, success, error
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  // Handle responsive layout
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Handle body scroll when mobile menu is open could be improved
   useEffect(() => {
@@ -57,18 +78,88 @@ function App() {
     localStorage.setItem('resume_download_count', newCount.toString());
     localStorage.setItem('last_download_time', new Date().toLocaleString());
     
-    // Trrack resume download with Vercel Analytics
-    if (window.va) {
-      window.va.track('Resume Downloaded', {
-        timestamp: timestamp,
-        source: 'portfolio_website',
-        downloadNumber: newCount
-      });
-    }
-    
-    
-    
+    // Track resume download with Vercel Analytics
     console.log(`Resume downloaded! Total downloads: ${newCount} at:`, timestamp);
+  };
+
+  // Contact form handlers
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    console.log('Form submission started...');
+    setFormStatus('sending');
+
+    try {
+      // EmailJS Configuration
+      const SERVICE_ID = 'service_ne9y91r';
+      const TEMPLATE_ID = 'template_3agcbuw';
+      const PUBLIC_KEY = 'Nm-ND2J9GAp-unpH9';
+
+      console.log('EmailJS Config:', { SERVICE_ID, TEMPLATE_ID, PUBLIC_KEY });
+
+      // Initialize EmailJS with your public key
+      emailjs.init(PUBLIC_KEY);
+
+      // Prepare template parameters for EmailJS - using standard variable names
+      const templateParams = {
+        user_name: formData.name,
+        user_email: formData.email,
+        user_subject: formData.subject,
+        message: formData.message,
+        to_name: 'Elvin Fonseca',
+        reply_to: formData.email
+      };
+
+      console.log('Template params:', templateParams);
+      console.log('Attempting to send email...');
+
+      // Send email using EmailJS with timeout
+      const emailPromise = emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        templateParams
+      );
+
+      // Add timeout to prevent infinite loading
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Email timeout after 30 seconds')), 30000)
+      );
+
+      const result = await Promise.race([emailPromise, timeoutPromise]);
+
+      console.log('Email sent successfully:', result);
+      
+      // Track form submission with Vercel Analytics (remove window.va usage)
+      console.log('Form submitted successfully - tracking event');
+
+      setFormStatus('success');
+      // Reset form after successful submission
+      setTimeout(() => {
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        setFormStatus('idle');
+      }, 3000);
+
+    } catch (error) {
+      console.error('Form submission error:', error);
+      console.error('Error details:', {
+        message: error.message,
+        status: error.status,
+        text: error.text
+      });
+      
+      // Track failed submission (remove window.va usage)
+      console.log('Form submission failed - tracking error event');
+
+      setFormStatus('error');
+      setTimeout(() => setFormStatus('idle'), 3000);
+    }
   };
 
   const projects = [
@@ -195,6 +286,114 @@ function App() {
                 {item.label}
               </button>
             ))}
+
+            {/* Social Media Icons */}
+            <div style={{ 
+              display: 'flex', 
+              gap: '15px', 
+              alignItems: 'center',
+              marginLeft: '20px',
+              paddingLeft: '20px',
+              borderLeft: '1px solid rgba(248, 87, 166, 0.3)'
+            }}>
+              {/* LinkedIn Icon */}
+              <a
+                href="https://www.linkedin.com/in/elvin-fonseca/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: '#fff',
+                  transition: 'all 0.3s ease',
+                  padding: '8px',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.color = '#0077b5';
+                  e.target.style.background = 'rgba(0, 119, 181, 0.1)';
+                  e.target.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.color = '#fff';
+                  e.target.style.background = 'transparent';
+                  e.target.style.transform = 'translateY(0)';
+                }}
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+
+              {/* GitHub Icon */}
+              <a
+                href="https://github.com/fonseca04Lenin"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: '#fff',
+                  transition: 'all 0.3s ease',
+                  padding: '8px',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.color = '#333';
+                  e.target.style.background = 'rgba(255, 255, 255, 0.9)';
+                  e.target.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.color = '#fff';
+                  e.target.style.background = 'transparent';
+                  e.target.style.transform = 'translateY(0)';
+                }}
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+              </a>
+
+              {/* Resume Download Button */}
+              <a
+                href="/Elvin_Fonseca_Resume.pdf"
+                download="Elvin_Fonseca_Resume.pdf"
+                onClick={handleResumeDownload}
+                style={{
+                  background: 'linear-gradient(45deg, #f857a6, #ff5858)',
+                  color: '#fff',
+                  padding: '8px 16px',
+                  borderRadius: '20px',
+                  textDecoration: 'none',
+                  fontWeight: '600',
+                  fontSize: '0.9rem',
+                  transition: 'all 0.3s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  marginLeft: '10px',
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.background = 'linear-gradient(45deg, #ff5858, #ffcc70)';
+                  e.target.style.transform = 'translateY(-2px)';
+                  e.target.style.boxShadow = '0 4px 15px rgba(248, 87, 166, 0.4)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.background = 'linear-gradient(45deg, #f857a6, #ff5858)';
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = 'none';
+                }}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                </svg>
+                Resume
+              </a>
+            </div>
           </div>
 
           {/* Mobile Hamburger Menu Button */}
@@ -308,6 +507,122 @@ function App() {
                 {item.label}
               </button>
             ))}
+
+            {/* Mobile Social Media Icons */}
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              gap: '20px',
+              marginTop: '20px',
+              paddingTop: '20px',
+              borderTop: '1px solid rgba(248, 87, 166, 0.3)'
+            }}>
+              {/* LinkedIn Icon */}
+              <a
+                href="https://www.linkedin.com/in/elvin-fonseca/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: '#fff',
+                  transition: 'all 0.3s ease',
+                  padding: '10px',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.color = '#0077b5';
+                  e.target.style.background = 'rgba(0, 119, 181, 0.1)';
+                  e.target.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.color = '#fff';
+                  e.target.style.background = 'transparent';
+                  e.target.style.transform = 'translateY(0)';
+                }}
+              >
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+
+              {/* GitHub Icon */}
+              <a
+                href="https://github.com/fonseca04Lenin"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: '#fff',
+                  transition: 'all 0.3s ease',
+                  padding: '10px',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.color = '#333';
+                  e.target.style.background = 'rgba(255, 255, 255, 0.9)';
+                  e.target.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.color = '#fff';
+                  e.target.style.background = 'transparent';
+                  e.target.style.transform = 'translateY(0)';
+                }}
+              >
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+              </a>
+
+              {/* Mobile Resume Download Button */}
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                marginTop: '15px',
+              }}>
+                <a
+                  href="/Elvin_Fonseca_Resume.pdf"
+                  download="Elvin_Fonseca_Resume.pdf"
+                  onClick={() => {
+                    handleResumeDownload();
+                    setMobileMenuOpen(false);
+                  }}
+                  style={{
+                    background: 'linear-gradient(45deg, #f857a6, #ff5858)',
+                    color: '#fff',
+                    padding: '12px 24px',
+                    borderRadius: '25px',
+                    textDecoration: 'none',
+                    fontWeight: '600',
+                    fontSize: '1rem',
+                    transition: 'all 0.3s ease',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    border: 'none',
+                    cursor: 'pointer',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.background = 'linear-gradient(45deg, #ff5858, #ffcc70)';
+                    e.target.style.transform = 'translateY(-2px)';
+                    e.target.style.boxShadow = '0 6px 20px rgba(248, 87, 166, 0.4)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.background = 'linear-gradient(45deg, #f857a6, #ff5858)';
+                    e.target.style.transform = 'translateY(0)';
+                    e.target.style.boxShadow = 'none';
+                  }}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                  </svg>
+                  Download Resume
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </nav>
@@ -1564,6 +1879,7 @@ function App() {
                     Chief Editor
                   </p>
                   
+                  
                   <p style={{
                     color: '#ddd',
                     fontSize: '0.8rem',
@@ -1577,10 +1893,12 @@ function App() {
               </div>
             </div>
 
-            {/* rtight Side - Contact Me */}
+
+
+            {/* Contact Form - Right Side */}
             <div style={{
               flex: '1',
-              minWidth: '300px',
+              minWidth: isMobile ? 'auto' : '400px',
               textAlign: 'center',
             }}>
               <h3 className="gradient_text" style={{
@@ -1591,158 +1909,309 @@ function App() {
                 Contact Me
               </h3>
               
-              <div style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
+              <form onSubmit={handleFormSubmit} style={{
+                maxWidth: '500px',
+                margin: '0 auto',
+                padding: '30px',
+                background: 'linear-gradient(135deg, rgba(45, 45, 45, 0.8), rgba(25, 25, 25, 0.8))',
+                borderRadius: '15px',
+                border: '1px solid rgba(248, 87, 166, 0.3)',
+                backdropFilter: 'blur(10px)',
+                boxShadow: '0 8px 20px rgba(0, 0, 0, 0.3)',
               }}>
-                <div style={{
-                  padding: '25px',
-                  background: 'linear-gradient(135deg, rgba(45, 45, 45, 0.8), rgba(25, 25, 25, 0.8))',
-                  borderRadius: '15px',
-                  border: '1px solid rgba(248, 87, 166, 0.3)',
-                  backdropFilter: 'blur(10px)',
-                  boxShadow: '0 8px 20px rgba(0, 0, 0, 0.3)',
-                  maxWidth: '280px',
-                  width: '100%',
-                }}>
+                {/* Form Status Messages */}
+                {formStatus === 'success' && (
                   <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '15px',
+                    background: 'linear-gradient(45deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.1))',
+                    border: '1px solid rgba(34, 197, 94, 0.3)',
+                    borderRadius: '8px',
+                    padding: '12px',
+                    marginBottom: '20px',
+                    color: '#22c55e',
+                    fontSize: '0.9rem',
+                    animation: 'fadeIn 0.3s ease',
                   }}>
-                    {/* Email */}
-                    <a
-                      href="mailto:efonseca@unomaha.edu"
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '12px',
-                        color: '#ddd',
-                        textDecoration: 'none',
-                        fontSize: '0.95rem',
-                        padding: '10px',
-                        borderRadius: '8px',
-                        transition: 'all 0.3s ease',
-                        backgroundColor: 'rgba(248, 87, 166, 0.05)',
-                        border: '1px solid rgba(248, 87, 166, 0.2)',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.target.style.backgroundColor = 'rgba(248, 87, 166, 0.15)';
-                        e.target.style.transform = 'translateX(5px)';
-                        e.target.style.color = '#f857a6';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.target.style.backgroundColor = 'rgba(248, 87, 166, 0.05)';
-                        e.target.style.transform = 'translateX(0)';
-                        e.target.style.color = '#ddd';
-                      }}
-                    >
-                      <span style={{ fontSize: '1.2rem' }}>📧</span>
-                      <span>efonseca@unomaha.edu</span>
-                    </a>
-
-                    {/* LinkedIn */}
-                    <a
-                      href="https://linkedin.com/in/elvin-fonseca"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '12px',
-                        color: '#ddd',
-                        textDecoration: 'none',
-                        fontSize: '0.95rem',
-                        padding: '10px',
-                        borderRadius: '8px',
-                        transition: 'all 0.3s ease',
-                        backgroundColor: 'rgba(248, 87, 166, 0.05)',
-                        border: '1px solid rgba(248, 87, 166, 0.2)',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.target.style.backgroundColor = 'rgba(248, 87, 166, 0.15)';
-                        e.target.style.transform = 'translateX(5px)';
-                        e.target.style.color = '#f857a6';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.target.style.backgroundColor = 'rgba(248, 87, 166, 0.05)';
-                        e.target.style.transform = 'translateX(0)';
-                        e.target.style.color = '#ddd';
-                      }}
-                    >
-                      <span style={{ fontSize: '1.2rem' }}>💼</span>
-                      <span>LinkedIn Profile</span>
-                    </a>
-
-                    {/* gitHub */}
-                    <a
-                      href="https://github.com/fonseca04Lenin"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '12px',
-                        color: '#ddd',
-                        textDecoration: 'none',
-                        fontSize: '0.95rem',
-                        padding: '10px',
-                        borderRadius: '8px',
-                        transition: 'all 0.3s ease',
-                        backgroundColor: 'rgba(248, 87, 166, 0.05)',
-                        border: '1px solid rgba(248, 87, 166, 0.2)',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.target.style.backgroundColor = 'rgba(248, 87, 166, 0.15)';
-                        e.target.style.transform = 'translateX(5px)';
-                        e.target.style.color = '#f857a6';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.target.style.backgroundColor = 'rgba(248, 87, 166, 0.05)';
-                        e.target.style.transform = 'translateX(0)';
-                        e.target.style.color = '#ddd';
-                      }}
-                    >
-                      <span style={{ fontSize: '1.2rem' }}>💻</span>
-                      <span>GitHub Profile</span>
-                    </a>
-
-                    {/* resume-Download */}
-                    <a
-                      href="/Elvin_Fonseca_Resume.pdf"
-                      download="Elvin_Fonseca_Resume.pdf"
-                      onClick={handleResumeDownload}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '12px',
-                        color: '#ddd',
-                        textDecoration: 'none',
-                        fontSize: '0.95rem',
-                        padding: '10px',
-                        borderRadius: '8px',
-                        backgroundColor: 'rgba(248, 87, 166, 0.05)',
-                        border: '1px solid rgba(248, 87, 166, 0.2)',
-                        cursor: 'pointer',
-                        transition: 'all 0.3s ease',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.target.style.backgroundColor = 'rgba(248, 87, 166, 0.15)';
-                        e.target.style.transform = 'translateX(5px)';
-                        e.target.style.color = '#f857a6';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.target.style.backgroundColor = 'rgba(248, 87, 166, 0.05)';
-                        e.target.style.transform = 'translateX(0)';
-                        e.target.style.color = '#ddd';
-                      }}
-                    >
-                      <span style={{ fontSize: '1.2rem' }}>📄</span>
-                      <span>Download Resume</span>
-                    </a>
+                     Message sent successfully! I'll get back to you soon.
                   </div>
+                )}
+
+                {formStatus === 'error' && (
+                  <div style={{
+                    background: 'linear-gradient(45deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.1))',
+                    border: '1px solid rgba(239, 68, 68, 0.3)',
+                    borderRadius: '8px',
+                    padding: '12px',
+                    marginBottom: '20px',
+                    color: '#ef4444',
+                    fontSize: '0.9rem',
+                    animation: 'fadeIn 0.3s ease',
+                  }}>
+                     Something went wrong. Please try again or email me directly.
+                  </div>
+                )}
+
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '20px',
+                }}>
+                  {/* Name Field */}
+                  <div style={{ textAlign: 'left' }}>
+                    <label style={{
+                      display: 'block',
+                      marginBottom: '8px',
+                      color: '#f857a6',
+                      fontSize: '0.9rem',
+                      fontWeight: '600',
+                      letterSpacing: '0.5px',
+                    }}>
+                      Name *
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      required
+                      style={{
+                        width: '100%',
+                        padding: '12px',
+                        borderRadius: '8px',
+                        border: '1px solid rgba(248, 87, 166, 0.3)',
+                        background: 'rgba(34, 34, 34, 0.8)',
+                        color: '#fff',
+                        fontSize: '1rem',
+                        transition: 'all 0.3s ease',
+                        outline: 'none',
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.border = '1px solid rgba(248, 87, 166, 0.6)';
+                        e.target.style.boxShadow = '0 0 10px rgba(248, 87, 166, 0.2)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.border = '1px solid rgba(248, 87, 166, 0.3)';
+                        e.target.style.boxShadow = 'none';
+                      }}
+                      placeholder="Your full name"
+                    />
+                  </div>
+
+                  {/* Email Field */}
+                  <div style={{ textAlign: 'left' }}>
+                    <label style={{
+                      display: 'block',
+                      marginBottom: '8px',
+                      color: '#f857a6',
+                      fontSize: '0.9rem',
+                      fontWeight: '600',
+                      letterSpacing: '0.5px',
+                    }}>
+                      Email *
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                      style={{
+                        width: '100%',
+                        padding: '12px',
+                        borderRadius: '8px',
+                        border: '1px solid rgba(248, 87, 166, 0.3)',
+                        background: 'rgba(34, 34, 34, 0.8)',
+                        color: '#fff',
+                        fontSize: '1rem',
+                        transition: 'all 0.3s ease',
+                        outline: 'none',
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.border = '1px solid rgba(248, 87, 166, 0.6)';
+                        e.target.style.boxShadow = '0 0 10px rgba(248, 87, 166, 0.2)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.border = '1px solid rgba(248, 87, 166, 0.3)';
+                        e.target.style.boxShadow = 'none';
+                      }}
+                      placeholder="your.email@example.com"
+                    />
+                  </div>
+
+                  {/* Subject Field */}
+                  <div style={{ textAlign: 'left' }}>
+                    <label style={{
+                      display: 'block',
+                      marginBottom: '8px',
+                      color: '#f857a6',
+                      fontSize: '0.9rem',
+                      fontWeight: '600',
+                      letterSpacing: '0.5px',
+                    }}>
+                      Subject *
+                    </label>
+                    <input
+                      type="text"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleInputChange}
+                      required
+                      style={{
+                        width: '100%',
+                        padding: '12px',
+                        borderRadius: '8px',
+                        border: '1px solid rgba(248, 87, 166, 0.3)',
+                        background: 'rgba(34, 34, 34, 0.8)',
+                        color: '#fff',
+                        fontSize: '1rem',
+                        transition: 'all 0.3s ease',
+                        outline: 'none',
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.border = '1px solid rgba(248, 87, 166, 0.6)';
+                        e.target.style.boxShadow = '0 0 10px rgba(248, 87, 166, 0.2)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.border = '1px solid rgba(248, 87, 166, 0.3)';
+                        e.target.style.boxShadow = 'none';
+                      }}
+                      placeholder="What's this about?"
+                    />
+                  </div>
+
+                  {/* Message Fierld */}
+                  <div style={{ textAlign: 'left' }}>
+                    <label style={{
+                      display: 'block',
+                      marginBottom: '8px',
+                      color: '#f857a6',
+                      fontSize: '0.9rem',
+                      fontWeight: '600',
+                      letterSpacing: '0.5px',
+                    }}>
+                      Message *
+                    </label>
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      required
+                      rows="5"
+                      style={{
+                        width: '100%',
+                        padding: '12px',
+                        borderRadius: '8px',
+                        border: '1px solid rgba(248, 87, 166, 0.3)',
+                        background: 'rgba(34, 34, 34, 0.8)',
+                        color: '#fff',
+                        fontSize: '1rem',
+                        resize: 'vertical',
+                        minHeight: '120px',
+                        transition: 'all 0.3s ease',
+                        outline: 'none',
+                        fontFamily: 'inherit',
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.border = '1px solid rgba(248, 87, 166, 0.6)';
+                        e.target.style.boxShadow = '0 0 10px rgba(248, 87, 166, 0.2)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.border = '1px solid rgba(248, 87, 166, 0.3)';
+                        e.target.style.boxShadow = 'none';
+                      }}
+                      placeholder="Tell me about your project, opportunity, or just say hi!"
+                    />
+                  </div>
+
+                  {/* Submit Button */}
+                  <button
+                    type="submit"
+                    disabled={formStatus === 'sending'}
+                    style={{
+                      background: formStatus === 'sending' 
+                        ? 'linear-gradient(45deg, #666, #555)' 
+                        : 'linear-gradient(45deg, #f857a6, #ff5858)',
+                      color: '#fff',
+                      border: 'none',
+                      padding: '14px 28px',
+                      borderRadius: '10px',
+                      fontSize: '1rem',
+                      fontWeight: '600',
+                      cursor: formStatus === 'sending' ? 'not-allowed' : 'pointer',
+                      transition: 'all 0.3s ease',
+                      marginTop: '10px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '8px',
+                      width: '100%',
+                    }}
+                    onMouseEnter={(e) => {
+                      if (formStatus !== 'sending') {
+                        e.target.style.background = 'linear-gradient(45deg, #ff5858, #ffcc70)';
+                        e.target.style.transform = 'translateY(-2px)';
+                        e.target.style.boxShadow = '0 6px 20px rgba(248, 87, 166, 0.4)';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (formStatus !== 'sending') {
+                        e.target.style.background = 'linear-gradient(45deg, #f857a6, #ff5858)';
+                        e.target.style.transform = 'translateY(0)';
+                        e.target.style.boxShadow = 'none';
+                      }
+                    }}
+                  >
+                    {formStatus === 'sending' ? (
+                      <>
+                        <div style={{
+                          width: '20px',
+                          height: '20px',
+                          border: '2px solid transparent',
+                          borderTop: '2px solid #fff',
+                          borderRadius: '50%',
+                          animation: 'spin 1s linear infinite',
+                        }} />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
+                        </svg>
+                        Send Message
+                      </>
+                    )}
+                  </button>
                 </div>
+              </form>
+
+              {/* Direct Contact Info */}
+              <div style={{
+                marginTop: '20px',
+                padding: '15px',
+                background: 'rgba(248, 87, 166, 0.05)',
+                borderRadius: '10px',
+                border: '1px solid rgba(248, 87, 166, 0.2)',
+                maxWidth: '500px',
+                margin: '20px auto 0',
+              }}>
+                <p style={{
+                  color: '#ddd',
+                  fontSize: '0.85rem',
+                  margin: 0,
+                  lineHeight: '1.4',
+                }}>
+                  💡 <strong>Prefer email?</strong> Reach me directly at{' '}
+                  <a 
+                    href="mailto:efonseca@unomaha.edu"
+                    style={{ 
+                      color: '#f857a6', 
+                      textDecoration: 'none',
+                      fontWeight: '600'
+                    }}
+                  >
+                    Leninfonseca04@gmail.com
+                  </a>
+                </p>
               </div>
             </div>
           </div>
@@ -1830,7 +2299,7 @@ function App() {
               borderTop: '1px solid rgba(248, 87, 166, 0.2)',
               paddingTop: '10px'
             }}>
-              Press Ctrl+Shift+S to toggle this panel
+              Press Ctrl+Shift+S to toggle this panell
             </div>
           </div>
         </div>

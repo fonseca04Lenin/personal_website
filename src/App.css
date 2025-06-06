@@ -84,6 +84,10 @@ img, video, iframe, object, embed {
     transform: translateX(0);
   }
 }
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 .chevron-bounce {
   animation: bounce 1s infinite;
 }
@@ -483,12 +487,48 @@ img, video, iframe, object, embed {
     width: 100% !important;
     max-width: 100% !important;
     text-align: center !important;
+    min-width: auto !important;
+  }
+  
+  /* Contact form mobile layout fixes */
+  footer form {
+    max-width: calc(100vw - 30px) !important;
+    padding: 15px !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+  }
+  
+  footer form input,
+  footer form textarea,
+  footer form button {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+  }
+  
+  footer form div {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  footer h3 {
+    font-size: 1.8rem !important;
+    margin-bottom: 15px !important;
+    padding: 0 5px !important;
+  }
+  
+  /* Fix contact form container on mobile */
+  footer > div > div:last-child {
+    min-width: auto !important;
+    padding: 0 !important;
   }
   
   /* Contact cards mobile layout */
-  footer div[style*="padding: 25px"] {
+  footer div[style*="padding: 25px"],
+  footer div[style*="padding: 15px"] {
     max-width: calc(100vw - 30px) !important;
     margin: 0 auto !important;
+    padding: 15px !important;
   }
   
   /* Ensure all sections have proper mobile constraints */
