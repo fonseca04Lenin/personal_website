@@ -327,6 +327,92 @@ img, video, iframe, object, embed {
     max-width: calc(100vw - 30px) !important;
   }
   
+  /* Work Experience Mobile Timeline Specific Styles */
+  /* Overeride generic flex styles for work experience section on mobile */
+  .work-experience-section > div {
+    max-width: calc(100vw - 30px) !important;
+    margin: 0 auto !important;
+    padding: 0 15px !important;
+  }
+
+  /* Work experience timeline line mobile positioning */
+  .work-experience-section .timeline-line-vertical {
+    left: 30px !important;
+    width: 3px !important;
+    transform: none !important;
+    background: linear-gradient(to bottom, #f857a6, #ff5858) !important;
+  }
+
+  /* Work experience container mobile layoutt */
+  .work-experience-section .experience-container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 40px !important;
+    padding: 20px 0 !important;
+  }
+
+  /* Work experience individual items mobile layoudt */
+  .work-experience-section .experience-item {
+    display: flex !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+    position: relative !important;
+    margin: 0 !important;
+  }
+
+  /* work experience timeline nodes mobile positioning */
+  .work-experience-section .timeline-node {
+    position: absolute !important;
+    left: 30px !important;
+    top: 20px !important;
+    transform: translateX(-50%) !important;
+    width: 20px !important;
+    height: 20px !important;
+    z-index: 3 !important;
+  }
+
+  /* Work experience cards mobile layout */
+  .work-experience-section .experience-card {
+    width: calc(100% - 80px) !important;
+    margin-left: 70px !important;
+    margin-right: 0 !important;
+    padding: 20px !important;
+    font-size: 0.9rem !important;
+  }
+
+  /* Work experience card titles mobilee */
+  .work-experience-section .experience-card h3 {
+    font-size: 1.3rem !important;
+    margin-bottom: 8px !important;
+  }
+
+  /* Work experience card job titles mobiele */
+  .work-experience-section .experience-card > p:first-of-type {
+    font-size: 1rem !important;
+    margin-bottom: 6px !important;
+  }
+
+  /* Work experience card dates mobile */
+  .work-experience-section .experience-card > p:nth-of-type(2) {
+    font-size: 0.85rem !important;
+    margin-bottom: 12px !important;
+  }
+
+  /* Work experience card list items mobile */
+  .work-experience-section .experience-card ul li {
+    font-size: 0.85rem !important;
+    line-height: 1.5 !important;
+    margin-bottom: 10px !important;
+  }
+
+  /* Work experience "Current" badge mobile */
+  .work-experience-section .current-badge {
+    top: 10px !important;
+    right: 10px !important;
+    padding: 3px 8px !important;
+    font-size: 0.65rem !important;
+  }
+  
   /* Chevron adjustments */
   .chevron-container {
     bottom: 15px !important;

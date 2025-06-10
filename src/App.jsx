@@ -11,12 +11,7 @@ function App() {
   const contactRef = useRef(null);
   const [selectedProject, setSelectedProject] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [downloadCount, setDownloadCount] = useState(() => {
-    // Get download count from localStorage or default to 0
-    const saved = localStorage.getItem('resume_download_count');
-    return saved ? parseInt(saved, 10) : 0;
-  });
-  const [showStats, setShowStats] = useState(false);
+
 
   // Contact form state
   const [formData, setFormData] = useState({
@@ -52,18 +47,7 @@ function App() {
     };
   }, [mobileMenuOpen]);
 
-  // Add keyboard shortcut for admin panel (Ctrl+Shift+S)
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.ctrlKey && e.shiftKey && e.key === 'S') {
-        e.preventDefault();
-        setShowStats(!showStats);
-      }
-    };
 
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [showStats]);
 
   const scrollToSection = (ref) => {
     ref.current.scrollIntoView({ behavior: 'smooth' });
@@ -71,15 +55,10 @@ function App() {
   };
 
   const handleResumeDownload = () => {
-    const newCount = downloadCount + 1;
     const timestamp = new Date().toISOString();
     
-    setDownloadCount(newCount);
-    localStorage.setItem('resume_download_count', newCount.toString());
-    localStorage.setItem('last_download_time', new Date().toLocaleString());
-    
     // Track resume download with Vercel Analytics
-    console.log(`Resume downloaded! Total downloads: ${newCount} at:`, timestamp);
+    console.log(`Resume downloaded at: ${timestamp}`);
   };
 
   // Contact form handlers
@@ -929,6 +908,7 @@ function App() {
       {/* Work Experience Section */}
       <section
         ref={workRef}
+        className="work-experience-section"
         style={{
           background: '#222',
           color: '#fff',
@@ -956,7 +936,7 @@ function App() {
           width: '100%',
         }}>
           {/* Vertical Timeline Line */}
-          <div style={{
+          <div className="timeline-line-vertical" style={{
             position: 'absolute',
             left: '50%',
             top: '0',
@@ -970,7 +950,7 @@ function App() {
           }} />
           
           {/* Experience Items */}
-          <div style={{
+          <div className="experience-container" style={{
             display: 'flex',
             flexDirection: 'column',
             gap: '60px',
@@ -978,14 +958,14 @@ function App() {
           }}>
             
             {/* Mutual of Omaha - Current Position */}
-            <div style={{
+            <div className="experience-item" style={{
               display: 'flex',
               alignItems: 'center',
               width: '100%',
               position: 'relative',
             }}>
               {/* Timeline Node */}
-              <div style={{
+              <div className="timeline-node" style={{
                 position: 'absolute',
                 left: '50%',
                 transform: 'translateX(-50%)',
@@ -999,7 +979,7 @@ function App() {
               }} />
               
               {/* Experience Card - Right Side */}
-              <div style={{
+              <div className="experience-card" style={{
                 width: '45%',
                 marginLeft: '55%',
                 padding: '25px',
@@ -1024,7 +1004,7 @@ function App() {
               }}
               >
                 {/* Current Badge */}
-                <div style={{
+                <div className="current-badge" style={{
                   position: 'absolute',
                   top: '15px',
                   right: '15px',
@@ -1130,14 +1110,14 @@ function App() {
             </div>
 
             {/* Take2 - Previous Position */}
-            <div style={{
+            <div className="experience-item" style={{
               display: 'flex',
               alignItems: 'center',
               width: '100%',
               position: 'relative',
             }}>
               {/* Timeline Node */}
-              <div style={{
+              <div className="timeline-node" style={{
                 position: 'absolute',
                 left: '50%',
                 transform: 'translateX(-50%)',
@@ -1151,7 +1131,7 @@ function App() {
               }} />
               
               {/* Experience Card - Left Side */}
-              <div style={{
+              <div className="experience-card" style={{
                 width: '45%',
                 marginRight: '55%',
                 padding: '25px',
@@ -2237,73 +2217,7 @@ function App() {
         </div>
       </footer>
       
-      {/* secret stuff*/}
-      {showStats && (
-        <div style={{
-          position: 'fixed',
-          top: '20px',
-          right: '20px',
-          background: 'rgba(34, 34, 34, 0.95)',
-          backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(248, 87, 166, 0.3)',
-          borderRadius: '10px',
-          padding: '20px',
-          zIndex: 10000,
-          color: '#fff',
-          minWidth: '250px',
-          boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)',
-        }}>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '15px',
-          }}>
-            <h3 className="gradient_text" style={{ margin: 0, fontSize: '1.2rem' }}>
-              📊 Admin Stats
-            </h3>
-            <button
-              onClick={() => setShowStats(false)}
-              style={{
-                background: 'transparent',
-                border: 'none',
-                color: '#f857a6',
-                fontSize: '1.2rem',
-                cursor: 'pointer',
-                padding: '5px',
-              }}
-            >
-              ✕
-            </button>
-          </div>
-          
-          <div style={{ fontSize: '0.9rem', lineHeight: '1.6' }}>
-            <div style={{ marginBottom: '10px' }}>
-              <strong style={{ color: '#f857a6' }}>Resume Downloads:</strong>
-              <span style={{ marginLeft: '10px', fontSize: '1.2rem' }}>
-                {downloadCount}
-              </span>
-            </div>
-            
-            <div style={{ marginBottom: '10px' }}>
-              <strong style={{ color: '#f857a6' }}>Last Download:</strong>
-              <span style={{ marginLeft: '10px', fontSize: '0.8rem', color: '#ddd' }}>
-                {localStorage.getItem('last_download_time') || 'Never'}
-              </span>
-            </div>
-            
-            <div style={{ 
-              fontSize: '0.7rem', 
-              color: '#999', 
-              marginTop: '15px',
-              borderTop: '1px solid rgba(248, 87, 166, 0.2)',
-              paddingTop: '10px'
-            }}>
-              Press Ctrl+Shift+S to toggle this panell
-            </div>
-          </div>
-        </div>
-      )}
+
       
       <Analytics />
     </div>
