@@ -695,51 +695,7 @@ function App() {
           </div>
         </div>
         
-        {/* Scroll indicator */}
-        <div className="chevron-container" style={{
-          position:'absolute',
-          bottom: '40px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          zIndex: 2,
-          width: '80px',
-        }}>
-          <svg 
-            width="60" 
-            height="47" 
-            viewBox="0 0 60 47"
-            className='chevron-bounce'
-            style={{ display: 'block', cursor: 'pointer' }}
-            onClick={() => scrollToSection(aboutRef)}
-          >
-            <polyline
-              points="15, 15 30, 30 45, 15"
-              style={{ 
-                fill: 'none', 
-                stroke: 'white', 
-                strokeWidth: 4, 
-                strokeLinecap: 'round',
-                strokeLinejoin: 'round'
-              }}
-            />
-          </svg>
-          <span 
-            style={{ 
-              marginTop: '8px', 
-              fontSize: '1.2rem', 
-              color: '#fff', 
-              cursor: 'pointer',
-              textAlign: 'center',
-              whiteSpace: 'nowrap'
-            }}
-            onClick={() => scrollToSection(aboutRef)}
-          >
-            Click Me
-          </span>
-        </div>
+
         
         <div style={{
           position: 'absolute',
