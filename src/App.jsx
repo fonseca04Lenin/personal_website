@@ -151,7 +151,7 @@ function App() {
       images: ["/stock-app-placeholder.jpg"],
       details: "Spearheaded the conceptualization and development of a stock market app by integrating modules such as Tkinter, Matplotlib, datetime, pickle and an API resulting in a streamlined user experience that improved information retrieval speed by 40%. Executed a systematic timeline for app development, including idea generation, concept creation, building the app with real-time data visualization and user-friendly interface design.",
       github: "https://github.com/fonseca04Lenin/Project-2",
-      live: ""
+      live: "https://stock-watchlist-77bq.onrender.com/"
     },
     {
       id: 2,
@@ -173,7 +173,7 @@ function App() {
       images: ["/portfolio-website-placeholder.jpg"],
       details: "Designed and developed a fully responsive personal portfolio website from scratch using React and Vite, featuring a modern gradient-based design system, smooth scrolling navigation, and interactive animations. Implemented a dynamic project timeline with modal overlays, mobile-first responsive design, and optimized performance. The site showcases advanced CSS techniques including custom animations, gradient text effects, and glassmorphism design elements. Integrated Vercel Analytics for visitor tracking and deployed with modern web development best practices.",
       github: "https://github.com/fonseca04Lenin/personal_website",
-      live: "elvinfonseca.com"
+      live: "https://elvinfonseca.com"
     }
   ];
 
