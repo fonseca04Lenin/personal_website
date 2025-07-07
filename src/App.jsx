@@ -183,7 +183,7 @@ function App() {
     "Mobile": ["React Native", "Cross-platform Development", "iOS Development"],
     "Tools & Technologies": ["Git", "CI/CD", "Vite", "Vercel", "Render", "Matplotlib", "API Integration"],
     "Databases": ["Firebase", "MySQL", "JSON Data Processing"],
-    "Soft Skills": ["Team Collaboration", "Agile Development", "Problem Solving", "Code Review", "Performance Optimization"]
+    "Soft Skills": ["Team Collaboration", "Agile Development", "Problem Solving", "Code Review", "Performance Optimization", "Gambling"]
   };
 
   const openProject = (project) => {
