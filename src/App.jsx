@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState, useEffect, useMemo } from 'react'
 import { Analytics } from '@vercel/analytics/react'
 import emailjs from '@emailjs/browser'
 import './App.css'
@@ -13,7 +13,7 @@ function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
 
-  // Contact form state
+  //Contact form state
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -23,7 +23,7 @@ function App() {
   const [formStatus, setFormStatus] = useState('idle'); // idle, sending, success, error
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
-  // Handle responsive layout
+  //Handle responsive layout
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -178,13 +178,107 @@ function App() {
   ];
 
   const skills = {
-    "Frontend": ["React", "JavaScript", "TypeScript", "HTML5", "CSS3", "Vue.js", "Responsive Design", "UI/UX Design"],
-    "Backend": ["Python", "Flask", "Laravel", "Node.js", "RESTful APIs", "JSON", "Firebase"],
-    "Mobile": ["React Native", "Cross-platform Development", "iOS Development"],
-    "Tools & Technologies": ["Git", "CI/CD", "Vite", "Vercel", "Render", "Matplotlib", "API Integration"],
-    "Databases": ["Firebase", "MySQL", "JSON Data Processing"],
-    "Soft Skills": ["Team Collaboration", "Agile Development", "Problem Solving", "Code Review", "Performance Optimization", "Gambling"]
+    "Languages": [
+      "JavaScript",
+      "TypeScript",
+      "Python",
+      "C",
+      "HTML5",
+      "CSS3"
+    ],
+    "Frontend": [
+      "React",
+      "JavaScript",
+      "TypeScript",
+      "HTML5",
+      "CSS3",
+      "Vue.js",
+      "Angular",
+      "Responsive Design"
+    ],
+    "Backend": [
+      "Python",
+      "Flask",
+      "Laravel",
+      "Node.js",
+      "PHP",
+      "RESTful APIs",
+      "JSON",
+      "Firebase"
+    ],
+    "Mobile": [
+      "React Native",
+      "Cross-platform Development",
+      "iOS Development"
+    ],
+    "Tools & Technologies": [
+      "Git",
+      "CI/CD",
+      "GitHub Actions",
+      "Docker",
+      "Postman",
+      "Linux",
+      "Xcode",
+      "Jira",
+      "Excel",
+      "Vite",
+      "Vercel",
+      "Render",
+      "Matplotlib",
+      "Pandas",
+      "Jupyter Notebooks",
+      "API Integration"
+    ],
+    "Databases": [
+      "Firebase",
+      "MySQL",
+      "PostgreSQL",
+      "MongoDB",
+      "JSON Data Processing"
+    ],
+    "Soft Skills": [
+      "Team Collaboration",
+      "Agile Development",
+      "Problem Solving",
+      "Code Review",
+      "Performance Optimization",
+      "Gambling"
+    ]
   };
+
+  const [currentSkillSetIndex, setCurrentSkillSetIndex] = useState(0);
+  const rotatingSkillsForHero = useMemo(() => {
+    const excludedCategories = new Set(["Soft Skills"]);
+    const seenSkills = new Set();
+    const flattenedSkills = Object.entries(skills)
+      .filter(([categoryName]) => !excludedCategories.has(categoryName))
+      .flatMap(([, skillList]) => skillList)
+      .filter((skillName) => {
+        if (seenSkills.has(skillName)) return false;
+        seenSkills.add(skillName);
+        return true;
+      });
+    return flattenedSkills;
+  }, [skills]);
+
+  const rotatingSkillSets = useMemo(() => {
+    const chunkSize = 4;
+    const grouped = [];
+    for (let i = 0; i < rotatingSkillsForHero.length; i += chunkSize) {
+      grouped.push(rotatingSkillsForHero.slice(i, i + chunkSize));
+    }
+    return grouped.length > 0 ? grouped : [rotatingSkillsForHero];
+  }, [rotatingSkillsForHero]);
+
+  useEffect(() => {
+    if (rotatingSkillSets.length <= 1) return;
+    const intervalId = setInterval(() => {
+      setCurrentSkillSetIndex((prev) => (prev + 1) % rotatingSkillSets.length);
+    }, 30000);
+    return () => clearInterval(intervalId);
+  }, [rotatingSkillSets.length]);
+
+  const currentHeroSkills = rotatingSkillSets[currentSkillSetIndex] || [];
 
   const openProject = (project) => {
     setSelectedProject(project);
@@ -653,8 +747,8 @@ function App() {
           <p className="hero-subtitle" style={{ fontSize: '1.5rem', color: '#fff', marginTop: '20px' }}>
             I'm a passionate software engineer building cool things with code.
           </p>
-          <p style={{ fontSize: '1.2rem', color: '#ddd', marginBottom: '40px' }}>
-            React • Python • TypeScript • Laravel • Vue.js
+          <p style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '40px', textShadow: '0 0 8px rgba(0,0,0,0.6)' }}>
+            {currentHeroSkills.join(' • ')}
           </p>
           
           {/* View Projects Button */}
@@ -1342,6 +1436,14 @@ function App() {
                 <div 
                   className="project-card"
                   onClick={() => openProject(project)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      openProject(project);
+                    }
+                  }}
                   style={{
                     width: '300px',
                     padding: '16px',
@@ -1357,6 +1459,7 @@ function App() {
                     position: 'relative',
                     zIndex: 3,
                     overflow: 'hidden',
+                    userSelect: 'none'
                   }}
                   onMouseEnter={(e) => {
                     e.target.style.transform = 'scale(1.05) translateY(-5px)';
@@ -1385,6 +1488,8 @@ function App() {
                     fontSize: '1.4rem',
                     marginBottom: '8px',
                     fontWeight: 'bold',
+                    pointerEvents: 'none',
+                    userSelect: 'none'
                   }}>
                     {project.name}
                   </h3>
@@ -1393,6 +1498,8 @@ function App() {
                     fontSize: '0.9rem',
                     lineHeight: '1.4',
                     marginBottom: '10px',
+                    pointerEvents: 'none',
+                    userSelect: 'none'
                   }}>
                     {project.description}
                   </p>
@@ -1402,6 +1509,8 @@ function App() {
                     fontWeight: 'bold',
                     letterSpacing: '1px',
                     textTransform: 'uppercase',
+                    pointerEvents: 'none',
+                    userSelect: 'none'
                   }}>
                     {project.date}
                   </div>
@@ -1711,7 +1820,7 @@ function App() {
             {/* Left Side - Contributors */}
             <div style={{
               flex: '1',
-              minWidth: '300px',
+              minWidth: isMobile ? 'auto' : '400px',
               textAlign: 'center',
             }}>
               <h3 className="gradient_text" style={{
@@ -1734,7 +1843,7 @@ function App() {
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  padding: '20px',
+                  padding: isMobile ? '20px' : '30px',
                   background: 'linear-gradient(135deg, rgba(45, 45, 45, 0.8), rgba(25, 25, 25, 0.8))',
                   borderRadius: '15px',
                   border: '1px solid rgba(248, 87, 166, 0.3)',
@@ -1742,7 +1851,9 @@ function App() {
                   boxShadow: '0 8px 20px rgba(0, 0, 0, 0.3)',
                   transition: 'all 0.3s ease',
                   cursor: 'pointer',
-                  maxWidth: '220px',
+                  width: '100%',
+                  maxWidth: isMobile ? '320px' : '500px',
+                  margin: '0 auto',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-3px)';
@@ -1818,10 +1929,10 @@ function App() {
                   
                   <p style={{
                     color: '#ddd',
-                    fontSize: '0.8rem',
-                    lineHeight: '1.3',
+                    fontSize: '0.9rem',
+                    lineHeight: '1.5',
                     textAlign: 'center',
-                    maxWidth: '180px',
+                    maxWidth: isMobile ? '240px' : '420px',
                   }}>
                     Supervising all content with the highest standards of quality.
                   </p>
