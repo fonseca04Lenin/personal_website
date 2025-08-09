@@ -1128,7 +1128,7 @@ function App() {
                       color: '#f857a6',
                       fontWeight: 'bold',
                     }}>•</span>
-                    Maintained and enhanced 3 high traffic websites, supporting CI/CD workflows to deliver accessible, high-performance updates to 10K+ daily senior users seeking life insurance and retirement solutions.
+                    Contributed full-stack feature development and bug fixes on life insurance websites using Laravel, Vue.js, and PHP serving thousands of daily senior users and supporting 19M+ customers by converting JPG to WebP for faster page loads, authoring SEO driven articles, optimizing metadata, and enhancing accessibility.
                   </li>
                   <li style={{ 
                     marginBottom: '12px',
@@ -1141,7 +1141,7 @@ function App() {
                       color: '#f857a6',
                       fontWeight: 'bold',
                     }}>•</span>
-                    Contribute to Mutual of Omaha's mission to serve 19+ million customers nationwide, building reliable and accessible digital experiences aligned with its 100+ year legacy of excellence.
+                    Migrated Laravel ratings/reviews service from BazaarVoice to Yext proxy API, refactoring controllers/models, adding contract-driven fetch methods with caching, and implementing unit tests for reliability and scalability.
                   </li>
                   <li style={{ 
                     paddingLeft: '20px',
@@ -1153,7 +1153,7 @@ function App() {
                       color: '#f857a6',
                       fontWeight: 'bold',
                     }}>•</span>
-                    Contributing to front and back end feature development and bug fixes using Laravel, Vue.js, JavaScript, focusing on accessibility and performance improvements for elderly users.
+                    Contribute to Mutual of Omaha's mission to serve 19+ million customers nationwide, building reliable and accessible digital experiences aligned with its 100+ year legacy of excellence.
                   </li>
                 </ul>
               </div>
