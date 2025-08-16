@@ -247,6 +247,13 @@ function App() {
   };
 
   const [currentSkillSetIndex, setCurrentSkillSetIndex] = useState(0);
+  
+  // Animated text state
+  const [animatedText, setAnimatedText] = useState('');
+  const [isAnimating, setIsAnimating] = useState(true);
+  const [showSubtitle, setShowSubtitle] = useState(false);
+  const [showSkills, setShowSkills] = useState(false);
+  
   const rotatingSkillsForHero = useMemo(() => {
     const excludedCategories = new Set(["Soft Skills"]);
     const seenSkills = new Set();
@@ -277,6 +284,31 @@ function App() {
     }, 10000);
     return () => clearInterval(intervalId);
   }, [rotatingSkillSets.length]);
+
+  // Teext animation effect - triggers on first load
+  useEffect(() => {
+    const fullText = "Hello\nI'm Elvin";
+    let currentIndex = 0;
+    
+    const animateText = () => {
+      if (currentIndex <= fullText.length) {
+        setAnimatedText(fullText.slice(0, currentIndex));
+        currentIndex++;
+        setTimeout(animateText, 100);
+      } else {
+        setIsAnimating(false);
+        setTimeout(() => setShowSubtitle(true), 300);
+        setTimeout(() => setShowSkills(true), 600);
+      }
+    };
+    
+    // Starsts animation after a short delay
+    const startDelay = setTimeout(() => {
+      animateText();
+    }, 500);
+    
+    return () => clearTimeout(startDelay);
+  }, []); // Empty dependency array means this runs only once on mount
 
   const currentHeroSkills = rotatingSkillSets[currentSkillSetIndex] || [];
 
@@ -741,13 +773,33 @@ function App() {
             color: '#fff',
           }}
         >
-          <h1 className="gradient_text hero-title" style={{ fontSize: '5rem', fontWeight: 'bold', margin: '0', lineHeight: 1.1 }}>
-            Hello<br />I'm Elvin
+          <h1 className="gradient_text hero-title" style={{ fontSize: '5rem', fontWeight: 'bold', margin: '0', lineHeight: 1.1, whiteSpace: 'pre-line' }}>
+            {animatedText || "Hello\nI'm Elvin"}
+            {isAnimating && <span style={{ 
+              borderRight: '3px solid #f857a6', 
+              animation: 'blink 1s infinite',
+              marginLeft: '2px'
+            }}></span>}
           </h1>
-          <p className="hero-subtitle" style={{ fontSize: '1.5rem', color: '#fff', marginTop: '20px' }}>
+          <p className="hero-subtitle" style={{ 
+            fontSize: '1.5rem', 
+            color: '#fff', 
+            marginTop: '20px',
+            opacity: showSubtitle ? 1 : 0,
+            transform: showSubtitle ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'all 0.8s ease'
+          }}>
             I'm a passionate software engineer building cool things with code.
           </p>
-          <p style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '40px', textShadow: '0 0 8px rgba(0,0,0,0.6)' }}>
+          <p style={{ 
+            fontSize: '1.2rem', 
+            color: '#fff', 
+            marginBottom: '40px', 
+            textShadow: '0 0 8px rgba(0,0,0,0.6)',
+            opacity: showSkills ? 1 : 0,
+            transform: showSkills ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'all 0.8s ease'
+          }}>
             {currentHeroSkills.join(' • ')}
           </p>
           
