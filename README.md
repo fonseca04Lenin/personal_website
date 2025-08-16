@@ -1,10 +1,11 @@
 # Personal Website
 
-Hey there! 👋 This is my personal website built with React and Vite. It's a simple, clean portfolio site where I showcase my work, skills, and a bit about who I am.
+Hey there! This is my personal website built with React and Vite. It's a simple, clean portfolio site where I showcase my work, skills, and a bit about who I am.
 
 ## What's This About?
 
 This website started as a way for me to have a professional online presence without overcomplicating things. I wanted something that:
+
 - Loads fast and looks good on any device
 - Is easy to update when I have new projects or skills to add
 - Doesn't break the bank or require complex hosting
@@ -39,8 +40,4 @@ Then just start editing the files to make it yours!
 
 The best part about personal websites is that they're... well, personal! Don't feel like you need to follow any specific template or design rules. This is your digital space - make it feel like home.
 
-Good luck building something awesome! 🚀
-
----
-
-*Built with ❤️ and a lot of coffee*
+Good luck building something awesome!
