@@ -20,11 +20,225 @@ img, video, iframe, object, embed {
 }
 
 .gradient_text {
-  background: linear-gradient(135deg, #f857a6 0%, #ff5858 40%, #ffcc70 100%);
+  background: linear-gradient(135deg, #ff6b6b 0%, #f857a6 25%, #ff5858 50%, #ffcc70 75%, #ffd93d 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text; 
   color: transparent;
+  position: relative;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 30px rgba(255, 107, 107, 0.3);
+  filter: drop-shadow(0 0 20px rgba(248, 87, 166, 0.2));
+}
+
+/* Hover effect for gradient text */
+.gradient_text:hover {
+  background: linear-gradient(135deg, #ffd93d 0%, #ffcc70 25%, #ff5858 50%, #f857a6 75%, #ff6b6b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transform: scale(1.02);
+  text-shadow: 0 0 40px rgba(255, 217, 61, 0.4);
+  filter: drop-shadow(0 0 25px rgba(255, 204, 112, 0.3));
+}
+
+/* Special enhanced styling for section headings */
+.gradient_text[style*="fontSize: '3.5rem'"] {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f857a6 50%, #ff5858 75%, #ffcc70 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 40px rgba(102, 126, 234, 0.4);
+  filter: drop-shadow(0 0 25px rgba(118, 75, 162, 0.3));
+  animation: gradientShift 3s ease-in-out infinite;
+}
+
+/* Hover effect for section headings */
+.gradient_text[style*="fontSize: '3.5rem'"]:hover {
+  background: linear-gradient(135deg, #ffcc70 0%, #ff5858 25%, #f857a6 50%, #764ba2 75%, #667eea 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transform: scale(1.03);
+  text-shadow: 0 0 50px rgba(255, 204, 112, 0.5);
+  filter: drop-shadow(0 0 30px rgba(255, 88, 88, 0.4));
+}
+
+/* Animation for gradient shift */
+@keyframes gradientShift {
+  0%, 100% {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f857a6 50%, #ff5858 75%, #ffcc70 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  50% {
+    background: linear-gradient(135deg, #ffcc70 0%, #ff5858 25%, #f857a6 50%, #764ba2 75%, #667eea 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/* Enhanced section heading styles */
+section h2.gradient_text {
+  position: relative;
+  z-index: 2;
+}
+
+/* Add a subtle background glow behind the text */
+section h2.gradient_text::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(ellipse, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.05) 50%, transparent 70%);
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+section h2.gradient_text:hover::before {
+  opacity: 1;
+}
+
+/* Special styling for the "My Projects" heading */
+section h2.gradient_text[style*="My Projects"] {
+  background: linear-gradient(135deg, #ff6b6b 0%, #f857a6 25%, #ff5858 50%, #ffcc70 75%, #ffd93d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 35px rgba(255, 107, 107, 0.4);
+}
+
+/* Special styling for the "Technical Skills" heading */
+section h2.gradient_text[style*="Technical Skills"] {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f857a6 50%, #ff5858 75%, #ffcc70 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 35px rgba(102, 126, 234, 0.4);
+}
+
+/* Special styling for the "Work Experience" heading */
+section h2.gradient_text[style*="Work Experience"] {
+  background: linear-gradient(135deg, #ffcc70 0%, #ff5858 25%, #f857a6 50%, #764ba2 75%, #667eea 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 35px rgba(255, 204, 112, 0.4);
+}
+
+/* Special styling for the "Let's Build Something Amazing Together" heading */
+section h2.gradient_text[style*="Let's Build Something Amazing Together"] {
+  background: linear-gradient(135deg, #f857a6 0%, #ff5858 25%, #ffcc70 50%, #ffd93d 75%, #f857a6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 35px rgba(248, 87, 166, 0.4);
+}
+
+/* Enhanced text shadow for better readability */
+section h2.gradient_text {
+  text-shadow: 
+    0 0 30px rgba(248, 87, 166, 0.3),
+    0 0 60px rgba(255, 88, 88, 0.2),
+    0 0 90px rgba(255, 204, 112, 0.1);
+  animation: subtlePulse 4s ease-in-out infinite;
+}
+
+/* Subtle pulse animation for section headings */
+@keyframes subtlePulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.01);
+    filter: brightness(1.05);
+  }
+}
+
+/* Enhanced hover effects for section headings */
+section h2.gradient_text:hover {
+  animation: none;
+  transform: scale(1.05);
+  filter: brightness(1.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Add a subtle border glow effect on hover */
+section h2.gradient_text::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1), rgba(248, 87, 166, 0.1));
+  border-radius: 20px;
+  z-index: -2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+section h2.gradient_text:hover::after {
+  opacity: 1;
+}
+
+/* Enhanced styling for navigation logo text */
+nav .gradient_text {
+  background: linear-gradient(135deg, #f857a6 0%, #ff5858 50%, #ffcc70 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 20px rgba(248, 87, 166, 0.4);
+  filter: drop-shadow(0 0 15px rgba(255, 88, 88, 0.3));
+  transition: all 0.3s ease;
+}
+
+nav .gradient_text:hover {
+  background: linear-gradient(135deg, #ffcc70 0%, #ff5858 50%, #f857a6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transform: scale(1.05);
+  text-shadow: 0 0 25px rgba(255, 204, 112, 0.5);
+  filter: drop-shadow(0 0 20px rgba(248, 87, 166, 0.4));
+}
+
+/* Enhanced styling for hero title text */
+.hero-title.gradient_text {
+  background: linear-gradient(135deg, #ff6b6b 0%, #f857a6 25%, #ff5858 50%, #ffcc70 75%, #ffd93d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 
+    0 0 40px rgba(255, 107, 107, 0.5),
+    0 0 80px rgba(248, 87, 166, 0.3),
+    0 0 120px rgba(255, 88, 88, 0.2);
+  filter: drop-shadow(0 0 30px rgba(255, 204, 112, 0.3));
+  animation: heroGlow 3s ease-in-out infinite;
+}
+
+/* Hero title glow animation */
+@keyframes heroGlow {
+  0%, 100% {
+    text-shadow: 
+      0 0 40px rgba(255, 107, 107, 0.5),
+      0 0 80px rgba(248, 87, 166, 0.3),
+      0 0 120px rgba(255, 88, 88, 0.2);
+  }
+  50% {
+    text-shadow: 
+      0 0 50px rgba(255, 107, 107, 0.6),
+      0 0 100px rgba(248, 87, 166, 0.4),
+      0 0 150px rgba(255, 88, 88, 0.3);
+  }
 }
 @keyframes bounce { 
   0%, 100%{

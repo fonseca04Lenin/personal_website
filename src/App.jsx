@@ -151,7 +151,7 @@ function App() {
       images: ["/stock-app-placeholder.jpg"],
       details: "Spearheaded the conceptualization and development of a stock market app by integrating modules such as Tkinter, Matplotlib, datetime, pickle and an API resulting in a streamlined user experience that improved information retrieval speed by 40%. Executed a systematic timeline for app development, including idea generation, concept creation, building the app with real-time data visualization and user-friendly interface design.",
       github: "https://github.com/fonseca04Lenin/Project-2",
-      live: "https://stock-watchlist-77bq.onrender.com/"
+      live: "https://stock-watchlist-frontend.vercel.app/"
     },
     {
       id: 2,
@@ -1105,22 +1105,6 @@ function App() {
                 e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.4)';
               }}
               >
-                {/* Current Badge */}
-                <div className="current-badge" style={{
-                  position: 'absolute',
-                  top: '15px',
-                  right: '15px',
-                  background: 'linear-gradient(45deg, #f857a6, #ff5858)',
-                  color: '#fff',
-                  padding: '4px 12px',
-                  borderRadius: '20px',
-                  fontSize: '0.7rem',
-                  fontWeight: 'bold',
-                  textTransform: 'uppercase',
-                  letterSpacing: '1px',
-                }}>
-                  Current
-                </div>
                 
                 {/* Gradient Overlay */}
                 <div style={{
@@ -1159,7 +1143,7 @@ function App() {
                   marginBottom: '15px',
                   letterSpacing: '0.5px',
                 }}>
-                  May 2025 – Present
+                  May 2025 – August 2025
                 </p>
                 
                 <ul style={{
@@ -1758,7 +1742,7 @@ function App() {
               flexWrap: 'wrap',
               justifyContent: 'center',
             }}>
-              {selectedProject.github && (
+              {selectedProject.github && selectedProject.name !== "Stock Market App" && (
                 <a
                   href={selectedProject.github}
                   target="_blank"
