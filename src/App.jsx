@@ -929,12 +929,11 @@ function App() {
           alignItems: 'center',
         }}
       >
-        <h2 className="gradient_text" style={{ 
-          fontSize: '3.5rem', 
-          marginBottom: '50px', 
+        <h2 className="gradient_text technical-skills-heading" style={{
+          fontSize: '3.5rem',
+          marginBottom: '50px',
           textAlign: 'center',
-          fontWeight: 'bold',
-          textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
+          fontWeight: 'bold'
         }}>
           Technical Skills
         </h2>
@@ -1022,12 +1021,11 @@ function App() {
           position: 'relative',
         }}
       >
-        <h2 className="gradient_text" style={{ 
-          fontSize: '3.5rem', 
-          marginBottom: '50px', 
+        <h2 className="gradient_text work-experience-heading" style={{
+          fontSize: '3.5rem',
+          marginBottom: '50px',
           textAlign: 'center',
-          fontWeight: 'bold',
-          textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
+          fontWeight: 'bold'
         }}>
           Work Experience
         </h2>
@@ -1377,12 +1375,11 @@ function App() {
           zIndex: 1,
         }} />
         
-        <h2 className="gradient_text" style={{ 
-          fontSize: '3.5rem', 
-          marginBottom: '30px', 
+        <h2 className="gradient_text my-projects-heading" style={{
+          fontSize: '3.5rem',
+          marginBottom: '30px',
           textAlign: 'center',
           fontWeight: 'bold',
-          textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
           marginTop: '40px'
         }}>
           My Projects
@@ -1831,7 +1828,7 @@ function App() {
             fontWeight: 'bold',
             textAlign: 'center',
           }}>
-            Let's Build Something Amazing Together
+            Ready to Create Something Great?
           </h2>
           <p style={{
             fontSize: '1.2rem',
@@ -1841,7 +1838,7 @@ function App() {
             margin: '0 auto 50px auto',
             lineHeight: '1.6',
           }}>
-            Ready to bring technical excellence and innovation to your team. Let's discuss how I can contribute to your next project.
+            I love solving complex problems and building things that matter. If you have an interesting project or challenge, I'd genuinely enjoy hearing about it.
           </p>
 
           {/* Contributors Section */}

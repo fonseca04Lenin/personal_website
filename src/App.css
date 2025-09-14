@@ -86,52 +86,50 @@ section h2.gradient_text {
   z-index: 2;
 }
 
-/* Add a subtle background glow behind the text */
+/* Disable default hover effect for all gradient_text headings */
 section h2.gradient_text::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 120%;
-  height: 120%;
-  background: radial-gradient(ellipse, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.05) 50%, transparent 70%);
-  border-radius: 50%;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  display: none !important;
 }
 
 section h2.gradient_text:hover::before {
-  opacity: 1;
+  display: none !important;
 }
 
 /* Special styling for the "My Projects" heading */
-section h2.gradient_text[style*="My Projects"] {
-  background: linear-gradient(135deg, #ff6b6b 0%, #f857a6 25%, #ff5858 50%, #ffcc70 75%, #ffd93d 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0 0 35px rgba(255, 107, 107, 0.4);
+.my-projects-heading {
+  background: linear-gradient(135deg, #f857a6 0%, #ff5858 25%, #ffcc70 50%, #ffd93d 75%, #f857a6 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  text-shadow: none !important;
+  color: transparent !important;
 }
+
+
 
 /* Special styling for the "Technical Skills" heading */
-section h2.gradient_text[style*="Technical Skills"] {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f857a6 50%, #ff5858 75%, #ffcc70 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0 0 35px rgba(102, 126, 234, 0.4);
+.technical-skills-heading {
+  background: linear-gradient(135deg, #f857a6 0%, #ff5858 25%, #ffcc70 50%, #ffd93d 75%, #f857a6 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  text-shadow: none !important;
+  color: transparent !important;
 }
 
+
+
 /* Special styling for the "Work Experience" heading */
-section h2.gradient_text[style*="Work Experience"] {
-  background: linear-gradient(135deg, #ffcc70 0%, #ff5858 25%, #f857a6 50%, #764ba2 75%, #667eea 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0 0 35px rgba(255, 204, 112, 0.4);
+.work-experience-heading {
+  background: linear-gradient(135deg, #f857a6 0%, #ff5858 25%, #ffcc70 50%, #ffd93d 75%, #f857a6 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  text-shadow: none !important;
+  color: transparent !important;
 }
+
+
 
 /* Special styling for the "Let's Build Something Amazing Together" heading */
 section h2.gradient_text[style*="Let's Build Something Amazing Together"] {
