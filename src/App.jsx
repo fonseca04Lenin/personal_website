@@ -174,6 +174,17 @@ function App() {
       details: "Designed and developed a fully responsive personal portfolio website from scratch using React and Vite, featuring a modern gradient-based design system, smooth scrolling navigation, and interactive animations. Implemented a dynamic project timeline with modal overlays, mobile-first responsive design, and optimized performance. The site showcases advanced CSS techniques including custom animations, gradient text effects, and glassmorphism design elements. Integrated Vercel Analytics for visitor tracking and deployed with modern web development best practices.",
       github: "https://github.com/fonseca04Lenin/personal_website",
       live: "https://elvinfonseca.com"
+    },
+    {
+      id: 4,
+      name: "Algorithm Visualizer",
+      description: "Interactive educational tool for learning computer science algorithms through step-by-step visual demonstrations",
+      date: "September 2025",
+      tech: ["React", "TypeScript", "D3.js", "Tailwind CSS", "Vite", "Vercel", "Graph Algorithms", "Sorting Algorithms"],
+      images: ["/algorithm-visualizer-placeholder.jpg"],
+      details: "Built a comprehensive algorithm visualization platform that helps students and developers understand fundamental computer science algorithms through interactive demonstrations. Features sorting algorithms (Bubble Sort, Merge Sort, Quick Sort) and graph traversal algorithms (BFS, DFS) with step-by-step execution, real-time highlighting, and customizable input data. Implemented with React 19 and TypeScript for type safety, styled with Tailwind CSS for responsive design, and uses D3.js for advanced graph rendering. The application provides educational value for CS students, coding bootcamp participants, and interview preparation with clear visual feedback and explanations.",
+      github: "https://github.com/fonseca04Lenin/collaborative-algorithm-visualizer",
+      live: "https://frontend-sandy-six-30.vercel.app/"
     }
   ];
 
@@ -1389,8 +1400,8 @@ function App() {
           position: 'relative',
           maxWidth: '100%',
           width: '100%',
-          overflowX: 'auto',
-          padding: '20px 40px',
+          overflowX: 'hidden',
+          padding: '20px 10px',
         }}>
           {/* Central Timeline Line - Now Horizontal */}
           <div className="timeline-line" style={{
@@ -1410,9 +1421,10 @@ function App() {
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-around',
-            minWidth: `${projects.length * 420}px`,
-            padding: '60px 0',
+            justifyContent: 'space-between',
+            maxWidth: '100%',
+            width: '100%',
+            padding: '60px 20px',
             position: 'relative',
           }}>
             {projects.map((project, index) => (
@@ -1421,8 +1433,10 @@ function App() {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                margin: '0 60px',
-                minWidth: '320px',
+                margin: '0 10px',
+                minWidth: '250px',
+                flex: '1',
+                maxWidth: '280px',
               }}>
                 {/* Project Node */}
                 <div 
@@ -1478,8 +1492,9 @@ function App() {
                     }
                   }}
                   style={{
-                    width: '300px',
-                    padding: '16px',
+                    width: '100%',
+                    maxWidth: '260px',
+                    padding: '14px',
                     background: 'linear-gradient(135deg, rgba(45, 45, 45, 0.95), rgba(25, 25, 25, 0.95))',
                     border: '1px solid rgba(248, 87, 166, 0.3)',
                     borderRadius: '12px',
@@ -1487,8 +1502,8 @@ function App() {
                     transition: 'all 0.3s ease',
                     backdropFilter: 'blur(15px)',
                     boxShadow: '0 10px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(248, 87, 166, 0.2)',
-                    marginTop: index === 1 ? '400px' : (index % 2 === 0 ? '-220px' : '160px'),
-                    marginLeft: index === 0 ? '0px' : index === 1 ? '70px' : '70px',
+                    marginTop: index % 2 === 0 ? '-200px' : '140px',
+                    marginLeft: '0px',
                     position: 'relative',
                     zIndex: 3,
                     overflow: 'hidden',
