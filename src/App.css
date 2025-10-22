@@ -305,6 +305,38 @@ nav .gradient_text:hover {
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
 }
+
+/* Current Project Floating Comhponent Animations */
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
 .chevron-bounce {
   animation: bounce 1s infinite;
 }
@@ -861,6 +893,40 @@ nav .gradient_text:hover {
   div[style*="grid-template-columns"] > div {
     max-width: calc(100vw - 30px) !important;
     margin: 0 auto !important;
+  }
+
+  /* Current Project Floating Component Mobile Styles */
+  .current-project-floating {
+    position: fixed !important;
+    top: 80px !important;
+    right: 10px !important;
+    left: 10px !important;
+    max-width: calc(100vw - 20px) !important;
+    width: calc(100vw - 20px) !important;
+    padding: 20px !important;
+    z-index: 999 !important;
+  }
+
+  .current-project-floating h3 {
+    font-size: 1.1rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .current-project-floating p {
+    font-size: 0.85rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .current-project-floating > div:last-child {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .current-project-floating > div:last-child a,
+  .current-project-floating > div:last-child div {
+    width: 100% !important;
+    padding: 10px 16px !important;
+    font-size: 0.85rem !important;
   }
 }
 /* Tablet styles */

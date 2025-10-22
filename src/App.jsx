@@ -11,6 +11,7 @@ function App() {
   const contactRef = useRef(null);
   const [selectedProject, setSelectedProject] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [currentProjectVisible, setCurrentProjectVisible] = useState(true);
 
 
   //Contact form state
@@ -139,6 +140,15 @@ function App() {
       setFormStatus('error');
       setTimeout(() => setFormStatus('idle'), 3000);
     }
+  };
+
+  const currentProject = {
+    name: "Stock Market App",
+    description: "Real-time portfolio tracker with live stock prices, visual animations, and AI-powered investment advice.",
+    status: "Currently Working On",
+    progress: 85,
+    tech: ["JavaScript", "Python", "Flask", "Firebase", "Yahoo Finance API"],
+    live: "https://stock-watchlist-frontend.vercel.app/"
   };
 
   const projects = [
@@ -742,6 +752,253 @@ function App() {
           </div>
         </div>
       </nav>
+
+      {currentProjectVisible && (
+        <div 
+          className="current-project-floating"
+          style={{
+            position: 'fixed',
+            top: '100px',
+            right: '20px',
+            zIndex: 999,
+            maxWidth: '350px',
+            background: 'linear-gradient(135deg, rgba(45, 45, 45, 0.95), rgba(25, 25, 25, 0.95))',
+            borderRadius: '20px',
+            padding: '25px',
+            border: '1px solid rgba(248, 87, 166, 0.4)',
+            backdropFilter: 'blur(20px)',
+            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(248, 87, 166, 0.2)',
+            animation: 'slideInFromRight 0.6s ease-out',
+            transition: 'all 0.3s ease',
+            cursor: 'pointer',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'translateY(-5px) scale(1.02)';
+            e.currentTarget.style.boxShadow = '0 25px 70px rgba(248, 87, 166, 0.3), 0 0 0 2px rgba(248, 87, 166, 0.5)';
+            e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.6)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'translateY(0) scale(1)';
+            e.currentTarget.style.boxShadow = '0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(248, 87, 166, 0.2)';
+            e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.4)';
+          }}
+        >
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'linear-gradient(135deg, rgba(248, 87, 166, 0.08) 0%, rgba(255, 88, 88, 0.05) 50%, rgba(255, 204, 112, 0.08) 100%)',
+            borderRadius: '20px',
+            pointerEvents: 'none',
+            zIndex: -1,
+          }} />
+
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setCurrentProjectVisible(false);
+            }}
+            style={{
+              position: 'absolute',
+              top: '12px',
+              right: '12px',
+              background: 'rgba(248, 87, 166, 0.1)',
+              border: '1px solid rgba(248, 87, 166, 0.3)',
+              borderRadius: '50%',
+              width: '28px',
+              height: '28px',
+              color: '#f857a6',
+              fontSize: '0.9rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'all 0.3s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.background = 'rgba(248, 87, 166, 0.2)';
+              e.target.style.transform = 'scale(1.1)';
+              e.target.style.border = '1px solid rgba(248, 87, 166, 0.6)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.background = 'rgba(248, 87, 166, 0.1)';
+              e.target.style.transform = 'scale(1)';
+              e.target.style.border = '1px solid rgba(248, 87, 166, 0.3)';
+            }}
+          >
+            ✕
+          </button>
+
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            marginBottom: '15px',
+          }}>
+            <div style={{
+              width: '8px',
+              height: '8px',
+              borderRadius: '50%',
+              background: 'linear-gradient(45deg, #22c55e, #16a34a)',
+              animation: 'pulse 2s infinite',
+            }} />
+            <span style={{
+              color: '#22c55e',
+              fontSize: '0.8rem',
+              fontWeight: '600',
+              letterSpacing: '0.5px',
+              textTransform: 'uppercase',
+            }}>
+              {currentProject.status}
+            </span>
+          </div>
+
+          <h3 className="gradient_text" style={{
+            fontSize: '1.3rem',
+            marginBottom: '10px',
+            fontWeight: 'bold',
+            lineHeight: '1.2',
+          }}>
+            {currentProject.name}
+          </h3>
+
+          <p style={{
+            color: '#ddd',
+            fontSize: '0.9rem',
+            lineHeight: '1.5',
+            marginBottom: '15px',
+          }}>
+            {currentProject.description}
+          </p>
+
+          <div style={{ marginBottom: '15px' }}>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: '6px',
+            }}>
+              <span style={{
+                color: '#f857a6',
+                fontSize: '0.8rem',
+                fontWeight: '600',
+              }}>
+                Progress
+              </span>
+              <span style={{
+                color: '#ffcc70',
+                fontSize: '0.8rem',
+                fontWeight: '600',
+              }}>
+                {currentProject.progress}%
+              </span>
+            </div>
+            <div style={{
+              width: '100%',
+              height: '6px',
+              background: 'rgba(248, 87, 166, 0.2)',
+              borderRadius: '3px',
+              overflow: 'hidden',
+            }}>
+              <div style={{
+                width: `${currentProject.progress}%`,
+                height: '100%',
+                background: 'linear-gradient(90deg, #f857a6, #ff5858)',
+                borderRadius: '3px',
+                transition: 'width 0.8s ease',
+                boxShadow: '0 0 10px rgba(248, 87, 166, 0.5)',
+              }} />
+            </div>
+          </div>
+
+          <div style={{ marginBottom: '15px' }}>
+            <div style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '6px',
+            }}>
+              {currentProject.tech.slice(0, 3).map((tech, index) => (
+                <span
+                  key={index}
+                  style={{
+                    background: 'rgba(248, 87, 166, 0.15)',
+                    color: '#f857a6',
+                    padding: '4px 8px',
+                    borderRadius: '12px',
+                    fontSize: '0.7rem',
+                    fontWeight: '500',
+                    border: '1px solid rgba(248, 87, 166, 0.3)',
+                  }}
+                >
+                  {tech}
+                </span>
+              ))}
+              {currentProject.tech.length > 3 && (
+                <span style={{
+                  background: 'rgba(255, 204, 112, 0.15)',
+                  color: '#ffcc70',
+                  padding: '4px 8px',
+                  borderRadius: '12px',
+                  fontSize: '0.7rem',
+                  fontWeight: '500',
+                  border: '1px solid rgba(255, 204, 112, 0.3)',
+                }}>
+                  +{currentProject.tech.length - 3} more
+                </span>
+              )}
+            </div>
+          </div>
+
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+          }}>
+            {currentProject.live && (
+              <a
+                href={currentProject.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                style={{
+                  background: 'linear-gradient(45deg, #f857a6, #ff5858)',
+                  color: '#fff',
+                  padding: '8px 16px',
+                  borderRadius: '8px',
+                  textDecoration: 'none',
+                  fontWeight: '600',
+                  fontSize: '0.8rem',
+                  transition: 'all 0.3s ease',
+                  textAlign: 'center',
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.transform = 'translateY(-2px)';
+                  e.target.style.boxShadow = '0 6px 20px rgba(248, 87, 166, 0.4)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = 'none';
+                }}
+              >
+                View Demo
+              </a>
+            )}
+          </div>
+
+          <div style={{
+            position: 'absolute',
+            bottom: '8px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '30px',
+            height: '2px',
+            background: 'linear-gradient(90deg, transparent, #f857a6, transparent)',
+            borderRadius: '1px',
+            animation: 'shimmer 3s infinite',
+          }} />
+        </div>
+      )}
 
       {/* Hero Section */}
       <section
