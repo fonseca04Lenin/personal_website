@@ -95,15 +95,6 @@ section h2.gradient_text:hover::before {
   display: none !important;
 }
 
-/* Special styling for the "My Projects" heading */
-.my-projects-heading {
-  background: linear-gradient(135deg, #f857a6 0%, #ff5858 25%, #ffcc70 50%, #ffd93d 75%, #f857a6 100%) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
-  text-shadow: none !important;
-  color: transparent !important;
-}
 
 
 
@@ -119,15 +110,6 @@ section h2.gradient_text:hover::before {
 
 
 
-/* Special styling for the "Work Experience" heading */
-.work-experience-heading {
-  background: linear-gradient(135deg, #f857a6 0%, #ff5858 25%, #ffcc70 50%, #ffd93d 75%, #f857a6 100%) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
-  text-shadow: none !important;
-  color: transparent !important;
-}
 
 
 
@@ -169,24 +151,6 @@ section h2.gradient_text:hover {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Add a subtle border glow effect on hover */
-section h2.gradient_text::after {
-  content: '';
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  right: -10px;
-  bottom: -10px;
-  background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1), rgba(248, 87, 166, 0.1));
-  border-radius: 20px;
-  z-index: -2;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-section h2.gradient_text:hover::after {
-  opacity: 1;
-}
 
 /* Enhanced styling for navigation logo text */
 nav .gradient_text {
@@ -337,6 +301,7 @@ nav .gradient_text:hover {
     transform: translateX(100%);
   }
 }
+
 .chevron-bounce {
   animation: bounce 1s infinite;
 }

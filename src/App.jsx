@@ -985,18 +985,6 @@ function App() {
               </a>
             )}
           </div>
-
-          <div style={{
-            position: 'absolute',
-            bottom: '8px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '30px',
-            height: '2px',
-            background: 'linear-gradient(90deg, transparent, #f857a6, transparent)',
-            borderRadius: '1px',
-            animation: 'shimmer 3s infinite',
-          }} />
         </div>
       )}
 
@@ -1289,7 +1277,7 @@ function App() {
           position: 'relative',
         }}
       >
-        <h2 className="gradient_text work-experience-heading" style={{
+        <h2 className="gradient_text" style={{
           fontSize: '3.5rem',
           marginBottom: '50px',
           textAlign: 'center',
@@ -1643,7 +1631,7 @@ function App() {
           zIndex: 1,
         }} />
         
-        <h2 className="gradient_text my-projects-heading" style={{
+        <h2 className="gradient_text" style={{
           fontSize: '3.5rem',
           marginBottom: '30px',
           textAlign: 'center',
