@@ -1102,8 +1102,9 @@ function App() {
         <div style={{
           position: 'absolute',
           bottom: 0,
-          left: 0,
-          width: '100%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '100vw',
           height: '40px',
           background: 'linear-gradient(to bottom, transparent, #222 100%)',
           zIndex: 2,
