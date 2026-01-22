@@ -148,7 +148,7 @@ function App() {
     status: "Currently Working On",
     progress: 85,
     tech: ["JavaScript", "Python", "Flask", "Firebase", "Yahoo Finance API"],
-    live: "https://stock-watchlist-frontend.vercel.app/"
+    live: "https://www.aistocksage.com/"
   };
 
   const projects = [
@@ -160,8 +160,7 @@ function App() {
       tech: ["Python", "Tkinter", "Matplotlib", "API Integration", "JSON", "Pickle"],
       images: ["/stock-app-placeholder.jpg"],
       details: "Spearheaded the conceptualization and development of a stock market app by integrating modules such as Tkinter, Matplotlib, datetime, pickle and an API resulting in a streamlined user experience that improved information retrieval speed by 40%. Executed a systematic timeline for app development, including idea generation, concept creation, building the app with real-time data visualization and user-friendly interface design.",
-      github: "https://github.com/fonseca04Lenin/Project-2",
-      live: "https://stock-watchlist-frontend.vercel.app/"
+      live: "https://www.aistocksage.com/"
     },
     {
       id: 2,
