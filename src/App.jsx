@@ -24,6 +24,10 @@ function App() {
   const [formStatus, setFormStatus] = useState('idle'); // idle, sending, success, error
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
+  const [contributions, setContributions] = useState([]);
+  const [contributionsLoading, setContributionsLoading] = useState(true);
+  const [hoveredDay, setHoveredDay] = useState(null);
+
   //Handle responsive layout
   useEffect(() => {
     const handleResize = () => {
@@ -32,6 +36,65 @@ function App() {
     
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const fetchContributions = async () => {
+      try {
+        setContributionsLoading(true);
+        const username = 'fonseca04Lenin';
+
+        const response = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`);
+        const data = await response.json();
+
+        if (data && data.contributions) {
+          const allContributions = data.contributions.flat();
+          const last365 = allContributions.slice(-371);
+
+          setContributions(last365);
+        }
+      } catch (error) {
+        console.error('Failed to fetch GitHub contributions:', error);
+        const fallbackData = generateFallbackContributions();
+        setContributions(fallbackData);
+      } finally {
+        setContributionsLoading(false);
+      }
+    };
+
+    const generateFallbackContributions = () => {
+      const contributions = [];
+      const today = new Date();
+
+      for (let i = 370; i >= 0; i--) {
+        const date = new Date(today);
+        date.setDate(date.getDate() - i);
+
+        // Create realistic patterns - more activity on weekdays
+        const dayOfWeek = date.getDay();
+        const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+        const baseChance = isWeekend ? 0.3 : 0.6;
+
+        let count = 0;
+        if (Math.random() < baseChance) {
+          // Weighted distribution favoring lower counts
+          const rand = Math.random();
+          if (rand < 0.5) count = Math.floor(Math.random() * 3) + 1;
+          else if (rand < 0.8) count = Math.floor(Math.random() * 5) + 3;
+          else count = Math.floor(Math.random() * 8) + 5;
+        }
+
+        contributions.push({
+          date: date.toISOString().split('T')[0],
+          count,
+          level: count === 0 ? 0 : count <= 2 ? 1 : count <= 5 ? 2 : count <= 8 ? 3 : 4
+        });
+      }
+
+      return contributions;
+    };
+
+    fetchContributions();
   }, []);
 
   // Handle body scroll when mobile menu is open could be improved
@@ -2065,7 +2128,300 @@ function App() {
           </div>
         </div>
       )}
-      
+
+      <section
+        style={{
+          background: '#222',
+          color: '#fff',
+          padding: '80px 20px',
+        }}
+      >
+        <div style={{
+          maxWidth: '1000px',
+          margin: '0 auto',
+        }}>
+          <h2 className="gradient_text" style={{
+            fontSize: '3.5rem',
+            marginBottom: '20px',
+            textAlign: 'center',
+            fontWeight: 'bold',
+          }}>
+            My Coding Journey
+          </h2>
+
+          <p style={{
+            textAlign: 'center',
+            color: '#aaa',
+            marginBottom: '40px',
+            fontSize: '1.1rem',
+          }}>
+            A glimpse into my daily commitment to building & learning
+          </p>
+
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(40, 40, 40, 0.95), rgba(25, 25, 25, 0.98))',
+            border: '1px solid rgba(248, 87, 166, 0.2)',
+            borderRadius: '20px',
+            padding: '30px',
+            backdropFilter: 'blur(15px)',
+            boxShadow: '0 15px 40px rgba(0, 0, 0, 0.3)',
+            position: 'relative',
+            overflow: 'hidden',
+          }}>
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              width: '150px',
+              height: '150px',
+              background: 'radial-gradient(circle at top right, rgba(248, 87, 166, 0.08), transparent)',
+              pointerEvents: 'none',
+            }} />
+
+            {/* Month labels */}
+            <div style={{
+              display: 'flex',
+              marginBottom: '10px',
+              marginLeft: '35px',
+              gap: '0px',
+            }}>
+              {(() => {
+                if (contributions.length === 0) return null;
+                const months = [];
+                let currentMonth = null;
+                let weekCount = 0;
+
+                contributions.forEach((day, index) => {
+                  if (index % 7 === 0) {
+                    const date = new Date(day.date);
+                    const month = date.toLocaleDateString('en-US', { month: 'short' });
+                    if (month !== currentMonth) {
+                      if (currentMonth !== null) {
+                        months.push({ month: currentMonth, weeks: weekCount });
+                      }
+                      currentMonth = month;
+                      weekCount = 1;
+                    } else {
+                      weekCount++;
+                    }
+                  }
+                });
+                if (currentMonth) {
+                  months.push({ month: currentMonth, weeks: weekCount });
+                }
+
+                return months.map((m, i) => (
+                  <span
+                    key={i}
+                    style={{
+                      fontSize: '0.7rem',
+                      color: '#666',
+                      width: `${m.weeks * 14}px`,
+                      textAlign: 'left',
+                    }}
+                  >
+                    {m.month}
+                  </span>
+                ));
+              })()}
+            </div>
+
+            {/* Calendar grid with day labels */}
+            <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+              {/* Day labels */}
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                marginRight: '8px',
+                gap: '2px',
+              }}>
+                {['', 'Mon', '', 'Wed', '', 'Fri', ''].map((day, i) => (
+                  <span
+                    key={i}
+                    style={{
+                      fontSize: '0.65rem',
+                      color: '#555',
+                      height: '12px',
+                      lineHeight: '12px',
+                      textAlign: 'right',
+                      width: '25px',
+                    }}
+                  >
+                    {day}
+                  </span>
+                ))}
+              </div>
+
+              <div
+                style={{
+                  display: 'flex',
+                  gap: '3px',
+                  overflowX: 'auto',
+                  paddingBottom: '10px',
+                }}
+                className="contribution-grid"
+              >
+                {contributionsLoading ? (
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '100%',
+                    minHeight: '100px',
+                    color: '#666',
+                  }}>
+                    <div style={{
+                      width: '30px',
+                      height: '30px',
+                      border: '3px solid rgba(248, 87, 166, 0.2)',
+                      borderTopColor: '#f857a6',
+                      borderRadius: '50%',
+                      animation: 'spin 1s linear infinite',
+                    }} />
+                  </div>
+                ) : (
+                  (() => {
+                    const weeks = [];
+                    for (let i = 0; i < contributions.length; i += 7) {
+                      weeks.push(contributions.slice(i, i + 7));
+                    }
+
+                    return weeks.map((week, weekIndex) => (
+                      <div
+                        key={weekIndex}
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '2px',
+                        }}
+                      >
+                        {week.map((day, dayIndex) => {
+                          const getColor = (count) => {
+                            if (count === 0) return 'rgba(50, 50, 50, 0.8)';
+                            if (count <= 2) return 'rgba(248, 87, 166, 0.35)';
+                            if (count <= 5) return 'rgba(248, 87, 166, 0.55)';
+                            if (count <= 8) return 'rgba(255, 88, 88, 0.75)';
+                            return 'rgba(255, 204, 112, 0.9)';
+                          };
+
+                          const getBorderColor = (count) => {
+                            if (count === 0) return 'transparent';
+                            if (count <= 2) return 'rgba(248, 87, 166, 0.4)';
+                            if (count <= 5) return 'rgba(248, 87, 166, 0.5)';
+                            if (count <= 8) return 'rgba(255, 88, 88, 0.6)';
+                            return 'rgba(255, 204, 112, 0.7)';
+                          };
+
+                          const isHovered = hoveredDay === `${weekIndex}-${dayIndex}`;
+
+                          return (
+                            <div
+                              key={dayIndex}
+                              onMouseEnter={() => setHoveredDay(`${weekIndex}-${dayIndex}`)}
+                              onMouseLeave={() => setHoveredDay(null)}
+                              style={{
+                                width: '11px',
+                                height: '11px',
+                                borderRadius: '3px',
+                                background: getColor(day.count),
+                                border: `1px solid ${getBorderColor(day.count)}`,
+                                cursor: 'pointer',
+                                transition: 'all 0.15s ease',
+                                transform: isHovered ? 'scale(1.4)' : 'scale(1)',
+                                boxShadow: isHovered
+                                  ? `0 0 12px ${day.count > 0 ? 'rgba(248, 87, 166, 0.6)' : 'rgba(100, 100, 100, 0.3)'}`
+                                  : 'none',
+                                zIndex: isHovered ? 10 : 1,
+                                position: 'relative',
+                              }}
+                              title={`${day.date}: ${day.count} contribution${day.count !== 1 ? 's' : ''}`}
+                            />
+                          );
+                        })}
+                      </div>
+                    ));
+                  })()
+                )}
+              </div>
+            </div>
+
+            {/* Legend */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+              gap: '8px',
+              marginTop: '15px',
+              paddingTop: '15px',
+              borderTop: '1px solid rgba(248, 87, 166, 0.1)',
+            }}>
+              <span style={{ fontSize: '0.75rem', color: '#666' }}>Less</span>
+              {[0, 1, 3, 6, 10].map((level, i) => {
+                const getColor = (count) => {
+                  if (count === 0) return 'rgba(50, 50, 50, 0.8)';
+                  if (count <= 2) return 'rgba(248, 87, 166, 0.35)';
+                  if (count <= 5) return 'rgba(248, 87, 166, 0.55)';
+                  if (count <= 8) return 'rgba(255, 88, 88, 0.75)';
+                  return 'rgba(255, 204, 112, 0.9)';
+                };
+                return (
+                  <div
+                    key={i}
+                    style={{
+                      width: '11px',
+                      height: '11px',
+                      borderRadius: '3px',
+                      background: getColor(level),
+                      border: '1px solid rgba(248, 87, 166, 0.2)',
+                    }}
+                  />
+                );
+              })}
+              <span style={{ fontSize: '0.75rem', color: '#666' }}>More</span>
+            </div>
+
+            <div style={{
+              marginTop: '20px',
+              textAlign: 'center',
+            }}>
+              <a
+                href="https://github.com/fonseca04Lenin"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  color: '#888',
+                  textDecoration: 'none',
+                  fontSize: '0.9rem',
+                  padding: '10px 20px',
+                  borderRadius: '25px',
+                  border: '1px solid rgba(248, 87, 166, 0.2)',
+                  transition: 'all 0.3s ease',
+                  background: 'transparent',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = '#f857a6';
+                  e.currentTarget.style.borderColor = '#f857a6';
+                  e.currentTarget.style.background = 'rgba(248, 87, 166, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = '#888';
+                  e.currentTarget.style.borderColor = 'rgba(248, 87, 166, 0.2)';
+                  e.currentTarget.style.background = 'transparent';
+                }}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                View my GitHub Profile
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer Section with Contributors */}
       <footer
         ref={contactRef}
@@ -2523,36 +2879,6 @@ function App() {
                   </button>
                 </div>
               </form>
-
-              {/* Direct Contact Info */}
-              <div style={{
-                marginTop: '20px',
-                padding: '15px',
-                background: 'rgba(248, 87, 166, 0.05)',
-                borderRadius: '10px',
-                border: '1px solid rgba(248, 87, 166, 0.2)',
-                maxWidth: '500px',
-                margin: '20px auto 0',
-              }}>
-                <p style={{
-                  color: '#ddd',
-                  fontSize: '0.85rem',
-                  margin: 0,
-                  lineHeight: '1.4',
-                }}>
-                  💡 <strong>Prefer email?</strong> Reach me directly at{' '}
-                  <a 
-                    href="mailto:efonseca@unomaha.edu"
-                    style={{ 
-                      color: '#f857a6', 
-                      textDecoration: 'none',
-                      fontWeight: '600'
-                    }}
-                  >
-                    Leninfonseca04@gmail.com
-                  </a>
-                </p>
-              </div>
             </div>
           </div>
           

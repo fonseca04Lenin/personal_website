@@ -870,6 +870,15 @@ nav .gradient_text:hover {
     margin: 0 auto !important;
   }
 
+  .contribution-grid {
+    padding-bottom: 8px !important;
+  }
+
+  .contribution-grid > div > div {
+    width: 9px !important;
+    height: 9px !important;
+  }
+
   /* Current Project Floating Component Mobile Styles */
   .current-project-floating {
     position: fixed !important;
@@ -954,6 +963,29 @@ nav .gradient_text:hover {
     right: 8px !important;
   }
 }
+.contribution-grid {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(248, 87, 166, 0.4) #222;
+}
+
+.contribution-grid::-webkit-scrollbar {
+  height: 6px;
+}
+
+.contribution-grid::-webkit-scrollbar-track {
+  background: #222;
+  border-radius: 3px;
+}
+
+.contribution-grid::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #f857a6, #ff5858);
+  border-radius: 3px;
+}
+
+.contribution-grid::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(90deg, #ff5858, #ffcc70);
+}
+
 /* Tablet styles */
 @media (min-width: 769px) and (max-width: 1024px) {
   .timeline-container {
