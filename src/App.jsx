@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect, useMemo } from 'react'
 import { Analytics } from '@vercel/analytics/react'
-import emailjs from '@emailjs/browser'
 import './App.css'
 
 function App() {
@@ -8,20 +7,9 @@ function App() {
   const workRef = useRef(null);
   const projectsRef = useRef(null);
   const skillsRef = useRef(null);
-  const contactRef = useRef(null);
   const [selectedProject, setSelectedProject] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentProjectVisible, setCurrentProjectVisible] = useState(true);
-
-
-  //Contact form state
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-  const [formStatus, setFormStatus] = useState('idle'); // idle, sending, success, error
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   const [contributions, setContributions] = useState([]);
@@ -123,86 +111,6 @@ function App() {
     
     // Track resume download with Vercel Analytics
     console.log(`Resume downloaded at: ${timestamp}`);
-  };
-
-  // Contact form handlers
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    console.log('Form submission started...');
-    setFormStatus('sending');
-
-    try {
-      // EmailJS Configuration
-      const SERVICE_ID = 'service_ne9y91r';
-      const TEMPLATE_ID = 'template_3agcbuw';
-      const PUBLIC_KEY = 'Nm-ND2J9GAp-unpH9';
-
-      console.log('EmailJS Config:', { SERVICE_ID, TEMPLATE_ID, PUBLIC_KEY });
-
-      // Initialize EmailJS with your public key
-      emailjs.init(PUBLIC_KEY);
-
-      // Prepare template parameters for EmailJS - using standard variable names
-      const templateParams = {
-        user_name: formData.name,
-        user_email: formData.email,
-        user_subject: formData.subject,
-        message: formData.message,
-        to_name: 'Elvin Fonseca',
-        reply_to: formData.email
-      };
-
-      console.log('Template params:', templateParams);
-      console.log('Attempting to send email...');
-
-      // Send email using EmailJS with timeout
-      const emailPromise = emailjs.send(
-        SERVICE_ID,
-        TEMPLATE_ID,
-        templateParams
-      );
-
-      // Add timeout to prevent infinite loading
-      const timeoutPromise = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('Email timeout after 30 seconds')), 30000)
-      );
-
-      const result = await Promise.race([emailPromise, timeoutPromise]);
-
-      console.log('Email sent successfully:', result);
-      
-      // Track form submission with Vercel Analytics (remove window.va usage)
-      console.log('Form submitted successfully - tracking event');
-
-      setFormStatus('success');
-      // Reset form after successful submission
-      setTimeout(() => {
-        setFormData({ name: '', email: '', subject: '', message: '' });
-        setFormStatus('idle');
-      }, 3000);
-
-    } catch (error) {
-      console.error('Form submission error:', error);
-      console.error('Error details:', {
-        message: error.message,
-        status: error.status,
-        text: error.text
-      });
-      
-      // Track failed submission (remove window.va usage)
-      console.log('Form submission failed - tracking error event');
-
-      setFormStatus('error');
-      setTimeout(() => setFormStatus('idle'), 3000);
-    }
   };
 
   const currentProject = {
@@ -446,8 +354,7 @@ function App() {
               { label: 'About', ref: aboutRef },
               { label: 'Experience', ref: workRef },
               { label: 'Skills', ref: skillsRef },
-              { label: 'Projects', ref: projectsRef },
-              { label: 'Contact', ref: contactRef }
+              { label: 'Projects', ref: projectsRef }
             ].map((item, index) => (
               <button
                 key={index}
@@ -665,8 +572,7 @@ function App() {
               { label: 'About', ref: aboutRef },
               { label: 'Experience', ref: workRef },
               { label: 'Skills', ref: skillsRef },
-              { label: 'Projects', ref: projectsRef },
-              { label: 'Contact', ref: contactRef }
+              { label: 'Projects', ref: projectsRef }
             ].map((item, index) => (
               <button
                 key={index}
@@ -2424,7 +2330,6 @@ function App() {
 
       {/* Footer Section with Contributors */}
       <footer
-        ref={contactRef}
         style={{
           background: '#222',
           color: '#fff',
@@ -2461,15 +2366,10 @@ function App() {
           <div style={{ 
             marginBottom: '40px',
             display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
-            flexWrap: 'wrap',
-            gap: '40px',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}>
-            {/* Left Side - Contributors */}
             <div style={{
-              flex: '1',
-              minWidth: isMobile ? 'auto' : '400px',
               textAlign: 'center',
             }}>
               <h3 className="gradient_text" style={{
@@ -2587,298 +2487,6 @@ function App() {
                   </p>
                 </div>
               </div>
-            </div>
-
-
-
-            {/* Contact Form - Right Side */}
-            <div style={{
-              flex: '1',
-              minWidth: isMobile ? 'auto' : '400px',
-              textAlign: 'center',
-            }}>
-              <h3 className="gradient_text" style={{
-                fontSize: '2rem',
-                marginBottom: '20px',
-                fontWeight: 'bold',
-              }}>
-                Contact Me
-              </h3>
-              
-              <form onSubmit={handleFormSubmit} style={{
-                maxWidth: '500px',
-                margin: '0 auto',
-                padding: '30px',
-                background: 'linear-gradient(135deg, rgba(45, 45, 45, 0.8), rgba(25, 25, 25, 0.8))',
-                borderRadius: '15px',
-                border: '1px solid rgba(248, 87, 166, 0.3)',
-                backdropFilter: 'blur(10px)',
-                boxShadow: '0 8px 20px rgba(0, 0, 0, 0.3)',
-              }}>
-                {/* Form Status Messages */}
-                {formStatus === 'success' && (
-                  <div style={{
-                    background: 'linear-gradient(45deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.1))',
-                    border: '1px solid rgba(34, 197, 94, 0.3)',
-                    borderRadius: '8px',
-                    padding: '12px',
-                    marginBottom: '20px',
-                    color: '#22c55e',
-                    fontSize: '0.9rem',
-                    animation: 'fadeIn 0.3s ease',
-                  }}>
-                     Message sent successfully! I'll get back to you soon.
-                  </div>
-                )}
-
-                {formStatus === 'error' && (
-                  <div style={{
-                    background: 'linear-gradient(45deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.1))',
-                    border: '1px solid rgba(239, 68, 68, 0.3)',
-                    borderRadius: '8px',
-                    padding: '12px',
-                    marginBottom: '20px',
-                    color: '#ef4444',
-                    fontSize: '0.9rem',
-                    animation: 'fadeIn 0.3s ease',
-                  }}>
-                     Something went wrong. Please try again or email me directly.
-                  </div>
-                )}
-
-                <div style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '20px',
-                }}>
-                  {/* Name Field */}
-                  <div style={{ textAlign: 'left' }}>
-                    <label style={{
-                      display: 'block',
-                      marginBottom: '8px',
-                      color: '#f857a6',
-                      fontSize: '0.9rem',
-                      fontWeight: '600',
-                      letterSpacing: '0.5px',
-                    }}>
-                      Name *
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      required
-                      style={{
-                        width: '100%',
-                        padding: '12px',
-                        borderRadius: '8px',
-                        border: '1px solid rgba(248, 87, 166, 0.3)',
-                        background: 'rgba(34, 34, 34, 0.8)',
-                        color: '#fff',
-                        fontSize: '1rem',
-                        transition: 'all 0.3s ease',
-                        outline: 'none',
-                      }}
-                      onFocus={(e) => {
-                        e.target.style.border = '1px solid rgba(248, 87, 166, 0.6)';
-                        e.target.style.boxShadow = '0 0 10px rgba(248, 87, 166, 0.2)';
-                      }}
-                      onBlur={(e) => {
-                        e.target.style.border = '1px solid rgba(248, 87, 166, 0.3)';
-                        e.target.style.boxShadow = 'none';
-                      }}
-                      placeholder="Your full name"
-                    />
-                  </div>
-
-                  {/* Email Field */}
-                  <div style={{ textAlign: 'left' }}>
-                    <label style={{
-                      display: 'block',
-                      marginBottom: '8px',
-                      color: '#f857a6',
-                      fontSize: '0.9rem',
-                      fontWeight: '600',
-                      letterSpacing: '0.5px',
-                    }}>
-                      Email *
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                      style={{
-                        width: '100%',
-                        padding: '12px',
-                        borderRadius: '8px',
-                        border: '1px solid rgba(248, 87, 166, 0.3)',
-                        background: 'rgba(34, 34, 34, 0.8)',
-                        color: '#fff',
-                        fontSize: '1rem',
-                        transition: 'all 0.3s ease',
-                        outline: 'none',
-                      }}
-                      onFocus={(e) => {
-                        e.target.style.border = '1px solid rgba(248, 87, 166, 0.6)';
-                        e.target.style.boxShadow = '0 0 10px rgba(248, 87, 166, 0.2)';
-                      }}
-                      onBlur={(e) => {
-                        e.target.style.border = '1px solid rgba(248, 87, 166, 0.3)';
-                        e.target.style.boxShadow = 'none';
-                      }}
-                      placeholder="your.email@example.com"
-                    />
-                  </div>
-
-                  {/* Subject Field */}
-                  <div style={{ textAlign: 'left' }}>
-                    <label style={{
-                      display: 'block',
-                      marginBottom: '8px',
-                      color: '#f857a6',
-                      fontSize: '0.9rem',
-                      fontWeight: '600',
-                      letterSpacing: '0.5px',
-                    }}>
-                      Subject *
-                    </label>
-                    <input
-                      type="text"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleInputChange}
-                      required
-                      style={{
-                        width: '100%',
-                        padding: '12px',
-                        borderRadius: '8px',
-                        border: '1px solid rgba(248, 87, 166, 0.3)',
-                        background: 'rgba(34, 34, 34, 0.8)',
-                        color: '#fff',
-                        fontSize: '1rem',
-                        transition: 'all 0.3s ease',
-                        outline: 'none',
-                      }}
-                      onFocus={(e) => {
-                        e.target.style.border = '1px solid rgba(248, 87, 166, 0.6)';
-                        e.target.style.boxShadow = '0 0 10px rgba(248, 87, 166, 0.2)';
-                      }}
-                      onBlur={(e) => {
-                        e.target.style.border = '1px solid rgba(248, 87, 166, 0.3)';
-                        e.target.style.boxShadow = 'none';
-                      }}
-                      placeholder="What's this about?"
-                    />
-                  </div>
-
-                  {/* Message Fierld */}
-                  <div style={{ textAlign: 'left' }}>
-                    <label style={{
-                      display: 'block',
-                      marginBottom: '8px',
-                      color: '#f857a6',
-                      fontSize: '0.9rem',
-                      fontWeight: '600',
-                      letterSpacing: '0.5px',
-                    }}>
-                      Message *
-                    </label>
-                    <textarea
-                      name="message"
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      required
-                      rows="5"
-                      style={{
-                        width: '100%',
-                        padding: '12px',
-                        borderRadius: '8px',
-                        border: '1px solid rgba(248, 87, 166, 0.3)',
-                        background: 'rgba(34, 34, 34, 0.8)',
-                        color: '#fff',
-                        fontSize: '1rem',
-                        resize: 'vertical',
-                        minHeight: '120px',
-                        transition: 'all 0.3s ease',
-                        outline: 'none',
-                        fontFamily: 'inherit',
-                      }}
-                      onFocus={(e) => {
-                        e.target.style.border = '1px solid rgba(248, 87, 166, 0.6)';
-                        e.target.style.boxShadow = '0 0 10px rgba(248, 87, 166, 0.2)';
-                      }}
-                      onBlur={(e) => {
-                        e.target.style.border = '1px solid rgba(248, 87, 166, 0.3)';
-                        e.target.style.boxShadow = 'none';
-                      }}
-                      placeholder="Tell me about your project, opportunity, or just say hi!"
-                    />
-                  </div>
-
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={formStatus === 'sending'}
-                    style={{
-                      background: formStatus === 'sending' 
-                        ? 'linear-gradient(45deg, #666, #555)' 
-                        : 'linear-gradient(45deg, #f857a6, #ff5858)',
-                      color: '#fff',
-                      border: 'none',
-                      padding: '14px 28px',
-                      borderRadius: '10px',
-                      fontSize: '1rem',
-                      fontWeight: '600',
-                      cursor: formStatus === 'sending' ? 'not-allowed' : 'pointer',
-                      transition: 'all 0.3s ease',
-                      marginTop: '10px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '8px',
-                      width: '100%',
-                    }}
-                    onMouseEnter={(e) => {
-                      if (formStatus !== 'sending') {
-                        e.target.style.background = 'linear-gradient(45deg, #ff5858, #ffcc70)';
-                        e.target.style.transform = 'translateY(-2px)';
-                        e.target.style.boxShadow = '0 6px 20px rgba(248, 87, 166, 0.4)';
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (formStatus !== 'sending') {
-                        e.target.style.background = 'linear-gradient(45deg, #f857a6, #ff5858)';
-                        e.target.style.transform = 'translateY(0)';
-                        e.target.style.boxShadow = 'none';
-                      }
-                    }}
-                  >
-                    {formStatus === 'sending' ? (
-                      <>
-                        <div style={{
-                          width: '20px',
-                          height: '20px',
-                          border: '2px solid transparent',
-                          borderTop: '2px solid #fff',
-                          borderRadius: '50%',
-                          animation: 'spin 1s linear infinite',
-                        }} />
-                        Sending...
-                      </>
-                    ) : (
-                      <>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
-                        </svg>
-                        Send Message
-                      </>
-                    )}
-                  </button>
-                </div>
-              </form>
             </div>
           </div>
           
