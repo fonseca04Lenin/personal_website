@@ -1902,7 +1902,7 @@ function App() {
             left: 0,
             width: '100vw',
             height: '100vh',
-            background: 'rgba(0, 0, 0, 0.9)',
+            background: 'rgba(0, 0, 0, 0.5)',
             backdropFilter: 'blur(10px)',
             zIndex: 1000,
             display: 'flex',
