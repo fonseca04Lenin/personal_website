@@ -270,6 +270,18 @@ nav .gradient_text:hover {
   51%, 100% { opacity: 0; }
 }
 
+@keyframes gradientRotate {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 /* Current Project Floating Comhponent Animations */
 @keyframes slideInFromRight {
   from {
@@ -751,7 +763,7 @@ nav .gradient_text:hover {
     text-align: center !important;
     padding: 0 15px !important;
   }
-  
+
   /* Project Modal Mobile */
   .project-modal {
     padding: 10px !important;

@@ -131,6 +131,7 @@ function App() {
       date: "April 2024 - May 2024",
       tech: ["Python", "Tkinter", "Matplotlib", "API Integration", "JSON", "Pickle"],
       images: ["/stock-app-placeholder.jpg"],
+      screenshot: "/screenshots/Stock-Watchlist.png",
       details: "Spearheaded the conceptualization and development of a stock market app by integrating modules such as Tkinter, Matplotlib, datetime, pickle and an API resulting in a streamlined user experience that improved information retrieval speed by 40%. Executed a systematic timeline for app development, including idea generation, concept creation, building the app with real-time data visualization and user-friendly interface design.",
       live: "https://www.aistocksage.com/"
     },
@@ -141,6 +142,7 @@ function App() {
       date: "August 2024",
       tech: ["Python", "Flask", "HTML", "CSS", "Jinja2", "RESTful APIs", "JSON", "Geolocation"],
       images: ["/uv-checker-placeholder.jpg"],
+      screenshot: "/screenshots/Weather-App.png",
       details: "Designed an interactive web application employing Python and Flask to provide instant UV index updates through geolocation services; streamlined data retrieval process, reducing load times by 60% and increasing user satisfaction. Created an intuitive and user-friendly interface with HTML, CSS, and Jinja2 templating to provide users with clear visual indicators of UV levels using color-coded categories for low, moderate, and high UV indexes. Implemented RESTful API calls to obtain current and forecasted UV index data, leveraging JSON data parsing to handle and display relevant information.",
       github: "https://github.com/fonseca04Lenin/UV-Index-Web-Project",
       live: "https://uv-index-web-project.onrender.com/"
@@ -152,6 +154,7 @@ function App() {
       date: "May 2025",
       tech: ["React", "Vite", "JavaScript", "CSS3", "HTML5", "Vercel Analytics", "Responsive Design", "Modern UI/UX"],
       images: ["/portfolio-website-placeholder.jpg"],
+      screenshot: "/screenshots/Portfolio-Website .png",
       details: "Designed and developed a fully responsive personal portfolio website from scratch using React and Vite, featuring a modern gradient-based design system, smooth scrolling navigation, and interactive animations. Implemented a dynamic project timeline with modal overlays, mobile-first responsive design, and optimized performance. The site showcases advanced CSS techniques including custom animations, gradient text effects, and glassmorphism design elements. Integrated Vercel Analytics for visitor tracking and deployed with modern web development best practices.",
       github: "https://github.com/fonseca04Lenin/personal_website",
       live: "https://elvinfonseca.com"
@@ -163,6 +166,7 @@ function App() {
       date: "September 2025",
       tech: ["React", "TypeScript", "D3.js", "Tailwind CSS", "Vite", "Vercel", "Graph Algorithms", "Sorting Algorithms"],
       images: ["/algorithm-visualizer-placeholder.jpg"],
+      screenshot: "/screenshots/Algorithm-visualizer.png",
       details: "Built a comprehensive algorithm visualization platform that helps students and developers understand fundamental computer science algorithms through interactive demonstrations. Features sorting algorithms (Bubble Sort, Merge Sort, Quick Sort) and graph traversal algorithms (BFS, DFS) with step-by-step execution, real-time highlighting, and customizable input data. Implemented with React 19 and TypeScript for type safety, styled with Tailwind CSS for responsive design, and uses D3.js for advanced graph rendering. The application provides educational value for CS students, coding bootcamp participants, and interview preparation with clear visual feedback and explanations.",
       github: "https://github.com/fonseca04Lenin/collaborative-algorithm-visualizer",
       live: "https://frontend-sandy-six-30.vercel.app/"
@@ -1603,7 +1607,7 @@ function App() {
         
         <h2 className="gradient_text" style={{
           fontSize: '3.5rem',
-          marginBottom: '30px',
+          marginBottom: '20px',
           textAlign: 'center',
           fontWeight: 'bold',
           marginTop: '40px'
@@ -1611,192 +1615,246 @@ function App() {
           My Projects
         </h2>
         
-        <div className="timeline-container" style={{
-          position: 'relative',
-          maxWidth: '100%',
-          width: '100%',
-          overflowX: 'hidden',
-          padding: '20px 10px',
+        <p style={{
+          textAlign: 'center',
+          color: '#ddd',
+          fontSize: '1.1rem',
+          marginBottom: '60px',
+          maxWidth: '600px',
+          margin: '0 auto 60px auto',
         }}>
-          {/* Central Timeline Line - Now Horizontal */}
-          <div className="timeline-line" style={{
-            position: 'absolute',
-            left: '0',
-            right: '0',
-            top: '50%',
-            height: '6px',
-            background: 'linear-gradient(to right, #ff5858, #ffcc70, #f857a6)',
-            transform: 'translateY(-50%)',
-            boxShadow: '0 0 15px rgba(248, 87, 166, 0.6)',
-            borderRadius: '3px',
-            zIndex: 1,
-          }} />
-          
-          {/* Projects Container - Horizontal Layout */}
+          Things I've built — click any card to learn more
+        </p>
+        
+        {isMobile ? (
+          /* Mobile: simple stacked cards via flexbox */
           <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            maxWidth: '100%',
             width: '100%',
-            padding: '60px 20px',
-            position: 'relative',
+            padding: '0 16px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
           }}>
-            {projects.map((project, index) => (
-              <div key={project.id} className="timeline-item" style={{
-                position: 'relative',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                margin: '0 10px',
-                minWidth: '250px',
-                flex: '1',
-                maxWidth: '280px',
-              }}>
-                {/* Project Node */}
-                <div 
-                  className="project-node"
-                  onClick={() => openProject(project)}
-                  style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '32px',
-                    height: '32px',
-                    background: 'linear-gradient(45deg, #f857a6, #ff5858)',
-                    borderRadius: '50%',
-                    border: '3px solid #222',
-                    cursor: 'pointer',
-                    zIndex: 3,
-                    transition: 'all 0.3s ease',
-                    boxShadow: '0 0 20px rgba(248, 87, 166, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.2)',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.transform = 'translate(-50%, -50%) scale(1.3)';
-                    e.target.style.boxShadow = '0 0 30px rgba(248, 87, 166, 0.8), inset 0 2px 4px rgba(255, 255, 255, 0.3)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.transform = 'translate(-50%, -50%) scale(1)';
-                    e.target.style.boxShadow = '0 0 20px rgba(248, 87, 166, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.2)';
-                  }}
-                >
-                  <div style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '12px',
-                    height: '12px',
-                    background: 'linear-gradient(45deg, #222, #333)',
-                    borderRadius: '50%',
-                    boxShadow: 'inset 0 1px 2px rgba(0, 0, 0, 0.5)',
-                  }} />
-                </div>
-                
-                {/* Project Card - Above or Below the line */}
-                <div 
-                  className="project-card"
-                  onClick={() => openProject(project)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      openProject(project);
-                    }
-                  }}
-                  style={{
-                    width: '100%',
-                    maxWidth: '260px',
-                    padding: '14px',
-                    background: 'linear-gradient(135deg, rgba(45, 45, 45, 0.95), rgba(25, 25, 25, 0.95))',
-                    border: '1px solid rgba(248, 87, 166, 0.3)',
-                    borderRadius: '12px',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    backdropFilter: 'blur(15px)',
-                    boxShadow: '0 10px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(248, 87, 166, 0.2)',
-                    marginTop: index % 2 === 0 ? '-200px' : '140px',
-                    marginLeft: '0px',
-                    position: 'relative',
-                    zIndex: 3,
-                    overflow: 'hidden',
-                    userSelect: 'none'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.transform = 'scale(1.05) translateY(-5px)';
-                    e.target.style.boxShadow = '0 15px 50px rgba(248, 87, 166, 0.3), 0 0 0 2px rgba(248, 87, 166, 0.5)';
-                    e.target.style.border = '1px solid rgba(248, 87, 166, 0.6)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.transform = 'scale(1) translateY(0)';
-                    e.target.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(248, 87, 166, 0.2)';
-                    e.target.style.border = '1px solid rgba(248, 87, 166, 0.3)';
-                  }}
-                >
-                  {/* Subtle gradient overlay for extra depth */}
-                  <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: 'linear-gradient(135deg, rgba(248, 87, 166, 0.05) 0%, rgba(255, 88, 88, 0.03) 50%, rgba(255, 204, 112, 0.05) 100%)',
-                    borderRadius: '12px',
-                    pointerEvents: 'none',
-                    zIndex: -1,
-                  }} />
-                  <h3 className="gradient_text" style={{
-                    fontSize: '1.4rem',
-                    marginBottom: '8px',
-                    fontWeight: 'bold',
-                    pointerEvents: 'none',
-                    userSelect: 'none'
-                  }}>
-                    {project.name}
-                  </h3>
-                  <p style={{
-                    color: '#ddd',
-                    fontSize: '0.9rem',
-                    lineHeight: '1.4',
-                    marginBottom: '10px',
-                    pointerEvents: 'none',
-                    userSelect: 'none'
-                  }}>
-                    {project.description}
-                  </p>
-                  <div style={{
-                    color: '#f857a6',
-                    fontSize: '0.8rem',
-                    fontWeight: 'bold',
-                    letterSpacing: '1px',
-                    textTransform: 'uppercase',
-                    pointerEvents: 'none',
-                    userSelect: 'none'
-                  }}>
-                    {project.date}
-                  </div>
-                </div>
-                
-                {/* Connecting Line - From circle to the card pain in the ass line */}
+            {[
+              { project: projects[0], accentColor: '#f857a6', tagBg: 'rgba(248,87,166,0.15)', tagBorder: 'rgba(248,87,166,0.4)', tagColor: '#f9b8d8' },
+              { project: projects[1], accentColor: '#ff5858', tagBg: 'rgba(255,88,88,0.15)', tagBorder: 'rgba(255,88,88,0.4)', tagColor: '#ffb3b3' },
+              { project: projects[2], accentColor: '#ffcc70', tagBg: 'rgba(255,204,112,0.15)', tagBorder: 'rgba(255,204,112,0.4)', tagColor: '#ffe4a8' },
+              { project: projects[3], accentColor: '#667eea', tagBg: 'rgba(102,126,234,0.15)', tagBorder: 'rgba(102,126,234,0.4)', tagColor: '#b3bcf5' },
+            ].map(({ project, accentColor, tagBg, tagBorder, tagColor }) => (
+              <div
+                key={project.id}
+                onClick={() => openProject(project)}
+                style={{
+                  width: '100%',
+                  height: '220px',
+                  background: '#111',
+                  borderRadius: '12px',
+                  cursor: 'pointer',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+                  flexShrink: 0,
+                }}
+              >
+                {project.screenshot && (
+                  <>
+                    <img
+                      src={project.screenshot}
+                      alt={`${project.name} screenshot`}
+                      style={{
+                        position: 'absolute',
+                        top: 0, left: 0,
+                        width: '100%', height: '100%',
+                        objectFit: 'cover',
+                        borderRadius: '12px',
+                        zIndex: 0,
+                      }}
+                    />
+                    <div style={{
+                      position: 'absolute',
+                      top: 0, left: 0, right: 0, bottom: 0,
+                      background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.15) 100%)',
+                      zIndex: 1,
+                      borderRadius: '12px',
+                    }} />
+                  </>
+                )}
                 <div style={{
                   position: 'absolute',
-                  left: '55%',
-                  top: index === 1 ? 'calc(50% + 20px)' : (index % 2 === 0 ? 'calc(50% - 180px)' : 'calc(50% + 20px)'),
-                  width: '3px',
-                  height: index === 1 ? '180px' : (index % 2 === 0 ? '200px' : '140px'),
-                  background: index % 2 === 0 
-                    ? 'linear-gradient(to top, #f857a6, rgba(248, 87, 166, 0.3))' 
-                    : 'linear-gradient(to bottom, #f857a6, rgba(248, 87, 166, 0.3))',
-                  transform: 'translateX(-50%)',
-                  borderRadius: '2px',
+                  bottom: 0, left: 0, right: 0,
+                  padding: '18px',
                   zIndex: 2,
-                }} />
+                }}>
+                  <p style={{ color: accentColor, fontSize: '0.7rem', marginBottom: '4px', letterSpacing: '0.3px' }}>
+                    {project.date}
+                  </p>
+                  <h3 style={{ color: '#fff', fontSize: '1.1rem', fontWeight: '600', marginBottom: '6px', lineHeight: '1.2' }}>
+                    {project.name}
+                  </h3>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
+                    {project.tech.slice(0, 3).map((tech, i) => (
+                      <span key={i} style={{
+                        padding: '2px 7px',
+                        background: tagBg,
+                        border: `1px solid ${tagBorder}`,
+                        borderRadius: '4px',
+                        fontSize: '0.65rem',
+                        color: tagColor,
+                        fontFamily: 'monospace',
+                      }}>
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
             ))}
           </div>
-        </div>
+        ) : (
+          /* Desktop: Bento Grid */
+          <div style={{
+            width: '100%',
+            maxWidth: '1400px',
+            margin: '0 auto',
+            padding: '20px',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(6, 1fr)',
+            gridTemplateRows: 'repeat(4, 200px)',
+            gap: '20px',
+          }}>
+            {/* Project 1 - Stock Market App */}
+            <div
+              onClick={() => openProject(projects[0])}
+              style={{
+                gridColumn: 'span 3',
+                gridRow: 'span 2',
+                background: '#111',
+                borderRadius: '12px',
+                cursor: 'pointer',
+                position: 'relative',
+                overflow: 'hidden',
+                transition: 'transform 0.3s ease',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+              }}
+            >
+              {projects[0].screenshot && (
+                <>
+                  <img src={projects[0].screenshot} alt={projects[0].name} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }} />
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.15) 100%)', zIndex: 1 }} />
+                </>
+              )}
+              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
+                <p style={{ color: '#f857a6', fontSize: '0.72rem', marginBottom: '6px' }}>{projects[0].date}</p>
+                <h3 style={{ color: '#fff', fontSize: '1.5rem', fontWeight: '600', marginBottom: '8px' }}>{projects[0].name}</h3>
+                <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '14px' }}>{projects[0].description}</p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                  {projects[0].tech.slice(0, 3).map((tech, i) => (
+                    <span key={i} style={{ padding: '3px 8px', background: 'rgba(248,87,166,0.15)', border: '1px solid rgba(248,87,166,0.4)', borderRadius: '4px', fontSize: '0.7rem', color: '#f9b8d8', fontFamily: 'monospace' }}>{tech}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Project 2 - UV Index */}
+            <div
+              onClick={() => openProject(projects[1])}
+              style={{
+                gridColumn: 'span 3',
+                gridRow: 'span 2',
+                background: '#111',
+                borderRadius: '12px',
+                cursor: 'pointer',
+                position: 'relative',
+                overflow: 'hidden',
+                transition: 'transform 0.3s ease',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+              }}
+            >
+              {projects[1].screenshot && (
+                <>
+                  <img src={projects[1].screenshot} alt={projects[1].name} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }} />
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.15) 100%)', zIndex: 1 }} />
+                </>
+              )}
+              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
+                <p style={{ color: '#ff5858', fontSize: '0.72rem', marginBottom: '6px' }}>{projects[1].date}</p>
+                <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '600', marginBottom: '8px' }}>{projects[1].name}</h3>
+                <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '14px' }}>{projects[1].description}</p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                  {projects[1].tech.slice(0, 3).map((tech, i) => (
+                    <span key={i} style={{ padding: '3px 8px', background: 'rgba(255,88,88,0.15)', border: '1px solid rgba(255,88,88,0.4)', borderRadius: '4px', fontSize: '0.7rem', color: '#ffb3b3', fontFamily: 'monospace' }}>{tech}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Project 3 - Portfolio */}
+            <div
+              onClick={() => openProject(projects[2])}
+              style={{
+                gridColumn: 'span 3',
+                gridRow: 'span 2',
+                background: '#111',
+                borderRadius: '12px',
+                cursor: 'pointer',
+                position: 'relative',
+                overflow: 'hidden',
+                transition: 'transform 0.3s ease',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+              }}
+            >
+              {projects[2].screenshot && (
+                <>
+                  <img src={projects[2].screenshot} alt={projects[2].name} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }} />
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.15) 100%)', zIndex: 1 }} />
+                </>
+              )}
+              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
+                <p style={{ color: '#ffcc70', fontSize: '0.72rem', marginBottom: '6px' }}>{projects[2].date}</p>
+                <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '600', marginBottom: '8px' }}>{projects[2].name}</h3>
+                <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '14px' }}>{projects[2].description}</p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                  {projects[2].tech.slice(0, 4).map((tech, i) => (
+                    <span key={i} style={{ padding: '3px 8px', background: 'rgba(255,204,112,0.15)', border: '1px solid rgba(255,204,112,0.4)', borderRadius: '4px', fontSize: '0.7rem', color: '#ffe4a8', fontFamily: 'monospace' }}>{tech}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Project 4 - Algorithm Visualizer */}
+            <div
+              onClick={() => openProject(projects[3])}
+              style={{
+                gridColumn: 'span 3',
+                gridRow: 'span 2',
+                background: '#111',
+                borderRadius: '12px',
+                cursor: 'pointer',
+                position: 'relative',
+                overflow: 'hidden',
+                transition: 'transform 0.3s ease',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+              }}
+            >
+              {projects[3].screenshot && (
+                <>
+                  <img src={projects[3].screenshot} alt={projects[3].name} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }} />
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.15) 100%)', zIndex: 1 }} />
+                </>
+              )}
+              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
+                <p style={{ color: '#667eea', fontSize: '0.72rem', marginBottom: '6px' }}>{projects[3].date}</p>
+                <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '600', marginBottom: '8px' }}>{projects[3].name}</h3>
+                <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '14px' }}>{projects[3].description}</p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                  {projects[3].tech.slice(0, 4).map((tech, i) => (
+                    <span key={i} style={{ padding: '3px 8px', background: 'rgba(102,126,234,0.15)', border: '1px solid rgba(102,126,234,0.4)', borderRadius: '4px', fontSize: '0.7rem', color: '#b3bcf5', fontFamily: 'monospace' }}>{tech}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Project Modall*/}
