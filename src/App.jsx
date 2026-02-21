@@ -1626,351 +1626,235 @@ function App() {
           Things I've built — click any card to learn more
         </p>
         
-        {/* Magnetic Bento Grid */}
-        <div style={{
-          width: '100%',
-          maxWidth: '1400px',
-          margin: '0 auto',
-          padding: '20px',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(6, 1fr)',
-          gridTemplateRows: 'repeat(4, 200px)',
-          gap: '20px',
-        }}>
-          
-          {/* Project 1 - Stock Market App (Large) */}
-          <div 
-            onClick={() => openProject(projects[0])}
-            style={{
-              gridColumn: 'span 3',
-              gridRow: 'span 2',
-              background: '#111',
-              borderRadius: '12px',
-              padding: '0',
-              cursor: 'pointer',
-              position: 'relative',
-              overflow: 'hidden',
-              border: 'none',
-              transition: 'transform 0.3s ease, border-color 0.3s ease',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-            }}
-          >
-            {/* Screenshot Background */}
-            {projects[0].screenshot && (
-              <>
-                <img
-                  src={projects[0].screenshot}
-                  alt={`${projects[0].name} screenshot`}
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    borderRadius: '12px',
-                    zIndex: 0,
-                  }}
-                />
+        {isMobile ? (
+          /* Mobile: simple stacked cards via flexbox */
+          <div style={{
+            width: '100%',
+            padding: '0 16px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+          }}>
+            {[
+              { project: projects[0], accentColor: '#f857a6', tagBg: 'rgba(248,87,166,0.15)', tagBorder: 'rgba(248,87,166,0.4)', tagColor: '#f9b8d8' },
+              { project: projects[1], accentColor: '#ff5858', tagBg: 'rgba(255,88,88,0.15)', tagBorder: 'rgba(255,88,88,0.4)', tagColor: '#ffb3b3' },
+              { project: projects[2], accentColor: '#ffcc70', tagBg: 'rgba(255,204,112,0.15)', tagBorder: 'rgba(255,204,112,0.4)', tagColor: '#ffe4a8' },
+              { project: projects[3], accentColor: '#667eea', tagBg: 'rgba(102,126,234,0.15)', tagBorder: 'rgba(102,126,234,0.4)', tagColor: '#b3bcf5' },
+            ].map(({ project, accentColor, tagBg, tagBorder, tagColor }) => (
+              <div
+                key={project.id}
+                onClick={() => openProject(project)}
+                style={{
+                  width: '100%',
+                  height: '220px',
+                  background: '#111',
+                  borderRadius: '12px',
+                  cursor: 'pointer',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+                  flexShrink: 0,
+                }}
+              >
+                {project.screenshot && (
+                  <>
+                    <img
+                      src={project.screenshot}
+                      alt={`${project.name} screenshot`}
+                      style={{
+                        position: 'absolute',
+                        top: 0, left: 0,
+                        width: '100%', height: '100%',
+                        objectFit: 'cover',
+                        borderRadius: '12px',
+                        zIndex: 0,
+                      }}
+                    />
+                    <div style={{
+                      position: 'absolute',
+                      top: 0, left: 0, right: 0, bottom: 0,
+                      background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.15) 100%)',
+                      zIndex: 1,
+                      borderRadius: '12px',
+                    }} />
+                  </>
+                )}
                 <div style={{
                   position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.15) 100%)',
-                  zIndex: 1,
-                  borderRadius: '12px',
-                }} />
-              </>
-            )}
-            
-            {/* Content */}
-            <div style={{
-              position: 'absolute',
-              bottom: 0,
-              left: 0,
-              right: 0,
-              padding: '24px',
-              zIndex: 2,
-            }}>
-              <p style={{ color: '#f857a6', fontSize: '0.72rem', marginBottom: '6px', letterSpacing: '0.3px' }}>
-                {projects[0].date}
-              </p>
-              <h3 style={{ color: '#fff', fontSize: '1.5rem', fontWeight: '600', marginBottom: '8px', lineHeight: '1.2' }}>
-                {projects[0].name}
-              </h3>
-              <p style={{ color: '#bbb', fontSize: '0.875rem', lineHeight: '1.5', marginBottom: '14px' }}>
-                {projects[0].description}
-              </p>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                {projects[0].tech.slice(0, 3).map((tech, i) => (
-                  <span key={i} style={{
-                    padding: '3px 8px',
-                    background: 'rgba(248,87,166,0.15)',
-                    border: '1px solid rgba(248,87,166,0.4)',
-                    borderRadius: '4px',
-                    fontSize: '0.7rem',
-                    color: '#f9b8d8',
-                    fontFamily: 'monospace',
-                  }}>
-                    {tech}
-                  </span>
-                ))}
+                  bottom: 0, left: 0, right: 0,
+                  padding: '18px',
+                  zIndex: 2,
+                }}>
+                  <p style={{ color: accentColor, fontSize: '0.7rem', marginBottom: '4px', letterSpacing: '0.3px' }}>
+                    {project.date}
+                  </p>
+                  <h3 style={{ color: '#fff', fontSize: '1.1rem', fontWeight: '600', marginBottom: '6px', lineHeight: '1.2' }}>
+                    {project.name}
+                  </h3>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
+                    {project.tech.slice(0, 3).map((tech, i) => (
+                      <span key={i} style={{
+                        padding: '2px 7px',
+                        background: tagBg,
+                        border: `1px solid ${tagBorder}`,
+                        borderRadius: '4px',
+                        fontSize: '0.65rem',
+                        color: tagColor,
+                        fontFamily: 'monospace',
+                      }}>
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          /* Desktop: Bento Grid */
+          <div style={{
+            width: '100%',
+            maxWidth: '1400px',
+            margin: '0 auto',
+            padding: '20px',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(6, 1fr)',
+            gridTemplateRows: 'repeat(4, 200px)',
+            gap: '20px',
+          }}>
+            {/* Project 1 - Stock Market App */}
+            <div
+              onClick={() => openProject(projects[0])}
+              style={{
+                gridColumn: 'span 3',
+                gridRow: 'span 2',
+                background: '#111',
+                borderRadius: '12px',
+                cursor: 'pointer',
+                position: 'relative',
+                overflow: 'hidden',
+                transition: 'transform 0.3s ease',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+              }}
+            >
+              {projects[0].screenshot && (
+                <>
+                  <img src={projects[0].screenshot} alt={projects[0].name} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }} />
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.15) 100%)', zIndex: 1 }} />
+                </>
+              )}
+              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
+                <p style={{ color: '#f857a6', fontSize: '0.72rem', marginBottom: '6px' }}>{projects[0].date}</p>
+                <h3 style={{ color: '#fff', fontSize: '1.5rem', fontWeight: '600', marginBottom: '8px' }}>{projects[0].name}</h3>
+                <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '14px' }}>{projects[0].description}</p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                  {projects[0].tech.slice(0, 3).map((tech, i) => (
+                    <span key={i} style={{ padding: '3px 8px', background: 'rgba(248,87,166,0.15)', border: '1px solid rgba(248,87,166,0.4)', borderRadius: '4px', fontSize: '0.7rem', color: '#f9b8d8', fontFamily: 'monospace' }}>{tech}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Project 2 - UV Index */}
+            <div
+              onClick={() => openProject(projects[1])}
+              style={{
+                gridColumn: 'span 3',
+                gridRow: 'span 2',
+                background: '#111',
+                borderRadius: '12px',
+                cursor: 'pointer',
+                position: 'relative',
+                overflow: 'hidden',
+                transition: 'transform 0.3s ease',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+              }}
+            >
+              {projects[1].screenshot && (
+                <>
+                  <img src={projects[1].screenshot} alt={projects[1].name} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }} />
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.15) 100%)', zIndex: 1 }} />
+                </>
+              )}
+              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
+                <p style={{ color: '#ff5858', fontSize: '0.72rem', marginBottom: '6px' }}>{projects[1].date}</p>
+                <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '600', marginBottom: '8px' }}>{projects[1].name}</h3>
+                <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '14px' }}>{projects[1].description}</p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                  {projects[1].tech.slice(0, 3).map((tech, i) => (
+                    <span key={i} style={{ padding: '3px 8px', background: 'rgba(255,88,88,0.15)', border: '1px solid rgba(255,88,88,0.4)', borderRadius: '4px', fontSize: '0.7rem', color: '#ffb3b3', fontFamily: 'monospace' }}>{tech}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Project 3 - Portfolio */}
+            <div
+              onClick={() => openProject(projects[2])}
+              style={{
+                gridColumn: 'span 3',
+                gridRow: 'span 2',
+                background: '#111',
+                borderRadius: '12px',
+                cursor: 'pointer',
+                position: 'relative',
+                overflow: 'hidden',
+                transition: 'transform 0.3s ease',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+              }}
+            >
+              {projects[2].screenshot && (
+                <>
+                  <img src={projects[2].screenshot} alt={projects[2].name} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }} />
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.15) 100%)', zIndex: 1 }} />
+                </>
+              )}
+              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
+                <p style={{ color: '#ffcc70', fontSize: '0.72rem', marginBottom: '6px' }}>{projects[2].date}</p>
+                <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '600', marginBottom: '8px' }}>{projects[2].name}</h3>
+                <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '14px' }}>{projects[2].description}</p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                  {projects[2].tech.slice(0, 4).map((tech, i) => (
+                    <span key={i} style={{ padding: '3px 8px', background: 'rgba(255,204,112,0.15)', border: '1px solid rgba(255,204,112,0.4)', borderRadius: '4px', fontSize: '0.7rem', color: '#ffe4a8', fontFamily: 'monospace' }}>{tech}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Project 4 - Algorithm Visualizer */}
+            <div
+              onClick={() => openProject(projects[3])}
+              style={{
+                gridColumn: 'span 3',
+                gridRow: 'span 2',
+                background: '#111',
+                borderRadius: '12px',
+                cursor: 'pointer',
+                position: 'relative',
+                overflow: 'hidden',
+                transition: 'transform 0.3s ease',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+              }}
+            >
+              {projects[3].screenshot && (
+                <>
+                  <img src={projects[3].screenshot} alt={projects[3].name} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }} />
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.15) 100%)', zIndex: 1 }} />
+                </>
+              )}
+              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
+                <p style={{ color: '#667eea', fontSize: '0.72rem', marginBottom: '6px' }}>{projects[3].date}</p>
+                <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '600', marginBottom: '8px' }}>{projects[3].name}</h3>
+                <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '14px' }}>{projects[3].description}</p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                  {projects[3].tech.slice(0, 4).map((tech, i) => (
+                    <span key={i} style={{ padding: '3px 8px', background: 'rgba(102,126,234,0.15)', border: '1px solid rgba(102,126,234,0.4)', borderRadius: '4px', fontSize: '0.7rem', color: '#b3bcf5', fontFamily: 'monospace' }}>{tech}</span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-
-          {/* Project 2 - UV Index (Tall) */}
-          <div 
-            onClick={() => openProject(projects[1])}
-            style={{
-              gridColumn: 'span 3',
-              gridRow: 'span 2',
-              background: '#111',
-              borderRadius: '12px',
-              padding: '0',
-              cursor: 'pointer',
-              position: 'relative',
-              overflow: 'hidden',
-              border: 'none',
-              transition: 'transform 0.3s ease, border-color 0.3s ease',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-            }}
-          >
-            {/* Screenshot Background */}
-            {projects[1].screenshot && (
-              <>
-                <img
-                  src={projects[1].screenshot}
-                  alt={`${projects[1].name} screenshot`}
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    borderRadius: '12px',
-                    zIndex: 0,
-                  }}
-                />
-                <div style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.15) 100%)',
-                  zIndex: 1,
-                  borderRadius: '12px',
-                }} />
-              </>
-            )}
-            
-            {/* Content */}
-            <div style={{
-              position: 'absolute',
-              bottom: 0,
-              left: 0,
-              right: 0,
-              padding: '24px',
-              zIndex: 2,
-            }}>
-              <p style={{ color: '#ff5858', fontSize: '0.72rem', marginBottom: '6px', letterSpacing: '0.3px' }}>
-                {projects[1].date}
-              </p>
-              <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '600', marginBottom: '8px', lineHeight: '1.2' }}>
-                {projects[1].name}
-              </h3>
-              <p style={{ color: '#bbb', fontSize: '0.875rem', lineHeight: '1.5', marginBottom: '14px' }}>
-                {projects[1].description}
-              </p>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                {projects[1].tech.slice(0, 3).map((tech, i) => (
-                  <span key={i} style={{
-                    padding: '3px 8px',
-                    background: 'rgba(255,88,88,0.15)',
-                    border: '1px solid rgba(255,88,88,0.4)',
-                    borderRadius: '4px',
-                    fontSize: '0.7rem',
-                    color: '#ffb3b3',
-                    fontFamily: 'monospace',
-                  }}>
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Project 3 - Portfolio (Wide) */}
-          <div 
-            onClick={() => openProject(projects[2])}
-            style={{
-              gridColumn: 'span 3',
-              gridRow: 'span 2',
-              background: '#111',
-              borderRadius: '12px',
-              padding: '0',
-              cursor: 'pointer',
-              position: 'relative',
-              overflow: 'hidden',
-              border: 'none',
-              transition: 'transform 0.3s ease, border-color 0.3s ease',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-            }}
-          >
-            {/* Screenshot Background */}
-            {projects[2].screenshot && (
-              <>
-                <img
-                  src={projects[2].screenshot}
-                  alt={`${projects[2].name} screenshot`}
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    borderRadius: '12px',
-                    zIndex: 0,
-                  }}
-                />
-                <div style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.15) 100%)',
-                  zIndex: 1,
-                  borderRadius: '12px',
-                }} />
-              </>
-            )}
-            
-            {/* Content */}
-            <div style={{
-              position: 'absolute',
-              bottom: 0,
-              left: 0,
-              right: 0,
-              padding: '24px',
-              zIndex: 2,
-            }}>
-              <p style={{ color: '#ffcc70', fontSize: '0.72rem', marginBottom: '6px', letterSpacing: '0.3px' }}>
-                {projects[2].date}
-              </p>
-              <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '600', marginBottom: '8px', lineHeight: '1.2' }}>
-                {projects[2].name}
-              </h3>
-              <p style={{ color: '#bbb', fontSize: '0.875rem', lineHeight: '1.5', marginBottom: '14px' }}>
-                {projects[2].description}
-              </p>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                {projects[2].tech.slice(0, 4).map((tech, i) => (
-                  <span key={i} style={{
-                    padding: '3px 8px',
-                    background: 'rgba(255,204,112,0.15)',
-                    border: '1px solid rgba(255,204,112,0.4)',
-                    borderRadius: '4px',
-                    fontSize: '0.7rem',
-                    color: '#ffe4a8',
-                    fontFamily: 'monospace',
-                  }}>
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Project 4 - Algorithm Visualizer (Medium) */}
-          <div 
-            onClick={() => openProject(projects[3])}
-            style={{
-              gridColumn: 'span 3',
-              gridRow: 'span 2',
-              background: '#111',
-              borderRadius: '12px',
-              padding: '0',
-              cursor: 'pointer',
-              position: 'relative',
-              overflow: 'hidden',
-              border: 'none',
-              transition: 'transform 0.3s ease, border-color 0.3s ease',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-            }}
-          >
-            {/* Screenshot Background */}
-            {projects[3].screenshot && (
-              <>
-                <img
-                  src={projects[3].screenshot}
-                  alt={`${projects[3].name} screenshot`}
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    borderRadius: '12px',
-                    zIndex: 0,
-                  }}
-                />
-                <div style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.15) 100%)',
-                  zIndex: 1,
-                  borderRadius: '12px',
-                }} />
-              </>
-            )}
-            
-            {/* Content */}
-            <div style={{
-              position: 'absolute',
-              bottom: 0,
-              left: 0,
-              right: 0,
-              padding: '24px',
-              zIndex: 2,
-            }}>
-              <p style={{ color: '#667eea', fontSize: '0.72rem', marginBottom: '6px', letterSpacing: '0.3px' }}>
-                {projects[3].date}
-              </p>
-              <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '600', marginBottom: '8px', lineHeight: '1.2' }}>
-                {projects[3].name}
-              </h3>
-              <p style={{ color: '#bbb', fontSize: '0.875rem', lineHeight: '1.5', marginBottom: '14px' }}>
-                {projects[3].description}
-              </p>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                {projects[3].tech.slice(0, 4).map((tech, i) => (
-                  <span key={i} style={{
-                    padding: '3px 8px',
-                    background: 'rgba(102,126,234,0.15)',
-                    border: '1px solid rgba(102,126,234,0.4)',
-                    borderRadius: '4px',
-                    fontSize: '0.7rem',
-                    color: '#b3bcf5',
-                    fontFamily: 'monospace',
-                  }}>
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-        </div>
+        )}
       </section>
 
       {/* Project Modall*/}
