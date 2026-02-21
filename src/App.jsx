@@ -8,7 +8,6 @@ function App() {
   const workRef = useRef(null);
   const projectsRef = useRef(null);
   const skillsRef = useRef(null);
-  const certsRef = useRef(null);
   const [selectedProject, setSelectedProject] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentProjectVisible, setCurrentProjectVisible] = useState(true);
@@ -360,7 +359,6 @@ function App() {
               { label: 'About', ref: aboutRef },
               { label: 'Experience', ref: workRef },
               { label: 'Skills', ref: skillsRef },
-              { label: 'Certifications', ref: certsRef },
               { label: 'Projects', ref: projectsRef }
             ].map((item, index) => (
               <button
@@ -579,7 +577,6 @@ function App() {
               { label: 'About', ref: aboutRef },
               { label: 'Experience', ref: workRef },
               { label: 'Skills', ref: skillsRef },
-              { label: 'Certifications', ref: certsRef },
               { label: 'Projects', ref: projectsRef }
             ].map((item, index) => (
               <button
@@ -1093,7 +1090,7 @@ function App() {
         id="next-section"
         style={{
           minHeight: '100vh',
-          background: 'radial-gradient(ellipse at 20% 0%, rgba(139,26,42,0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 0%, rgba(232,213,176,0.06) 0%, transparent 55%), #0a0a0a',
+          background: '#222',
           color: '#fff',
           display: 'flex',
           flexDirection: 'column',
@@ -1154,7 +1151,7 @@ function App() {
       <section
         ref={skillsRef}
         style={{
-          background: 'radial-gradient(ellipse at 20% 0%, rgba(139,26,42,0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 0%, rgba(232,213,176,0.06) 0%, transparent 55%), #0a0a0a',
+          background: '#222',
           color: '#fff',
           padding: '80px 20px',
           display: 'flex',
@@ -1244,7 +1241,7 @@ function App() {
         ref={workRef}
         className="work-experience-section"
         style={{
-          background: 'radial-gradient(ellipse at 20% 0%, rgba(139,26,42,0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 0%, rgba(232,213,176,0.06) 0%, transparent 55%), #0a0a0a',
+          background: '#222',
           color: '#fff',
           display: 'flex',
           flexDirection: 'column',
@@ -1569,7 +1566,7 @@ function App() {
       <section
         ref={projectsRef}
         style={{
-          background: 'radial-gradient(ellipse at 20% 0%, rgba(139,26,42,0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 0%, rgba(232,213,176,0.06) 0%, transparent 55%), #0a0a0a',
+          background: '#222',
           color: '#fff',
           display: 'flex',
           flexDirection: 'column',
@@ -1636,19 +1633,18 @@ function App() {
           margin: '0 auto',
           padding: '20px',
           display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : 'repeat(6, 1fr)',
-          gridTemplateRows: isMobile ? 'auto' : 'repeat(4, 200px)',
-          gap: isMobile ? '16px' : '20px',
+          gridTemplateColumns: 'repeat(6, 1fr)',
+          gridTemplateRows: 'repeat(4, 200px)',
+          gap: '20px',
         }}>
-
+          
           {/* Project 1 - Stock Market App (Large) */}
-          <div
+          <div 
             onClick={() => openProject(projects[0])}
             style={{
-              gridColumn: isMobile ? 'span 1' : 'span 3',
-              gridRow: isMobile ? 'span 1' : 'span 2',
-              height: isMobile ? '240px' : 'auto',
-              background: '#0d0d0d',
+              gridColumn: 'span 3',
+              gridRow: 'span 2',
+              background: '#111',
               borderRadius: '12px',
               padding: '0',
               cursor: 'pointer',
@@ -1726,13 +1722,12 @@ function App() {
           </div>
 
           {/* Project 2 - UV Index (Tall) */}
-          <div
+          <div 
             onClick={() => openProject(projects[1])}
             style={{
-              gridColumn: isMobile ? 'span 1' : 'span 3',
-              gridRow: isMobile ? 'span 1' : 'span 2',
-              height: isMobile ? '240px' : 'auto',
-              background: '#0d0d0d',
+              gridColumn: 'span 3',
+              gridRow: 'span 2',
+              background: '#111',
               borderRadius: '12px',
               padding: '0',
               cursor: 'pointer',
@@ -1810,13 +1805,12 @@ function App() {
           </div>
 
           {/* Project 3 - Portfolio (Wide) */}
-          <div
+          <div 
             onClick={() => openProject(projects[2])}
             style={{
-              gridColumn: isMobile ? 'span 1' : 'span 3',
-              gridRow: isMobile ? 'span 1' : 'span 2',
-              height: isMobile ? '240px' : 'auto',
-              background: '#0d0d0d',
+              gridColumn: 'span 3',
+              gridRow: 'span 2',
+              background: '#111',
               borderRadius: '12px',
               padding: '0',
               cursor: 'pointer',
@@ -1894,13 +1888,12 @@ function App() {
           </div>
 
           {/* Project 4 - Algorithm Visualizer (Medium) */}
-          <div
+          <div 
             onClick={() => openProject(projects[3])}
             style={{
-              gridColumn: isMobile ? 'span 1' : 'span 3',
-              gridRow: isMobile ? 'span 1' : 'span 2',
-              height: isMobile ? '240px' : 'auto',
-              background: '#0d0d0d',
+              gridColumn: 'span 3',
+              gridRow: 'span 2',
+              background: '#111',
               borderRadius: '12px',
               padding: '0',
               cursor: 'pointer',
@@ -2217,102 +2210,9 @@ function App() {
         </div>
       )}
 
-      {/* Certifications Section */}
-      <section
-        ref={certsRef}
-        style={{
-          background: 'radial-gradient(ellipse at 20% 0%, rgba(139,26,42,0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 0%, rgba(232,213,176,0.06) 0%, transparent 55%), #0a0a0a',
-          color: '#fff',
-          padding: '80px 20px',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <h2 style={{
-          fontSize: '3.5rem',
-          marginBottom: '50px',
-          textAlign: 'center',
-          fontWeight: 'bold',
-          color: '#C0364A',
-        }}>
-          Certifications
-        </h2>
-
-        <div style={{ maxWidth: '700px', width: '100%' }}>
-          <div style={{
-            background: 'linear-gradient(135deg, rgba(15,15,15,0.95), rgba(10,10,10,0.95))',
-            border: '1px solid rgba(139,26,42,0.4)',
-            borderRadius: '16px',
-            padding: '30px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '24px',
-            backdropFilter: 'blur(15px)',
-            boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
-            transition: 'all 0.3s ease',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-4px)';
-            e.currentTarget.style.border = '1px solid rgba(139,26,42,0.7)';
-            e.currentTarget.style.boxShadow = '0 20px 50px rgba(139,26,42,0.2)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.border = '1px solid rgba(139,26,42,0.4)';
-            e.currentTarget.style.boxShadow = '0 10px 40px rgba(0,0,0,0.3)';
-          }}
-          >
-            {/* Anthropic Logo */}
-            <div style={{
-              width: '56px',
-              height: '56px',
-              borderRadius: '12px',
-              background: 'linear-gradient(145deg, #C87850, #8B4020)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-            }}>
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
-                <path d="M13.827 3.52h3.603L24 20h-3.603l-6.57-16.48zm-3.654 0H6.57L0 20h3.603l1.378-3.504h6.875L13.233 20h3.603l-6.663-16.48zm-1.209 9.997H12l-1.548-3.96-1.488 3.96z"/>
-              </svg>
-            </div>
-
-            <div style={{ flex: 1 }}>
-              <h3 style={{
-                color: '#E8D5B0',
-                fontSize: '1.2rem',
-                fontWeight: '600',
-                marginBottom: '6px',
-                lineHeight: '1.3',
-              }}>
-                AI Fluency: Framework & Foundations
-              </h3>
-              <p style={{
-                color: 'rgba(232,213,176,0.5)',
-                fontSize: '0.9rem',
-                margin: 0,
-              }}>
-                Anthropic
-              </p>
-            </div>
-
-            <div style={{
-              width: '8px',
-              height: '8px',
-              borderRadius: '50%',
-              background: '#C0364A',
-              boxShadow: '0 0 8px rgba(192,54,74,0.6)',
-              flexShrink: 0,
-            }} />
-          </div>
-        </div>
-      </section>
-
       <section
         style={{
-          background: 'radial-gradient(ellipse at 20% 0%, rgba(139,26,42,0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 0%, rgba(232,213,176,0.06) 0%, transparent 55%), #0a0a0a',
+          background: '#222',
           color: '#fff',
           padding: '80px 20px',
         }}
@@ -2606,7 +2506,7 @@ function App() {
       {/* Footer Section with Contributors */}
       <footer
         style={{
-          background: 'radial-gradient(ellipse at 20% 0%, rgba(139,26,42,0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 0%, rgba(232,213,176,0.06) 0%, transparent 55%), #0a0a0a',
+          background: '#222',
           color: '#fff',
           padding: '80px 20px 40px',
           borderTop: '1px solid rgba(248, 87, 166, 0.2)',
