@@ -8,6 +8,7 @@ function App() {
   const workRef = useRef(null);
   const projectsRef = useRef(null);
   const skillsRef = useRef(null);
+  const certificationsRef = useRef(null);
   const [selectedProject, setSelectedProject] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentProjectVisible, setCurrentProjectVisible] = useState(true);
@@ -129,7 +130,7 @@ function App() {
       name: "Stock Market App",
       description: "A comprehensive stock tracking application with real-time data and analytics",
       date: "April 2024 - May 2024",
-      tech: ["Python", "Tkinter", "Matplotlib", "API Integration", "JSON", "Pickle"],
+      tech: ["Python", "Flask", "Flask-SocketIO", "Flask-CORS", "React 19", "JavaScript", "HTML", "CSS", "Firebase", "Firestore", "Yahoo Finance API", "Alpaca API", "Google Gemini AI", "Recharts", "WebSockets", "REST APIs", "Railway", "Vercel", "Gunicorn"],
       images: ["/stock-app-placeholder.jpg"],
       screenshot: "/screenshots/Stock-Watchlist.png",
       details: "Spearheaded the conceptualization and development of a stock market app by integrating modules such as Tkinter, Matplotlib, datetime, pickle and an API resulting in a streamlined user experience that improved information retrieval speed by 40%. Executed a systematic timeline for app development, including idea generation, concept creation, building the app with real-time data visualization and user-friendly interface design.",
@@ -359,7 +360,8 @@ function App() {
               { label: 'About', ref: aboutRef },
               { label: 'Experience', ref: workRef },
               { label: 'Skills', ref: skillsRef },
-              { label: 'Projects', ref: projectsRef }
+              { label: 'Projects', ref: projectsRef },
+              { label: 'Certifications', ref: certificationsRef }
             ].map((item, index) => (
               <button
                 key={index}
@@ -577,7 +579,8 @@ function App() {
               { label: 'About', ref: aboutRef },
               { label: 'Experience', ref: workRef },
               { label: 'Skills', ref: skillsRef },
-              { label: 'Projects', ref: projectsRef }
+              { label: 'Projects', ref: projectsRef },
+              { label: 'Certifications', ref: certificationsRef }
             ].map((item, index) => (
               <button
                 key={index}
@@ -1579,15 +1582,15 @@ function App() {
         {/* Timeline Connection from Work Experience */}
         <div style={{
           position: 'absolute',
-          top: '0',
+          top: '-100px',
           left: '50%',
           transform: 'translateX(-50%)',
           width: '4px',
-          height: '60px',
+          height: '160px',
           background: 'linear-gradient(to bottom, #f857a6, #ff5858)',
           zIndex: 1,
         }} />
-        
+
         {/* Curved Transition from Vertical to Horizontal */}
         <div style={{
           position: 'absolute',
@@ -1748,7 +1751,7 @@ function App() {
                 <h3 style={{ color: '#fff', fontSize: '1.5rem', fontWeight: '600', marginBottom: '8px' }}>{projects[0].name}</h3>
                 <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '14px' }}>{projects[0].description}</p>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                  {projects[0].tech.slice(0, 3).map((tech, i) => (
+                  {projects[0].tech.slice(0, 6).map((tech, i) => (
                     <span key={i} style={{ padding: '3px 8px', background: 'rgba(248,87,166,0.15)', border: '1px solid rgba(248,87,166,0.4)', borderRadius: '4px', fontSize: '0.7rem', color: '#f9b8d8', fontFamily: 'monospace' }}>{tech}</span>
                   ))}
                 </div>
@@ -2093,6 +2096,106 @@ function App() {
           </div>
         </div>
       )}
+
+      {/* Certifications Section */}
+      <section
+        ref={certificationsRef}
+        style={{
+          background: '#222',
+          color: '#fff',
+          padding: '80px 20px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <h2 className="gradient_text" style={{
+          fontSize: '3.5rem',
+          marginBottom: '50px',
+          textAlign: 'center',
+          fontWeight: 'bold',
+        }}>
+          Licenses &amp; Certifications
+        </h2>
+
+        <div style={{
+          maxWidth: '800px',
+          width: '100%',
+        }}>
+          {/* Anthropic Cert Card */}
+          <div
+            style={{
+              background: 'linear-gradient(135deg, rgba(45, 45, 45, 0.8), rgba(25, 25, 25, 0.8))',
+              borderRadius: '15px',
+              padding: '28px',
+              border: '1px solid rgba(248, 87, 166, 0.3)',
+              backdropFilter: 'blur(10px)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '24px',
+              transition: 'all 0.3s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.6)';
+              e.currentTarget.style.boxShadow = '0 20px 50px rgba(248, 87, 166, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.3)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
+            {/* Anthropic "A" icon */}
+            <div style={{
+              width: '64px',
+              height: '64px',
+              borderRadius: '12px',
+              background: 'linear-gradient(135deg, #c96442, #e8845a)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+            }}>
+              <span style={{
+                color: '#fff',
+                fontSize: '2rem',
+                fontWeight: '800',
+                fontFamily: 'serif',
+                lineHeight: 1,
+              }}>A</span>
+            </div>
+
+            {/* Cert Info */}
+            <div style={{ flex: 1 }}>
+              <h3 style={{
+                color: '#fff',
+                fontSize: '1.15rem',
+                fontWeight: '700',
+                marginBottom: '4px',
+                lineHeight: '1.3',
+              }}>
+                AI Fluency: Framework &amp; Foundations
+              </h3>
+              <p style={{
+                color: '#ffcc70',
+                fontSize: '0.82rem',
+                fontWeight: '500',
+                marginBottom: '4px',
+              }}>
+                Issued Feb 2026
+              </p>
+              <p style={{
+                color: '#f857a6',
+                fontSize: '0.82rem',
+                fontWeight: '600',
+              }}>
+                Anthropic
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section
         style={{
