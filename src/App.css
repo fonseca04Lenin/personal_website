@@ -42,61 +42,16 @@ img, video, iframe, object, embed {
   filter: drop-shadow(0 0 25px rgba(255, 204, 112, 0.3));
 }
 
-/* Special enhanced styling for section headings */
-.gradient_text[style*="fontSize: '3.5rem'"] {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f857a6 50%, #ff5858 75%, #ffcc70 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0 0 40px rgba(102, 126, 234, 0.4);
-  filter: drop-shadow(0 0 25px rgba(118, 75, 162, 0.3));
-  animation: gradientShift 3s ease-in-out infinite;
-}
-
-/* Hover effect for section headings */
-.gradient_text[style*="fontSize: '3.5rem'"]:hover {
-  background: linear-gradient(135deg, #ffcc70 0%, #ff5858 25%, #f857a6 50%, #764ba2 75%, #667eea 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  transform: scale(1.03);
-  text-shadow: 0 0 50px rgba(255, 204, 112, 0.5);
-  filter: drop-shadow(0 0 30px rgba(255, 88, 88, 0.4));
-}
-
-/* Animation for gradient shift */
-@keyframes gradientShift {
-  0%, 100% {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f857a6 50%, #ff5858 75%, #ffcc70 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  50% {
-    background: linear-gradient(135deg, #ffcc70 0%, #ff5858 25%, #f857a6 50%, #764ba2 75%, #667eea 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-}
-
 /* Enhanced section heading styles */
 section h2.gradient_text {
   position: relative;
   z-index: 2;
+  text-shadow:
+    0 0 30px rgba(248, 87, 166, 0.3),
+    0 0 60px rgba(255, 88, 88, 0.2),
+    0 0 90px rgba(255, 204, 112, 0.1);
+  animation: subtlePulse 4s ease-in-out infinite;
 }
-
-/* Disable default hover effect for all gradient_text headings */
-section h2.gradient_text::before {
-  display: none !important;
-}
-
-section h2.gradient_text:hover::before {
-  display: none !important;
-}
-
-
-
 
 /* Special styling for the "Technical Skills" heading */
 .technical-skills-heading {
@@ -120,15 +75,6 @@ section h2.gradient_text[style*="Let's Build Something Amazing Together"] {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-shadow: 0 0 35px rgba(248, 87, 166, 0.4);
-}
-
-/* Enhanced text shadow for better readability */
-section h2.gradient_text {
-  text-shadow: 
-    0 0 30px rgba(248, 87, 166, 0.3),
-    0 0 60px rgba(255, 88, 88, 0.2),
-    0 0 90px rgba(255, 204, 112, 0.1);
-  animation: subtlePulse 4s ease-in-out infinite;
 }
 
 /* Subtle pulse animation for section headings */
@@ -240,26 +186,6 @@ nav .gradient_text:hover {
     transform: translateY(0);
   }
 }
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -268,18 +194,6 @@ nav .gradient_text:hover {
 @keyframes blink {
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
-}
-
-@keyframes gradientRotate {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
 }
 
 /* Current Project Floating Comhponent Animations */
@@ -302,15 +216,6 @@ nav .gradient_text:hover {
   50% {
     transform: scale(1.1);
     opacity: 0.8;
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
   }
 }
 

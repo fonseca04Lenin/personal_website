@@ -1,7 +1,91 @@
-import { useRef, useState, useEffect, useMemo } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/react'
 import './App.css'
+
+const projects = [
+  {
+    id: 1,
+    name: "Stock Market App",
+    description: "Real-time portfolio tracker with live stock prices, visual animations, and AI-powered investment advice.",
+    status: "Currently Working On",
+    progress: 85,
+    date: "April 2024 - May 2024",
+    tech: ["Python", "Flask", "Flask-SocketIO", "Flask-CORS", "React 19", "JavaScript", "HTML", "CSS", "Firebase", "Firestore", "Yahoo Finance API", "Alpaca API", "Google Gemini AI", "Recharts", "WebSockets", "REST APIs", "Railway", "Vercel", "Gunicorn"],
+    images: ["/stock-app-placeholder.jpg"],
+    screenshot: "/screenshots/Stock-Watchlist.png",
+    details: "Spearheaded the conceptualization and development of a stock market app by integrating modules such as Tkinter, Matplotlib, datetime, pickle and an API resulting in a streamlined user experience that improved information retrieval speed by 40%. Executed a systematic timeline for app development, including idea generation, concept creation, building the app with real-time data visualization and user-friendly interface design.",
+    live: "https://www.aistocksage.com/"
+  },
+  {
+    id: 2,
+    name: "UV Index Checker Web App",
+    description: "Interactive web application providing instant UV index updates through geolocation",
+    date: "August 2024",
+    tech: ["Python", "Flask", "HTML", "CSS", "Jinja2", "RESTful APIs", "JSON", "Geolocation"],
+    images: ["/uv-checker-placeholder.jpg"],
+    screenshot: "/screenshots/Weather-App.png",
+    details: "Designed an interactive web application employing Python and Flask to provide instant UV index updates through geolocation services; streamlined data retrieval process, reducing load times by 60% and increasing user satisfaction. Created an intuitive and user-friendly interface with HTML, CSS, and Jinja2 templating to provide users with clear visual indicators of UV levels using color-coded categories for low, moderate, and high UV indexes. Implemented RESTful API calls to obtain current and forecasted UV index data, leveraging JSON data parsing to handle and display relevant information.",
+    github: "https://github.com/fonseca04Lenin/UV-Index-Web-Project",
+    live: "https://uv-index-web-project.onrender.com/"
+  },
+  {
+    id: 3,
+    name: "Personal Portfolio Website",
+    description: "Modern, responsive portfolio website built with React and Vite featuring interactive animations and professional design",
+    date: "May 2025",
+    tech: ["React", "Vite", "JavaScript", "CSS3", "HTML5", "Vercel Analytics", "Responsive Design", "Modern UI/UX"],
+    images: ["/portfolio-website-placeholder.jpg"],
+    screenshot: "/screenshots/Portfolio-Website .png",
+    details: "Designed and developed a fully responsive personal portfolio website from scratch using React and Vite, featuring a modern gradient-based design system, smooth scrolling navigation, and interactive animations. Implemented a dynamic project timeline with modal overlays, mobile-first responsive design, and optimized performance. The site showcases advanced CSS techniques including custom animations, gradient text effects, and glassmorphism design elements. Integrated Vercel Analytics for visitor tracking and deployed with modern web development best practices.",
+    github: "https://github.com/fonseca04Lenin/personal_website",
+    live: "https://elvinfonseca.com"
+  },
+  {
+    id: 4,
+    name: "Algorithm Visualizer",
+    description: "Interactive educational tool for learning computer science algorithms through step-by-step visual demonstrations",
+    date: "September 2025",
+    tech: ["React", "TypeScript", "D3.js", "Tailwind CSS", "Vite", "Vercel", "Graph Algorithms", "Sorting Algorithms"],
+    images: ["/algorithm-visualizer-placeholder.jpg"],
+    screenshot: "/screenshots/Algorithm-visualizer.png",
+    details: "Built a comprehensive algorithm visualization platform that helps students and developers understand fundamental computer science algorithms through interactive demonstrations. Features sorting algorithms (Bubble Sort, Merge Sort, Quick Sort) and graph traversal algorithms (BFS, DFS) with step-by-step execution, real-time highlighting, and customizable input data. Implemented with React 19 and TypeScript for type safety, styled with Tailwind CSS for responsive design, and uses D3.js for advanced graph rendering. The application provides educational value for CS students, coding bootcamp participants, and interview preparation with clear visual feedback and explanations.",
+    github: "https://github.com/fonseca04Lenin/collaborative-algorithm-visualizer",
+    live: "https://frontend-sandy-six-30.vercel.app/"
+  }
+];
+
+const currentProject = projects[0];
+
+const skills = {
+  "Languages": ["JavaScript", "TypeScript", "Python", "C", "HTML5", "CSS3"],
+  "Frontend": ["React", "JavaScript", "TypeScript", "HTML5", "CSS3", "Vue.js", "Angular", "Responsive Design"],
+  "Backend": ["Python", "Flask", "Laravel", "Node.js", "PHP", "RESTful APIs", "JSON", "Firebase"],
+  "Mobile": ["React Native", "Cross-platform Development", "iOS Development"],
+  "Tools & Technologies": ["Git", "CI/CD", "GitHub Actions", "Docker", "Postman", "Linux", "Xcode", "Jira", "Excel", "Vite", "Vercel", "Render", "Matplotlib", "Pandas", "Jupyter Notebooks", "API Integration"],
+  "Databases": ["Firebase", "MySQL", "PostgreSQL", "MongoDB", "JSON Data Processing"],
+  "Soft Skills": ["Team Collaboration", "Agile Development", "Problem Solving", "Code Review", "Performance Optimization", "Gambling"]
+};
+
+const excludedHeroCategories = new Set(["Soft Skills"]);
+const seenHeroSkills = new Set();
+const rotatingSkillsForHero = Object.entries(skills)
+  .filter(([cat]) => !excludedHeroCategories.has(cat))
+  .flatMap(([, list]) => list)
+  .filter((skill) => {
+    if (seenHeroSkills.has(skill)) return false;
+    seenHeroSkills.add(skill);
+    return true;
+  });
+
+const rotatingSkillSets = (() => {
+  const chunkSize = 4;
+  const grouped = [];
+  for (let i = 0; i < rotatingSkillsForHero.length; i += chunkSize) {
+    grouped.push(rotatingSkillsForHero.slice(i, i + chunkSize));
+  }
+  return grouped.length > 0 ? grouped : [rotatingSkillsForHero];
+})();
 
 function App() {
   const aboutRef = useRef(null);
@@ -39,9 +123,9 @@ function App() {
 
         if (data && data.contributions) {
           const allContributions = data.contributions.flat();
-          const last365 = allContributions.slice(-371);
+          const last371 = allContributions.slice(-371);
 
-          setContributions(last365);
+          setContributions(last371);
         }
       } catch (error) {
         console.error('Failed to fetch GitHub contributions:', error);
@@ -108,171 +192,13 @@ function App() {
     setMobileMenuOpen(false); // Close mobile menu after navigation
   };
 
-  const handleResumeDownload = () => {
-    const timestamp = new Date().toISOString();
-    
-    // Track resume download with Vercel Analytics
-    console.log(`Resume downloaded at: ${timestamp}`);
-  };
-
-  const currentProject = {
-    name: "Stock Market App",
-    description: "Real-time portfolio tracker with live stock prices, visual animations, and AI-powered investment advice.",
-    status: "Currently Working On",
-    progress: 85,
-    tech: ["JavaScript", "Python", "Flask", "Firebase", "Yahoo Finance API"],
-    live: "https://www.aistocksage.com/"
-  };
-
-  const projects = [
-    {
-      id: 1,
-      name: "Stock Market App",
-      description: "A comprehensive stock tracking application with real-time data and analytics",
-      date: "April 2024 - May 2024",
-      tech: ["Python", "Flask", "Flask-SocketIO", "Flask-CORS", "React 19", "JavaScript", "HTML", "CSS", "Firebase", "Firestore", "Yahoo Finance API", "Alpaca API", "Google Gemini AI", "Recharts", "WebSockets", "REST APIs", "Railway", "Vercel", "Gunicorn"],
-      images: ["/stock-app-placeholder.jpg"],
-      screenshot: "/screenshots/Stock-Watchlist.png",
-      details: "Spearheaded the conceptualization and development of a stock market app by integrating modules such as Tkinter, Matplotlib, datetime, pickle and an API resulting in a streamlined user experience that improved information retrieval speed by 40%. Executed a systematic timeline for app development, including idea generation, concept creation, building the app with real-time data visualization and user-friendly interface design.",
-      live: "https://www.aistocksage.com/"
-    },
-    {
-      id: 2,
-      name: "UV Index Checker Web App",
-      description: "Interactive web application providing instant UV index updates through geolocation",
-      date: "August 2024",
-      tech: ["Python", "Flask", "HTML", "CSS", "Jinja2", "RESTful APIs", "JSON", "Geolocation"],
-      images: ["/uv-checker-placeholder.jpg"],
-      screenshot: "/screenshots/Weather-App.png",
-      details: "Designed an interactive web application employing Python and Flask to provide instant UV index updates through geolocation services; streamlined data retrieval process, reducing load times by 60% and increasing user satisfaction. Created an intuitive and user-friendly interface with HTML, CSS, and Jinja2 templating to provide users with clear visual indicators of UV levels using color-coded categories for low, moderate, and high UV indexes. Implemented RESTful API calls to obtain current and forecasted UV index data, leveraging JSON data parsing to handle and display relevant information.",
-      github: "https://github.com/fonseca04Lenin/UV-Index-Web-Project",
-      live: "https://uv-index-web-project.onrender.com/"
-    },
-    {
-      id: 3,
-      name: "Personal Portfolio Website",
-      description: "Modern, responsive portfolio website built with React and Vite featuring interactive animations and professional design",
-      date: "May 2025",
-      tech: ["React", "Vite", "JavaScript", "CSS3", "HTML5", "Vercel Analytics", "Responsive Design", "Modern UI/UX"],
-      images: ["/portfolio-website-placeholder.jpg"],
-      screenshot: "/screenshots/Portfolio-Website .png",
-      details: "Designed and developed a fully responsive personal portfolio website from scratch using React and Vite, featuring a modern gradient-based design system, smooth scrolling navigation, and interactive animations. Implemented a dynamic project timeline with modal overlays, mobile-first responsive design, and optimized performance. The site showcases advanced CSS techniques including custom animations, gradient text effects, and glassmorphism design elements. Integrated Vercel Analytics for visitor tracking and deployed with modern web development best practices.",
-      github: "https://github.com/fonseca04Lenin/personal_website",
-      live: "https://elvinfonseca.com"
-    },
-    {
-      id: 4,
-      name: "Algorithm Visualizer",
-      description: "Interactive educational tool for learning computer science algorithms through step-by-step visual demonstrations",
-      date: "September 2025",
-      tech: ["React", "TypeScript", "D3.js", "Tailwind CSS", "Vite", "Vercel", "Graph Algorithms", "Sorting Algorithms"],
-      images: ["/algorithm-visualizer-placeholder.jpg"],
-      screenshot: "/screenshots/Algorithm-visualizer.png",
-      details: "Built a comprehensive algorithm visualization platform that helps students and developers understand fundamental computer science algorithms through interactive demonstrations. Features sorting algorithms (Bubble Sort, Merge Sort, Quick Sort) and graph traversal algorithms (BFS, DFS) with step-by-step execution, real-time highlighting, and customizable input data. Implemented with React 19 and TypeScript for type safety, styled with Tailwind CSS for responsive design, and uses D3.js for advanced graph rendering. The application provides educational value for CS students, coding bootcamp participants, and interview preparation with clear visual feedback and explanations.",
-      github: "https://github.com/fonseca04Lenin/collaborative-algorithm-visualizer",
-      live: "https://frontend-sandy-six-30.vercel.app/"
-    }
-  ];
-
-  const skills = {
-    "Languages": [
-      "JavaScript",
-      "TypeScript",
-      "Python",
-      "C",
-      "HTML5",
-      "CSS3"
-    ],
-    "Frontend": [
-      "React",
-      "JavaScript",
-      "TypeScript",
-      "HTML5",
-      "CSS3",
-      "Vue.js",
-      "Angular",
-      "Responsive Design"
-    ],
-    "Backend": [
-      "Python",
-      "Flask",
-      "Laravel",
-      "Node.js",
-      "PHP",
-      "RESTful APIs",
-      "JSON",
-      "Firebase"
-    ],
-    "Mobile": [
-      "React Native",
-      "Cross-platform Development",
-      "iOS Development"
-    ],
-    "Tools & Technologies": [
-      "Git",
-      "CI/CD",
-      "GitHub Actions",
-      "Docker",
-      "Postman",
-      "Linux",
-      "Xcode",
-      "Jira",
-      "Excel",
-      "Vite",
-      "Vercel",
-      "Render",
-      "Matplotlib",
-      "Pandas",
-      "Jupyter Notebooks",
-      "API Integration"
-    ],
-    "Databases": [
-      "Firebase",
-      "MySQL",
-      "PostgreSQL",
-      "MongoDB",
-      "JSON Data Processing"
-    ],
-    "Soft Skills": [
-      "Team Collaboration",
-      "Agile Development",
-      "Problem Solving",
-      "Code Review",
-      "Performance Optimization",
-      "Gambling"
-    ]
-  };
-
   const [currentSkillSetIndex, setCurrentSkillSetIndex] = useState(0);
-  
+
   // Animated text state
   const [animatedText, setAnimatedText] = useState('');
   const [isAnimating, setIsAnimating] = useState(true);
   const [showSubtitle, setShowSubtitle] = useState(false);
   const [showSkills, setShowSkills] = useState(false);
-  
-  const rotatingSkillsForHero = useMemo(() => {
-    const excludedCategories = new Set(["Soft Skills"]);
-    const seenSkills = new Set();
-    const flattenedSkills = Object.entries(skills)
-      .filter(([categoryName]) => !excludedCategories.has(categoryName))
-      .flatMap(([, skillList]) => skillList)
-      .filter((skillName) => {
-        if (seenSkills.has(skillName)) return false;
-        seenSkills.add(skillName);
-        return true;
-      });
-    return flattenedSkills;
-  }, [skills]);
-
-  const rotatingSkillSets = useMemo(() => {
-    const chunkSize = 4;
-    const grouped = [];
-    for (let i = 0; i < rotatingSkillsForHero.length; i += chunkSize) {
-      grouped.push(rotatingSkillsForHero.slice(i, i + chunkSize));
-    }
-    return grouped.length > 0 ? grouped : [rotatingSkillsForHero];
-  }, [rotatingSkillsForHero]);
 
   useEffect(() => {
     if (rotatingSkillSets.length <= 1) return;
@@ -280,7 +206,7 @@ function App() {
       setCurrentSkillSetIndex((prev) => (prev + 1) % rotatingSkillSets.length);
     }, 10000);
     return () => clearInterval(intervalId);
-  }, [rotatingSkillSets.length]);
+  }, []);
 
   // Teext animation effect - triggers on first load
   useEffect(() => {
@@ -315,6 +241,54 @@ function App() {
 
   const closeProject = () => {
     setSelectedProject(null);
+  };
+
+  // Shared hover handlers for standard cards
+  const cardHoverEnter = (e) => {
+    e.currentTarget.style.transform = 'translateY(-5px)';
+    e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.6)';
+  };
+  const cardHoverLeave = (e) => {
+    e.currentTarget.style.transform = 'translateY(0)';
+    e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.3)';
+  };
+  const cardHoverEnterWithShadow = (e) => {
+    e.currentTarget.style.transform = 'translateY(-5px)';
+    e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.6)';
+    e.currentTarget.style.boxShadow = '0 20px 50px rgba(248, 87, 166, 0.15)';
+  };
+  const cardHoverLeaveWithShadow = (e) => {
+    e.currentTarget.style.transform = 'translateY(0)';
+    e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.3)';
+    e.currentTarget.style.boxShadow = 'none';
+  };
+
+  // Hoisted GitHub contribution color helpers
+  const getContribColor = (count) => {
+    if (count === 0) return 'rgba(50, 50, 50, 0.8)';
+    if (count <= 2) return 'rgba(248, 87, 166, 0.35)';
+    if (count <= 5) return 'rgba(248, 87, 166, 0.55)';
+    if (count <= 8) return 'rgba(255, 88, 88, 0.75)';
+    return 'rgba(255, 204, 112, 0.9)';
+  };
+  const getContribBorderColor = (count) => {
+    if (count === 0) return 'transparent';
+    if (count <= 2) return 'rgba(248, 87, 166, 0.4)';
+    if (count <= 5) return 'rgba(248, 87, 166, 0.5)';
+    if (count <= 8) return 'rgba(255, 88, 88, 0.6)';
+    return 'rgba(255, 204, 112, 0.7)';
+  };
+
+  // Shared styles for project screenshot cards
+  const screenshotImgStyle = {
+    position: 'absolute', top: 0, left: 0,
+    width: '100%', height: '100%',
+    objectFit: 'cover', zIndex: 0,
+  };
+  const screenshotOverlayStyle = {
+    position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+    background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.15) 100%)',
+    zIndex: 1,
   };
 
   return (
@@ -462,7 +436,6 @@ function App() {
               <a
                 href="/Elvin_Fonseca_Resume.pdf"
                 download="Elvin_Fonseca_Resume.pdf"
-                onClick={handleResumeDownload}
                 style={{
                   background: 'linear-gradient(45deg, #f857a6, #ff5858)',
                   color: '#fff',
@@ -688,10 +661,7 @@ function App() {
                 <a
                   href="/Elvin_Fonseca_Resume.pdf"
                   download="Elvin_Fonseca_Resume.pdf"
-                  onClick={() => {
-                    handleResumeDownload();
-                    setMobileMenuOpen(false);
-                  }}
+                  onClick={() => setMobileMenuOpen(false)}
                   style={{
                     background: 'linear-gradient(45deg, #f857a6, #ff5858)',
                     color: '#fff',
@@ -1187,14 +1157,8 @@ function App() {
               backdropFilter: 'blur(10px)',
               transition: 'all 0.3s ease',
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-5px)';
-              e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.6)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.3)';
-            }}
+            onMouseEnter={cardHoverEnter}
+            onMouseLeave={cardHoverLeave}
             >
               <h3 className="gradient_text" style={{
                 fontSize: '1.4rem',
@@ -1742,8 +1706,8 @@ function App() {
             >
               {projects[0].screenshot && (
                 <>
-                  <img src={projects[0].screenshot} alt={projects[0].name} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }} />
-                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.15) 100%)', zIndex: 1 }} />
+                  <img src={projects[0].screenshot} alt={projects[0].name} style={screenshotImgStyle} />
+                  <div style={screenshotOverlayStyle} />
                 </>
               )}
               <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
@@ -1775,8 +1739,8 @@ function App() {
             >
               {projects[1].screenshot && (
                 <>
-                  <img src={projects[1].screenshot} alt={projects[1].name} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }} />
-                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.15) 100%)', zIndex: 1 }} />
+                  <img src={projects[1].screenshot} alt={projects[1].name} style={screenshotImgStyle} />
+                  <div style={screenshotOverlayStyle} />
                 </>
               )}
               <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
@@ -1808,8 +1772,8 @@ function App() {
             >
               {projects[2].screenshot && (
                 <>
-                  <img src={projects[2].screenshot} alt={projects[2].name} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }} />
-                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.15) 100%)', zIndex: 1 }} />
+                  <img src={projects[2].screenshot} alt={projects[2].name} style={screenshotImgStyle} />
+                  <div style={screenshotOverlayStyle} />
                 </>
               )}
               <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
@@ -1841,8 +1805,8 @@ function App() {
             >
               {projects[3].screenshot && (
                 <>
-                  <img src={projects[3].screenshot} alt={projects[3].name} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }} />
-                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.15) 100%)', zIndex: 1 }} />
+                  <img src={projects[3].screenshot} alt={projects[3].name} style={screenshotImgStyle} />
+                  <div style={screenshotOverlayStyle} />
                 </>
               )}
               <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
@@ -2135,16 +2099,8 @@ function App() {
               gap: '24px',
               transition: 'all 0.3s ease',
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-5px)';
-              e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.6)';
-              e.currentTarget.style.boxShadow = '0 20px 50px rgba(248, 87, 166, 0.15)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.3)';
-              e.currentTarget.style.boxShadow = 'none';
-            }}
+            onMouseEnter={cardHoverEnterWithShadow}
+            onMouseLeave={cardHoverLeaveWithShadow}
           >
             {/* Anthropic "A" icon */}
             <div style={{
@@ -2364,22 +2320,6 @@ function App() {
                         }}
                       >
                         {week.map((day, dayIndex) => {
-                          const getColor = (count) => {
-                            if (count === 0) return 'rgba(50, 50, 50, 0.8)';
-                            if (count <= 2) return 'rgba(248, 87, 166, 0.35)';
-                            if (count <= 5) return 'rgba(248, 87, 166, 0.55)';
-                            if (count <= 8) return 'rgba(255, 88, 88, 0.75)';
-                            return 'rgba(255, 204, 112, 0.9)';
-                          };
-
-                          const getBorderColor = (count) => {
-                            if (count === 0) return 'transparent';
-                            if (count <= 2) return 'rgba(248, 87, 166, 0.4)';
-                            if (count <= 5) return 'rgba(248, 87, 166, 0.5)';
-                            if (count <= 8) return 'rgba(255, 88, 88, 0.6)';
-                            return 'rgba(255, 204, 112, 0.7)';
-                          };
-
                           const isHovered = hoveredDay === `${weekIndex}-${dayIndex}`;
 
                           return (
@@ -2391,8 +2331,8 @@ function App() {
                                 width: '11px',
                                 height: '11px',
                                 borderRadius: '3px',
-                                background: getColor(day.count),
-                                border: `1px solid ${getBorderColor(day.count)}`,
+                                background: getContribColor(day.count),
+                                border: `1px solid ${getContribBorderColor(day.count)}`,
                                 cursor: 'pointer',
                                 transition: 'all 0.15s ease',
                                 transform: isHovered ? 'scale(1.4)' : 'scale(1)',
@@ -2424,27 +2364,18 @@ function App() {
               borderTop: '1px solid rgba(248, 87, 166, 0.1)',
             }}>
               <span style={{ fontSize: '0.75rem', color: '#666' }}>Less</span>
-              {[0, 1, 3, 6, 10].map((level, i) => {
-                const getColor = (count) => {
-                  if (count === 0) return 'rgba(50, 50, 50, 0.8)';
-                  if (count <= 2) return 'rgba(248, 87, 166, 0.35)';
-                  if (count <= 5) return 'rgba(248, 87, 166, 0.55)';
-                  if (count <= 8) return 'rgba(255, 88, 88, 0.75)';
-                  return 'rgba(255, 204, 112, 0.9)';
-                };
-                return (
-                  <div
-                    key={i}
-                    style={{
-                      width: '11px',
-                      height: '11px',
-                      borderRadius: '3px',
-                      background: getColor(level),
-                      border: '1px solid rgba(248, 87, 166, 0.2)',
-                    }}
-                  />
-                );
-              })}
+              {[0, 1, 3, 6, 10].map((level, i) => (
+                <div
+                  key={i}
+                  style={{
+                    width: '11px',
+                    height: '11px',
+                    borderRadius: '3px',
+                    background: getContribColor(level),
+                    border: '1px solid rgba(248, 87, 166, 0.2)',
+                  }}
+                />
+              ))}
               <span style={{ fontSize: '0.75rem', color: '#666' }}>More</span>
             </div>
 
