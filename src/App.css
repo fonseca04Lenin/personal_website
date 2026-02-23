@@ -51,6 +51,7 @@ section h2.gradient_text {
     0 0 60px rgba(255, 88, 88, 0.2),
     0 0 90px rgba(255, 204, 112, 0.1);
   animation: subtlePulse 4s ease-in-out infinite;
+  will-change: transform;
 }
 
 /* Special styling for the "Technical Skills" heading */
@@ -79,22 +80,15 @@ section h2.gradient_text[style*="Let's Build Something Amazing Together"] {
 
 /* Subtle pulse animation for section headings */
 @keyframes subtlePulse {
-  0%, 100% {
-    transform: scale(1);
-    filter: brightness(1);
-  }
-  50% {
-    transform: scale(1.01);
-    filter: brightness(1.05);
-  }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.01); }
 }
 
 /* Enhanced hover effects for section headings */
 section h2.gradient_text:hover {
   animation: none;
   transform: scale(1.05);
-  filter: brightness(1.1);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 
@@ -125,28 +119,19 @@ nav .gradient_text:hover {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-shadow: 
+  text-shadow:
     0 0 40px rgba(255, 107, 107, 0.5),
     0 0 80px rgba(248, 87, 166, 0.3),
     0 0 120px rgba(255, 88, 88, 0.2);
   filter: drop-shadow(0 0 30px rgba(255, 204, 112, 0.3));
   animation: heroGlow 3s ease-in-out infinite;
+  will-change: opacity;
 }
 
 /* Hero title glow animation */
 @keyframes heroGlow {
-  0%, 100% {
-    text-shadow: 
-      0 0 40px rgba(255, 107, 107, 0.5),
-      0 0 80px rgba(248, 87, 166, 0.3),
-      0 0 120px rgba(255, 88, 88, 0.2);
-  }
-  50% {
-    text-shadow: 
-      0 0 50px rgba(255, 107, 107, 0.6),
-      0 0 100px rgba(248, 87, 166, 0.4),
-      0 0 150px rgba(255, 88, 88, 0.3);
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.88; }
 }
 @keyframes bounce { 
   0%, 100%{
@@ -230,19 +215,19 @@ nav .gradient_text:hover {
 }
 /* Timeline specific animations for horizontal layout */
 .timeline-item:nth-child(odd) .project-card {
-  animation: slideInFromTop 0.6s ease forwards;
-  opacity: 0;
+  animation: slideInFromTop 0.6s ease both;
   animation-delay: 0.2s;
+  will-change: transform, opacity;
 }
 .timeline-item:nth-child(even) .project-card {
-  animation: slideInFromBottom 0.6s ease forwards;
-  opacity: 0;
+  animation: slideInFromBottom 0.6s ease both;
   animation-delay: 0.2s;
+  will-change: transform, opacity;
 }
 .project-node {
-  animation: fadeIn 0.8s ease forwards;
-  opacity: 0;
+  animation: fadeIn 0.8s ease both;
   animation-delay: 0.1s;
+  will-change: transform, opacity;
 }
 /* Horizontal timeline specific styles */
 .timeline-container {
