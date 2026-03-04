@@ -57,6 +57,7 @@ const projects = [
 
 const currentProject = projects[0];
 
+
 const skills = {
   "Languages": ["JavaScript", "TypeScript", "Python", "C", "HTML5", "CSS3"],
   "Frontend": ["React", "JavaScript", "TypeScript", "HTML5", "CSS3", "Vue.js", "Angular", "Responsive Design"],
@@ -335,7 +336,8 @@ function App() {
               { label: 'Experience', ref: workRef },
               { label: 'Skills', ref: skillsRef },
               { label: 'Projects', ref: projectsRef },
-              { label: 'Certifications', ref: certificationsRef }
+              { label: 'Certifications', ref: certificationsRef },
+
             ].map((item, index) => (
               <button
                 key={index}
@@ -553,7 +555,8 @@ function App() {
               { label: 'Experience', ref: workRef },
               { label: 'Skills', ref: skillsRef },
               { label: 'Projects', ref: projectsRef },
-              { label: 'Certifications', ref: certificationsRef }
+              { label: 'Certifications', ref: certificationsRef },
+
             ].map((item, index) => (
               <button
                 key={index}
@@ -1254,7 +1257,7 @@ function App() {
             padding: '20px 0',
           }}>
             
-            {/* Mutual of Omaha - Current Position */}
+            {/* Omaha Public Schools - Current Position */}
             <div className="experience-item" style={{
               display: 'flex',
               alignItems: 'center',
@@ -1274,7 +1277,7 @@ function App() {
                 zIndex: 3,
                 boxShadow: '0 0 20px rgba(248, 87, 166, 0.8), inset 0 2px 4px rgba(255, 255, 255, 0.2)',
               }} />
-              
+
               {/* Experience Card - Right Side */}
               <div className="experience-card" style={{
                 width: '45%',
@@ -1300,7 +1303,100 @@ function App() {
                 e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.4)';
               }}
               >
-                
+                {/* Gradient Overlay */}
+                <div style={{
+                  position: 'absolute',
+                  top: 0, left: 0, right: 0, bottom: 0,
+                  background: 'linear-gradient(135deg, rgba(248, 87, 166, 0.08) 0%, rgba(255, 88, 88, 0.05) 50%, rgba(255, 204, 112, 0.08) 100%)',
+                  borderRadius: '15px',
+                  pointerEvents: 'none',
+                  zIndex: -1,
+                }} />
+
+                <h3 className="gradient_text" style={{ fontSize: '1.6rem', marginBottom: '8px', fontWeight: 'bold' }}>
+                  Omaha Public Schools
+                </h3>
+
+                <p style={{ color: '#f857a6', fontSize: '1.1rem', fontWeight: '600', marginBottom: '8px' }}>
+                  IT Systems &amp; Infrastructure Technician · Part-time
+                </p>
+
+                <p style={{ color: '#ffcc70', fontSize: '0.9rem', fontWeight: '500', marginBottom: '10px', letterSpacing: '0.5px' }}>
+                  Feb 2026 – Present
+                </p>
+
+                <p style={{ color: '#aaa', fontSize: '0.85rem', fontStyle: 'italic', marginBottom: '14px', lineHeight: '1.4' }}>
+                  Nebraska's largest school district — 52,000+ students across 112 schools (nearly 1 in 6 students statewide). Based at TAC headquarters, supporting elementary, middle, and high schools district-wide.
+                </p>
+
+                <ul style={{ color: '#ddd', fontSize: '0.95rem', lineHeight: '1.6', paddingLeft: '0', listStyle: 'none' }}>
+                  <li style={{ marginBottom: '10px', paddingLeft: '20px', position: 'relative' }}>
+                    <span style={{ position: 'absolute', left: '0', color: '#f857a6', fontWeight: 'bold' }}>•</span>
+                    Deploy, configure, and maintain 52,000+ student iPads, Windows/macOS endpoints, and network peripherals across the district fleet.
+                  </li>
+                  <li style={{ marginBottom: '10px', paddingLeft: '20px', position: 'relative' }}>
+                    <span style={{ position: 'absolute', left: '0', color: '#f857a6', fontWeight: 'bold' }}>•</span>
+                    Diagnose hardware/software failures using root-cause analysis — applying the same systematic debugging mindset used in software engineering.
+                  </li>
+                  <li style={{ marginBottom: '10px', paddingLeft: '20px', position: 'relative' }}>
+                    <span style={{ position: 'absolute', left: '0', color: '#f857a6', fontWeight: 'bold' }}>•</span>
+                    Manage asset inventory, apply security patches, and maintain infrastructure — building operational security awareness relevant to backend and cloud work.
+                  </li>
+                  <li style={{ paddingLeft: '20px', position: 'relative' }}>
+                    <span style={{ position: 'absolute', left: '0', color: '#f857a6', fontWeight: 'bold' }}>•</span>
+                    Bridge end-user needs with system requirements across schools district-wide, sharpening cross-functional communication essential to full-stack development.
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Mutual of Omaha - Previous Position */}
+            <div className="experience-item" style={{
+              display: 'flex',
+              alignItems: 'center',
+              width: '100%',
+              position: 'relative',
+            }}>
+              {/* Timeline Node */}
+              <div className="timeline-node" style={{
+                position: 'absolute',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '24px',
+                height: '24px',
+                background: 'linear-gradient(45deg, #f857a6, #ff5858)',
+                borderRadius: '50%',
+                border: '4px solid #222',
+                zIndex: 3,
+                boxShadow: '0 0 20px rgba(248, 87, 166, 0.8), inset 0 2px 4px rgba(255, 255, 255, 0.2)',
+              }} />
+              
+              {/* Experience Card - Left Side */}
+              <div className="experience-card" style={{
+                width: '45%',
+                marginRight: '55%',
+                padding: '25px',
+                background: 'linear-gradient(135deg, rgba(45, 45, 45, 0.95), rgba(25, 25, 25, 0.95))',
+                border: '1px solid rgba(248, 87, 166, 0.4)',
+                borderRadius: '15px',
+                backdropFilter: 'blur(8px)',
+                boxShadow: '0 15px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(248, 87, 166, 0.3)',
+                transition: 'all 0.3s ease',
+                position: 'relative',
+                overflow: 'hidden',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-5px)';
+                e.currentTarget.style.boxShadow = '0 20px 50px rgba(248, 87, 166, 0.3), 0 0 0 2px rgba(248, 87, 166, 0.5)';
+                e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.6)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(248, 87, 166, 0.3)';
+                e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.4)';
+              }}
+              >
+
                 {/* Gradient Overlay */}
                 <div style={{
                   position: 'absolute',
@@ -1313,7 +1409,7 @@ function App() {
                   pointerEvents: 'none',
                   zIndex: -1,
                 }} />
-                
+
                 <h3 className="gradient_text" style={{
                   fontSize: '1.6rem',
                   marginBottom: '8px',
@@ -1411,10 +1507,10 @@ function App() {
                 boxShadow: '0 0 15px rgba(255, 88, 88, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.2)',
               }} />
               
-              {/* Experience Card - Left Side */}
+              {/* Experience Card - Right Side */}
               <div className="experience-card" style={{
                 width: '45%',
-                marginRight: '55%',
+                marginLeft: '55%',
                 padding: '25px',
                 background: 'linear-gradient(135deg, rgba(45, 45, 45, 0.95), rgba(25, 25, 25, 0.95))',
                 border: '1px solid rgba(255, 88, 88, 0.4)',
@@ -2152,6 +2248,7 @@ function App() {
           </div>
         </div>
       </section>
+
 
       <section
         style={{
