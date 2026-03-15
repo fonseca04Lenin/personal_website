@@ -24,10 +24,10 @@ const projects = [
     date: "August 2024",
     tech: ["Python", "Flask", "HTML", "CSS", "Jinja2", "RESTful APIs", "JSON", "Geolocation"],
     images: ["/uv-checker-placeholder.jpg"],
-    screenshot: "/screenshots/Weather-App.png",
+    screenshot: "/screenshots/Uv-app-video.webm",
     details: "Designed an interactive web application employing Python and Flask to provide instant UV index updates through geolocation services; streamlined data retrieval process, reducing load times by 60% and increasing user satisfaction. Created an intuitive and user-friendly interface with HTML, CSS, and Jinja2 templating to provide users with clear visual indicators of UV levels using color-coded categories for low, moderate, and high UV indexes. Implemented RESTful API calls to obtain current and forecasted UV index data, leveraging JSON data parsing to handle and display relevant information.",
     github: "https://github.com/fonseca04Lenin/UV-Index-Web-Project",
-    live: "https://uv-index-web-project.onrender.com/"
+    live: ""
   },
   {
     id: 3,
@@ -1721,18 +1721,32 @@ function App() {
               >
                 {project.screenshot && (
                   <>
-                    <img
-                      src={project.screenshot}
-                      alt={`${project.name} screenshot`}
-                      style={{
-                        position: 'absolute',
-                        top: 0, left: 0,
-                        width: '100%', height: '100%',
-                        objectFit: 'cover',
-                        borderRadius: '12px',
-                        zIndex: 0,
-                      }}
-                    />
+                    {/\.(webm|mp4|ogg)$/i.test(project.screenshot)
+                      ? <video
+                          src={project.screenshot}
+                          autoPlay muted loop playsInline
+                          style={{
+                            position: 'absolute',
+                            top: 0, left: 0,
+                            width: '100%', height: '100%',
+                            objectFit: 'cover',
+                            borderRadius: '12px',
+                            zIndex: 0,
+                          }}
+                        />
+                      : <img
+                          src={project.screenshot}
+                          alt={`${project.name} screenshot`}
+                          style={{
+                            position: 'absolute',
+                            top: 0, left: 0,
+                            width: '100%', height: '100%',
+                            objectFit: 'cover',
+                            borderRadius: '12px',
+                            zIndex: 0,
+                          }}
+                        />
+                    }
                     <div style={{
                       position: 'absolute',
                       top: 0, left: 0, right: 0, bottom: 0,
@@ -1835,7 +1849,10 @@ function App() {
             >
               {projects[1].screenshot && (
                 <>
-                  <img src={projects[1].screenshot} alt={projects[1].name} style={screenshotImgStyle} />
+                  {/\.(webm|mp4|ogg)$/i.test(projects[1].screenshot)
+                    ? <video src={projects[1].screenshot} style={screenshotImgStyle} autoPlay muted loop playsInline />
+                    : <img src={projects[1].screenshot} alt={projects[1].name} style={screenshotImgStyle} />
+                  }
                   <div style={screenshotOverlayStyle} />
                 </>
               )}
@@ -2765,6 +2782,79 @@ function App() {
               </a>
             </div>
           </div>
+        </div>
+
+        {/* Minecraft Easter Egg Scene */}
+        <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '32px', overflow: 'hidden' }}>
+          <svg width="480" height="130" viewBox="0 0 480 130" xmlns="http://www.w3.org/2000/svg" style={{ imageRendering: 'pixelated', display: 'block' }}>
+            {/* Grass */}
+            {Array.from({length: 48}, (_, i) => (
+              <rect key={i} x={i*10} y={100} width={10} height={10} fill={i%2===0?'#5D9E1A':'#4D8E0A'}/>
+            ))}
+            {/* Dirt */}
+            <rect x={0} y={110} width={480} height={20} fill="#8B6340"/>
+            {[20,60,110,170,230,290,350,420].map(x=>(
+              <rect key={x} x={x} y={114} width={9} height={7} fill="#6B4320"/>
+            ))}
+
+            {/* ===== TREE ===== */}
+            {[30,40,50,60,70].map((x,i)=><rect key={`l0${x}`} x={x} y={15} width={10} height={10} fill={i%2===0?'#4A7C1A':'#5A8C2A'}/>)}
+            {[20,30,40,50,60,70,80].map((x,i)=><rect key={`l1${x}`} x={x} y={25} width={10} height={10} fill={i%2===0?'#5A8C2A':'#4A7C1A'}/>)}
+            {[20,30,40,50,60,70,80].map((x,i)=><rect key={`l2${x}`} x={x} y={35} width={10} height={10} fill={i%2===0?'#4A7C1A':'#5A8C2A'}/>)}
+            {[30,40].map((x,i)=><rect key={`l3${x}`} x={x} y={45} width={10} height={10} fill={i%2===0?'#5A8C2A':'#4A7C1A'}/>)}
+            <rect x={50} y={45} width={10} height={10} fill="#CC2211"/>
+            <rect x={53} y={42} width={3} height={4} fill="#5A8C2A"/>
+            {[60,70].map((x,i)=><rect key={`l3b${x}`} x={x} y={45} width={10} height={10} fill={i%2===0?'#4A7C1A':'#5A8C2A'}/>)}
+            {[55,65,75,85,95].map((y,i)=><rect key={`tr${y}`} x={50} y={y} width={20} height={10} fill={i%2===0?'#8B6340':'#6B4320'}/>)}
+
+            {/* ===== COW ===== */}
+            <rect x={121} y={46} width={5} height={9} fill="#D4C48A"/>
+            <rect x={131} y={46} width={5} height={9} fill="#D4C48A"/>
+            <rect x={113} y={54} width={9} height={9} fill="#D0C8B8"/>
+            <rect x={133} y={54} width={9} height={9} fill="#D0C8B8"/>
+            <rect x={112} y={57} width={32} height={30} fill="#E8E0D0"/>
+            <rect x={117} y={63} width={7} height={7} fill="#222"/>
+            <rect x={118} y={64} width={3} height={3} fill="#fff"/>
+            <rect x={108} y={75} width={21} height={13} fill="#EAC8C0"/>
+            <rect x={111} y={78} width={5} height={5} fill="#8B4E4E"/>
+            <rect x={120} y={78} width={5} height={5} fill="#8B4E4E"/>
+            <rect x={144} y={62} width={52} height={31} fill="#E8E0D0"/>
+            <rect x={149} y={66} width={14} height={11} fill="#333"/>
+            <rect x={174} y={73} width={11} height={16} fill="#333"/>
+            <rect x={196} y={65} width={5} height={17} fill="#E8E0D0"/>
+            <rect x={194} y={82} width={9} height={6} fill="#C8C0B0"/>
+            {[146,158,170,182].map(x=><rect key={`cl${x}`} x={x} y={93} width={9} height={10} fill="#C8C0B0"/>)}
+
+            {/* ===== PIG 1 ===== */}
+            <rect x={238} y={52} width={10} height={12} fill="#F090A8"/>
+            <rect x={252} y={52} width={10} height={12} fill="#F090A8"/>
+            <rect x={228} y={61} width={32} height={29} fill="#F4B0C0"/>
+            <rect x={234} y={67} width={7} height={7} fill="#222"/>
+            <rect x={235} y={68} width={3} height={3} fill="#fff"/>
+            <rect x={219} y={77} width={18} height={13} fill="#F090A8"/>
+            <rect x={222} y={80} width={5} height={5} fill="#9B4058"/>
+            <rect x={230} y={80} width={5} height={5} fill="#9B4058"/>
+            <rect x={260} y={66} width={48} height={28} fill="#F4B0C0"/>
+            <rect x={268} y={75} width={18} height={11} fill="#EAA0B0"/>
+            <rect x={308} y={68} width={5} height={5} fill="#F090A8"/>
+            <rect x={313} y={73} width={5} height={5} fill="#F090A8"/>
+            <rect x={308} y={78} width={5} height={5} fill="#F090A8"/>
+            {[262,274,286,298].map(x=><rect key={`p1l${x}`} x={x} y={94} width={9} height={9} fill="#E090A8"/>)}
+
+            {/* ===== PIG 2 (smaller) ===== */}
+            <rect x={343} y={60} width={8} height={9} fill="#F090A8"/>
+            <rect x={354} y={60} width={8} height={9} fill="#F090A8"/>
+            <rect x={336} y={67} width={26} height={23} fill="#F4B0C0"/>
+            <rect x={341} y={72} width={5} height={5} fill="#222"/>
+            <rect x={328} y={78} width={15} height={11} fill="#F090A8"/>
+            <rect x={331} y={81} width={4} height={4} fill="#9B4058"/>
+            <rect x={337} y={81} width={4} height={4} fill="#9B4058"/>
+            <rect x={362} y={70} width={38} height={22} fill="#F4B0C0"/>
+            <rect x={400} y={72} width={4} height={4} fill="#F090A8"/>
+            <rect x={404} y={76} width={4} height={4} fill="#F090A8"/>
+            <rect x={400} y={80} width={4} height={4} fill="#F090A8"/>
+            {[364,373,382,391].map(x=><rect key={`p2l${x}`} x={x} y={92} width={8} height={10} fill="#E090A8"/>)}
+          </svg>
         </div>
       </footer>
       
