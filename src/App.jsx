@@ -1019,26 +1019,31 @@ function App() {
             <button
               onClick={() => scrollToSection(projectsRef)}
               style={{
-                background: 'rgba(255, 255, 255, 0.1)',
-                color: '#fff',
-                padding: '16px 32px',
-                borderRadius: '30px',
-                border: '2px solid rgba(255, 255, 255, 0.3)',
-                fontWeight: 'bold',
-                fontSize: '1.1rem',
+                background: 'rgba(10, 10, 10, 0.75)',
+                color: '#D4C09A',
+                padding: '14px 40px',
+                borderRadius: '2px',
+                border: '1px solid rgba(212, 192, 154, 0.75)',
+                fontWeight: '600',
+                fontSize: '0.95rem',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
-                backdropFilter: 'blur(10px)',
+                letterSpacing: '3px',
+                textTransform: 'uppercase',
+                fontFamily: 'inherit',
+                backdropFilter: 'blur(6px)',
               }}
               onMouseEnter={(e) => {
-                e.target.style.background = 'rgba(255, 255, 255, 0.2)';
-                e.target.style.border = '2px solid rgba(255, 255, 255, 0.6)';
-                e.target.style.transform = 'translateY(-3px)';
+                e.target.style.background = 'rgba(212, 192, 154, 0.15)';
+                e.target.style.borderColor = '#D4C09A';
+                e.target.style.color = '#F5EDD8';
+                e.target.style.letterSpacing = '4px';
               }}
               onMouseLeave={(e) => {
-                e.target.style.background = 'rgba(255, 255, 255, 0.1)';
-                e.target.style.border = '2px solid rgba(255, 255, 255, 0.3)';
-                e.target.style.transform = 'translateY(0)';
+                e.target.style.background = 'rgba(10, 10, 10, 0.75)';
+                e.target.style.borderColor = 'rgba(212, 192, 154, 0.75)';
+                e.target.style.color = '#D4C09A';
+                e.target.style.letterSpacing = '3px';
               }}
             >
               View Projects
@@ -1326,25 +1331,29 @@ function App() {
                 </p>
 
                 <p style={{ color: '#aaa', fontSize: '0.85rem', fontStyle: 'italic', marginBottom: '14px', lineHeight: '1.4' }}>
-                  Nebraska's largest school district — 52,000+ students across 112 schools (nearly 1 in 6 students statewide). Based at TAC headquarters, supporting elementary, middle, and high schools district-wide.
+                  Primary technology point of contact for a school building within Omaha Public Schools — managing infrastructure and device operations that support 500+ students and staff daily.
                 </p>
 
                 <ul style={{ color: '#ddd', fontSize: '0.95rem', lineHeight: '1.6', paddingLeft: '0', listStyle: 'none' }}>
                   <li style={{ marginBottom: '10px', paddingLeft: '20px', position: 'relative' }}>
                     <span style={{ position: 'absolute', left: '0', color: '#f857a6', fontWeight: 'bold' }}>•</span>
-                    Deploy, configure, and maintain 52,000+ student iPads, Windows/macOS endpoints, and network peripherals across the district fleet.
+                    Deploy, configure, and maintain Windows/macOS endpoints, tablets, and network peripherals across a 500+ user fleet — applying the same environment setup and dependency management mindset used in software infrastructure.
                   </li>
                   <li style={{ marginBottom: '10px', paddingLeft: '20px', position: 'relative' }}>
                     <span style={{ position: 'absolute', left: '0', color: '#f857a6', fontWeight: 'bold' }}>•</span>
-                    Diagnose hardware/software failures using root-cause analysis — applying the same systematic debugging mindset used in software engineering.
+                    Diagnose and resolve hardware/software failures using root-cause analysis, minimizing device downtime and ensuring uninterrupted access to educational tools — the same systematic debugging approach applied in software engineering.
                   </li>
                   <li style={{ marginBottom: '10px', paddingLeft: '20px', position: 'relative' }}>
                     <span style={{ position: 'absolute', left: '0', color: '#f857a6', fontWeight: 'bold' }}>•</span>
-                    Manage asset inventory, apply security patches, and maintain infrastructure — building operational security awareness relevant to backend and cloud work.
+                    Manage hardware and software asset inventory, tracking lifecycle and optimizing resource allocation across departments — mirroring dependency management and resource optimization in software systems.
+                  </li>
+                  <li style={{ marginBottom: '10px', paddingLeft: '20px', position: 'relative' }}>
+                    <span style={{ position: 'absolute', left: '0', color: '#f857a6', fontWeight: 'bold' }}>•</span>
+                    Maintain secure, up-to-date computing environments by applying patches, updates, and infrastructure improvements — building security-first thinking directly transferable to backend and cloud engineering.
                   </li>
                   <li style={{ paddingLeft: '20px', position: 'relative' }}>
                     <span style={{ position: 'absolute', left: '0', color: '#f857a6', fontWeight: 'bold' }}>•</span>
-                    Bridge end-user needs with system requirements across schools district-wide, sharpening cross-functional communication essential to full-stack development.
+                    Translate end-user needs into actionable system solutions for 500+ staff and students, sharpening cross-functional communication essential to full-stack development.
                   </li>
                 </ul>
               </div>
