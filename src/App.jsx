@@ -36,7 +36,7 @@ const projects = [
     date: "May 2025",
     tech: ["React", "Vite", "JavaScript", "CSS3", "HTML5", "Vercel Analytics", "Responsive Design", "Modern UI/UX"],
     images: ["/portfolio-website-placeholder.jpg"],
-    screenshot: "/screenshots/Portfolio-Website .png",
+    screenshot: "/screenshots/personal_web_demonstration.webm",
     details: "Designed and developed a fully responsive personal portfolio website from scratch using React and Vite, featuring a modern gradient-based design system, smooth scrolling navigation, and interactive animations. Implemented a dynamic project timeline with modal overlays, mobile-first responsive design, and optimized performance. The site showcases advanced CSS techniques including custom animations, gradient text effects, and glassmorphism design elements. Integrated Vercel Analytics for visitor tracking and deployed with modern web development best practices.",
     github: "https://github.com/fonseca04Lenin/personal_website",
     live: "https://elvinfonseca.com"
@@ -1894,7 +1894,10 @@ function App() {
             >
               {projects[2].screenshot && (
                 <>
-                  <img src={projects[2].screenshot} alt={projects[2].name} style={screenshotImgStyle} />
+                  {/\.(webm|mp4|ogg)$/i.test(projects[2].screenshot)
+                    ? <video src={projects[2].screenshot} style={screenshotImgStyle} autoPlay muted loop playsInline />
+                    : <img src={projects[2].screenshot} alt={projects[2].name} style={screenshotImgStyle} />
+                  }
                   <div style={screenshotOverlayStyle} />
                 </>
               )}
