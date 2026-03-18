@@ -208,10 +208,20 @@ nav .gradient_text:hover {
   animation: bounce 1s infinite;
 }
 .project-modal {
-  animation: fadeIn 0.3s ease;
+  animation: fadeIn 0.25s ease;
 }
 .project-modal-content {
-  animation: fadeIn 0.4s ease;
+  animation: slideUpFade 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 /* Timeline specific animations for horizontal layout */
 .timeline-item:nth-child(odd) .project-card {
@@ -658,30 +668,43 @@ nav .gradient_text:hover {
   .project-modal {
     padding: 10px !important;
   }
-  
+
   .project-modal-content {
     width: calc(100vw - 20px) !important;
     max-width: calc(100vw - 20px) !important;
-    padding: 20px !important;
+    padding: 0 !important;
     margin: 10px !important;
     max-height: calc(100vh - 40px) !important;
     overflow-y: auto !important;
   }
-  
+
+  .modal-preview {
+    max-height: 200px !important;
+  }
+
+  .modal-preview video,
+  .modal-preview img {
+    max-height: 200px !important;
+  }
+
+  .modal-body {
+    padding: 20px 16px 24px !important;
+  }
+
   .project-modal-content h2 {
     font-size: 1.6rem !important;
     line-height: 1.3 !important;
   }
-  
-  .project-modal-content > div:last-child {
+
+  .modal-body > div:last-child {
     flex-direction: column !important;
-    gap: 15px !important;
+    gap: 10px !important;
   }
-  
-  .project-modal-content > div:last-child a {
+
+  .modal-body > div:last-child a {
     text-align: center !important;
     width: 100% !important;
-    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
   
   /* Contact section mobile improvements */

@@ -27,7 +27,7 @@ const projects = [
     screenshot: "/screenshots/Uv-app-video.webm",
     details: "Designed an interactive web application employing Python and Flask to provide instant UV index updates through geolocation services; streamlined data retrieval process, reducing load times by 60% and increasing user satisfaction. Created an intuitive and user-friendly interface with HTML, CSS, and Jinja2 templating to provide users with clear visual indicators of UV levels using color-coded categories for low, moderate, and high UV indexes. Implemented RESTful API calls to obtain current and forecasted UV index data, leveraging JSON data parsing to handle and display relevant information.",
     github: "https://github.com/fonseca04Lenin/UV-Index-Web-Project",
-    live: ""
+    live: "https://uv-index-web-project.vercel.app/"
   },
   {
     id: 3,
@@ -1949,9 +1949,9 @@ function App() {
         )}
       </section>
 
-      {/* Project Modall*/}
+      {/* Project Modal */}
       {selectedProject && (
-        <div 
+        <div
           className="project-modal"
           style={{
             position: 'fixed',
@@ -1959,8 +1959,8 @@ function App() {
             left: 0,
             width: '100vw',
             height: '100vh',
-            background: 'rgba(0, 0, 0, 0.5)',
-            backdropFilter: 'blur(10px)',
+            background: 'rgba(0, 0, 0, 0.75)',
+            backdropFilter: 'blur(12px)',
             zIndex: 1000,
             display: 'flex',
             alignItems: 'center',
@@ -1970,34 +1970,31 @@ function App() {
           }}
           onClick={closeProject}
         >
-          <div 
+          <div
             className="project-modal-content"
             style={{
-              background: 'linear-gradient(135deg, rgba(45, 45, 45, 0.95), rgba(25, 25, 25, 0.95))',
-              borderRadius: '20px',
-              padding: '40px',
+              background: 'linear-gradient(160deg, rgba(20, 15, 15, 0.98) 0%, rgba(10, 10, 10, 0.98) 100%)',
+              borderRadius: '16px',
               maxWidth: '90vw',
               maxHeight: '90vh',
-              width: '700px',
-              border: '1px solid rgba(248, 87, 166, 0.3)',
+              width: '820px',
+              border: '1px solid rgba(212, 192, 154, 0.2)',
               position: 'relative',
               overflow: 'auto',
-              backdropFilter: 'blur(20px)',
-              boxShadow: '0 25px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(248, 87, 166, 0.2)',
+              backdropFilter: 'blur(30px)',
+              boxShadow: '0 30px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(212, 192, 154, 0.08), inset 0 1px 0 rgba(212, 192, 154, 0.1)',
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Gradient Overlay */}
+            {/* Subtle top accent line */}
             <div style={{
               position: 'absolute',
               top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              background: 'linear-gradient(135deg, rgba(248, 87, 166, 0.05) 0%, rgba(255, 88, 88, 0.03) 50%, rgba(255, 204, 112, 0.05) 100%)',
-              borderRadius: '20px',
-              pointerEvents: 'none',
-              zIndex: -1,
+              left: '10%',
+              right: '10%',
+              height: '1px',
+              background: 'linear-gradient(90deg, transparent, rgba(212, 192, 154, 0.5), transparent)',
+              borderRadius: '1px',
             }} />
 
             {/* Close Button */}
@@ -2005,182 +2002,249 @@ function App() {
               onClick={closeProject}
               style={{
                 position: 'absolute',
-                top: '20px',
-                right: '20px',
-                background: 'rgba(248, 87, 166, 0.1)',
-                border: '1px solid rgba(248, 87, 166, 0.3)',
+                top: '16px',
+                right: '16px',
+                background: 'rgba(212, 192, 154, 0.14)',
+                border: '1px solid rgba(212, 192, 154, 0.45)',
                 borderRadius: '50%',
                 width: '40px',
                 height: '40px',
-                color: '#f857a6',
-                fontSize: '1.2rem',
+                color: '#D4C09A',
+                fontSize: '1.1rem',
+                fontWeight: '700',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                transition: 'all 0.3s ease',
+                transition: 'all 0.2s ease',
+                zIndex: 10,
               }}
               onMouseEnter={(e) => {
-                e.target.style.background = 'rgba(248, 87, 166, 0.2)';
-                e.target.style.transform = 'scale(1.1)';
-                e.target.style.border = '1px solid rgba(248, 87, 166, 0.6)';
+                e.currentTarget.style.background = 'rgba(139, 26, 42, 0.25)';
+                e.currentTarget.style.borderColor = 'rgba(139, 26, 42, 0.6)';
+                e.currentTarget.style.color = '#D4C09A';
+                e.currentTarget.style.transform = 'scale(1.1)';
               }}
               onMouseLeave={(e) => {
-                e.target.style.background = 'rgba(248, 87, 166, 0.1)';
-                e.target.style.transform = 'scale(1)';
-                e.target.style.border = '1px solid rgba(248, 87, 166, 0.3)';
+                e.currentTarget.style.background = 'rgba(212, 192, 154, 0.08)';
+                e.currentTarget.style.borderColor = 'rgba(212, 192, 154, 0.2)';
+                e.currentTarget.style.color = 'rgba(212, 192, 154, 0.7)';
+                e.currentTarget.style.transform = 'scale(1)';
               }}
             >
               ✕
             </button>
-            
-            {/* Project Title */}
-            <div style={{ marginBottom: '30px' }}>
-              <h2 className="gradient_text" style={{
-                fontSize: '2.8rem',
-                marginBottom: '10px',
-                fontWeight: 'bold',
-                lineHeight: '1.2',
+
+            {/* Screenshot / Video Preview */}
+            {selectedProject.screenshot && (
+              <div className="modal-preview" style={{
+                width: '100%',
+                borderRadius: '16px 16px 0 0',
+                overflow: 'hidden',
+                position: 'relative',
+                background: '#050505',
+                borderBottom: '1px solid rgba(212, 192, 154, 0.12)',
+                maxHeight: '340px',
               }}>
-                {selectedProject.name}
-              </h2>
-              
-              <div style={{
-                color: '#f857a6',
-                fontSize: '1rem',
-                fontWeight: '600',
-                letterSpacing: '1px',
-                textTransform: 'uppercase',
-              }}>
-                {selectedProject.date}
+                {selectedProject.screenshot.endsWith('.webm') ? (
+                  <video
+                    src={selectedProject.screenshot}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      maxHeight: '340px',
+                      objectFit: 'cover',
+                      display: 'block',
+                      opacity: 0.9,
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={selectedProject.screenshot}
+                    alt={selectedProject.name}
+                    style={{
+                      width: '100%',
+                      maxHeight: '340px',
+                      objectFit: 'cover',
+                      display: 'block',
+                      opacity: 0.9,
+                    }}
+                  />
+                )}
+                {/* Gradient fade at bottom of preview */}
+                <div style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  height: '80px',
+                  background: 'linear-gradient(to bottom, transparent, rgba(10,10,10,0.98))',
+                  pointerEvents: 'none',
+                }} />
               </div>
-            </div>
-            
-            {/* Project Description */}
-            <div style={{ marginBottom: '35px' }}>
+            )}
+
+            {/* Content body */}
+            <div className="modal-body" style={{ padding: '36px 40px 40px' }}>
+
+              {/* Title + Date */}
+              <div style={{ marginBottom: '24px' }}>
+                <h2 className="gradient_text" style={{
+                  fontSize: '2.4rem',
+                  marginBottom: '8px',
+                  fontWeight: '700',
+                  lineHeight: '1.15',
+                  letterSpacing: '-0.5px',
+                }}>
+                  {selectedProject.name}
+                </h2>
+                <div style={{
+                  color: 'rgba(212, 192, 154, 0.55)',
+                  fontSize: '0.8rem',
+                  fontWeight: '600',
+                  letterSpacing: '2px',
+                  textTransform: 'uppercase',
+                }}>
+                  {selectedProject.date}
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div style={{
+                height: '1px',
+                background: 'linear-gradient(90deg, rgba(139, 26, 42, 0.5), rgba(212, 192, 154, 0.2), transparent)',
+                marginBottom: '24px',
+              }} />
+
+              {/* Description */}
               <p style={{
-                color: '#ddd',
-                fontSize: '1.1rem',
-                lineHeight: '1.7',
-                margin: 0,
+                color: 'rgba(220, 210, 195, 0.85)',
+                fontSize: '1rem',
+                lineHeight: '1.75',
+                margin: '0 0 32px 0',
               }}>
                 {selectedProject.details}
               </p>
-            </div>
-            
-            {/* Tech Stack */}
-            <div style={{ marginBottom: '40px' }}>
-              <h3 style={{ 
-                color: '#fff',
-                fontSize: '1.3rem',
-                marginBottom: '20px',
-                fontWeight: '600',
-              }}>
-                Technologies Used
-              </h3>
-              <div style={{ 
-                display: 'flex', 
-                flexWrap: 'wrap', 
-                gap: '12px' 
-              }}>
-                {selectedProject.tech.map((tech, index) => (
-                  <span
-                    key={index}
+
+              {/* Tech Stack */}
+              <div style={{ marginBottom: '36px' }}>
+                <h3 style={{
+                  color: 'rgba(212, 192, 154, 0.6)',
+                  fontSize: '0.75rem',
+                  marginBottom: '14px',
+                  fontWeight: '700',
+                  letterSpacing: '2.5px',
+                  textTransform: 'uppercase',
+                }}>
+                  Stack
+                </h3>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                  {selectedProject.tech.map((tech, index) => (
+                    <span
+                      key={index}
+                      style={{
+                        background: 'rgba(212, 192, 154, 0.07)',
+                        color: 'rgba(212, 192, 154, 0.8)',
+                        padding: '6px 14px',
+                        borderRadius: '4px',
+                        fontSize: '0.82rem',
+                        fontWeight: '500',
+                        border: '1px solid rgba(212, 192, 154, 0.15)',
+                        transition: 'all 0.2s ease',
+                        letterSpacing: '0.3px',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = 'rgba(139, 26, 42, 0.2)';
+                        e.currentTarget.style.borderColor = 'rgba(139, 26, 42, 0.5)';
+                        e.currentTarget.style.color = '#D4C09A';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'rgba(212, 192, 154, 0.07)';
+                        e.currentTarget.style.borderColor = 'rgba(212, 192, 154, 0.15)';
+                        e.currentTarget.style.color = 'rgba(212, 192, 154, 0.8)';
+                      }}
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+                {selectedProject.github && selectedProject.name !== "Stock Market App" && (
+                  <a
+                    href={selectedProject.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     style={{
-                      background: 'rgba(248, 87, 166, 0.15)',
-                      color: '#f857a6',
-                      padding: '10px 18px',
-                      borderRadius: '25px',
+                      background: 'linear-gradient(135deg, #8b1a2a, #6b0f1a)',
+                      color: '#F5EDD8',
+                      padding: '12px 28px',
+                      borderRadius: '6px',
+                      textDecoration: 'none',
+                      fontWeight: '600',
                       fontSize: '0.9rem',
-                      fontWeight: '500',
-                      border: '1px solid rgba(248, 87, 166, 0.3)',
-                      backdropFilter: 'blur(5px)',
-                      transition: 'all 0.2s ease',
+                      transition: 'all 0.25s ease',
+                      border: '1px solid rgba(139, 26, 42, 0.6)',
+                      cursor: 'pointer',
+                      display: 'inline-block',
+                      letterSpacing: '0.5px',
                     }}
                     onMouseEnter={(e) => {
-                      e.target.style.background = 'rgba(248, 87, 166, 0.25)';
-                      e.target.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.boxShadow = '0 8px 24px rgba(139, 26, 42, 0.4)';
+                      e.currentTarget.style.background = 'linear-gradient(135deg, #9b1b30, #7a1020)';
                     }}
                     onMouseLeave={(e) => {
-                      e.target.style.background = 'rgba(248, 87, 166, 0.15)';
-                      e.target.style.transform = 'translateY(0)';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = 'none';
+                      e.currentTarget.style.background = 'linear-gradient(135deg, #8b1a2a, #6b0f1a)';
                     }}
                   >
-                    {tech}
-                  </span>
-                ))}
+                    View Code
+                  </a>
+                )}
+                {selectedProject.live && (
+                  <a
+                    href={selectedProject.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      background: 'transparent',
+                      color: '#D4C09A',
+                      padding: '12px 28px',
+                      borderRadius: '6px',
+                      textDecoration: 'none',
+                      fontWeight: '600',
+                      fontSize: '0.9rem',
+                      border: '1px solid rgba(212, 192, 154, 0.3)',
+                      transition: 'all 0.25s ease',
+                      cursor: 'pointer',
+                      display: 'inline-block',
+                      letterSpacing: '0.5px',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(212, 192, 154, 0.1)';
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.borderColor = 'rgba(212, 192, 154, 0.6)';
+                      e.currentTarget.style.boxShadow = '0 8px 24px rgba(212, 192, 154, 0.15)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'transparent';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.borderColor = 'rgba(212, 192, 154, 0.3)';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                  >
+                    Live Demo
+                  </a>
+                )}
               </div>
-            </div>
-            
-            {/* action Buttons */}
-            <div style={{ 
-              display: 'flex', 
-              gap: '20px', 
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-            }}>
-              {selectedProject.github && selectedProject.name !== "Stock Market App" && (
-                <a
-                  href={selectedProject.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    background: 'linear-gradient(45deg, #f857a6, #ff5858)',
-                    color: '#fff',
-                    padding: '14px 28px',
-                    borderRadius: '10px',
-                    textDecoration: 'none',
-                    fontWeight: '600',
-                    fontSize: '1rem',
-                    transition: 'all 0.3s ease',
-                    border: 'none',
-                    cursor: 'pointer',
-                    display: 'inline-block',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.transform = 'translateY(-3px)';
-                    e.target.style.boxShadow = '0 10px 25px rgba(248, 87, 166, 0.4)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.transform = 'translateY(0)';
-                    e.target.style.boxShadow = 'none';
-                  }}
-                >
-                  View Code
-                </a>
-              )}
-              {selectedProject.live && (
-                <a
-                  href={selectedProject.live}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    background: 'transparent',
-                    color: '#f857a6',
-                    padding: '14px 28px',
-                    borderRadius: '10px',
-                    textDecoration: 'none',
-                    fontWeight: '600',
-                    fontSize: '1rem',
-                    border: '2px solid #f857a6',
-                    transition: 'all 0.3s ease',
-                    cursor: 'pointer',
-                    display: 'inline-block',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.background = 'rgba(248, 87, 166, 0.1)';
-                    e.target.style.transform = 'translateY(-3px)';
-                    e.target.style.borderColor = '#ff5858';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.background = 'transparent';
-                    e.target.style.transform = 'translateY(0)';
-                    e.target.style.borderColor = '#f857a6';
-                  }}
-                >
-                  Live Demo
-                </a>
-              )}
             </div>
           </div>
         </div>
@@ -2794,79 +2858,6 @@ function App() {
               </a>
             </div>
           </div>
-        </div>
-
-        {/* Minecraft Easter Egg Scene */}
-        <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '32px', overflow: 'hidden' }}>
-          <svg width="480" height="130" viewBox="0 0 480 130" xmlns="http://www.w3.org/2000/svg" style={{ imageRendering: 'pixelated', display: 'block' }}>
-            {/* Grass */}
-            {Array.from({length: 48}, (_, i) => (
-              <rect key={i} x={i*10} y={100} width={10} height={10} fill={i%2===0?'#5D9E1A':'#4D8E0A'}/>
-            ))}
-            {/* Dirt */}
-            <rect x={0} y={110} width={480} height={20} fill="#8B6340"/>
-            {[20,60,110,170,230,290,350,420].map(x=>(
-              <rect key={x} x={x} y={114} width={9} height={7} fill="#6B4320"/>
-            ))}
-
-            {/* ===== TREE ===== */}
-            {[30,40,50,60,70].map((x,i)=><rect key={`l0${x}`} x={x} y={15} width={10} height={10} fill={i%2===0?'#4A7C1A':'#5A8C2A'}/>)}
-            {[20,30,40,50,60,70,80].map((x,i)=><rect key={`l1${x}`} x={x} y={25} width={10} height={10} fill={i%2===0?'#5A8C2A':'#4A7C1A'}/>)}
-            {[20,30,40,50,60,70,80].map((x,i)=><rect key={`l2${x}`} x={x} y={35} width={10} height={10} fill={i%2===0?'#4A7C1A':'#5A8C2A'}/>)}
-            {[30,40].map((x,i)=><rect key={`l3${x}`} x={x} y={45} width={10} height={10} fill={i%2===0?'#5A8C2A':'#4A7C1A'}/>)}
-            <rect x={50} y={45} width={10} height={10} fill="#CC2211"/>
-            <rect x={53} y={42} width={3} height={4} fill="#5A8C2A"/>
-            {[60,70].map((x,i)=><rect key={`l3b${x}`} x={x} y={45} width={10} height={10} fill={i%2===0?'#4A7C1A':'#5A8C2A'}/>)}
-            {[55,65,75,85,95].map((y,i)=><rect key={`tr${y}`} x={50} y={y} width={20} height={10} fill={i%2===0?'#8B6340':'#6B4320'}/>)}
-
-            {/* ===== COW ===== */}
-            <rect x={121} y={46} width={5} height={9} fill="#D4C48A"/>
-            <rect x={131} y={46} width={5} height={9} fill="#D4C48A"/>
-            <rect x={113} y={54} width={9} height={9} fill="#D0C8B8"/>
-            <rect x={133} y={54} width={9} height={9} fill="#D0C8B8"/>
-            <rect x={112} y={57} width={32} height={30} fill="#E8E0D0"/>
-            <rect x={117} y={63} width={7} height={7} fill="#222"/>
-            <rect x={118} y={64} width={3} height={3} fill="#fff"/>
-            <rect x={108} y={75} width={21} height={13} fill="#EAC8C0"/>
-            <rect x={111} y={78} width={5} height={5} fill="#8B4E4E"/>
-            <rect x={120} y={78} width={5} height={5} fill="#8B4E4E"/>
-            <rect x={144} y={62} width={52} height={31} fill="#E8E0D0"/>
-            <rect x={149} y={66} width={14} height={11} fill="#333"/>
-            <rect x={174} y={73} width={11} height={16} fill="#333"/>
-            <rect x={196} y={65} width={5} height={17} fill="#E8E0D0"/>
-            <rect x={194} y={82} width={9} height={6} fill="#C8C0B0"/>
-            {[146,158,170,182].map(x=><rect key={`cl${x}`} x={x} y={93} width={9} height={10} fill="#C8C0B0"/>)}
-
-            {/* ===== PIG 1 ===== */}
-            <rect x={238} y={52} width={10} height={12} fill="#F090A8"/>
-            <rect x={252} y={52} width={10} height={12} fill="#F090A8"/>
-            <rect x={228} y={61} width={32} height={29} fill="#F4B0C0"/>
-            <rect x={234} y={67} width={7} height={7} fill="#222"/>
-            <rect x={235} y={68} width={3} height={3} fill="#fff"/>
-            <rect x={219} y={77} width={18} height={13} fill="#F090A8"/>
-            <rect x={222} y={80} width={5} height={5} fill="#9B4058"/>
-            <rect x={230} y={80} width={5} height={5} fill="#9B4058"/>
-            <rect x={260} y={66} width={48} height={28} fill="#F4B0C0"/>
-            <rect x={268} y={75} width={18} height={11} fill="#EAA0B0"/>
-            <rect x={308} y={68} width={5} height={5} fill="#F090A8"/>
-            <rect x={313} y={73} width={5} height={5} fill="#F090A8"/>
-            <rect x={308} y={78} width={5} height={5} fill="#F090A8"/>
-            {[262,274,286,298].map(x=><rect key={`p1l${x}`} x={x} y={94} width={9} height={9} fill="#E090A8"/>)}
-
-            {/* ===== PIG 2 (smaller) ===== */}
-            <rect x={343} y={60} width={8} height={9} fill="#F090A8"/>
-            <rect x={354} y={60} width={8} height={9} fill="#F090A8"/>
-            <rect x={336} y={67} width={26} height={23} fill="#F4B0C0"/>
-            <rect x={341} y={72} width={5} height={5} fill="#222"/>
-            <rect x={328} y={78} width={15} height={11} fill="#F090A8"/>
-            <rect x={331} y={81} width={4} height={4} fill="#9B4058"/>
-            <rect x={337} y={81} width={4} height={4} fill="#9B4058"/>
-            <rect x={362} y={70} width={38} height={22} fill="#F4B0C0"/>
-            <rect x={400} y={72} width={4} height={4} fill="#F090A8"/>
-            <rect x={404} y={76} width={4} height={4} fill="#F090A8"/>
-            <rect x={400} y={80} width={4} height={4} fill="#F090A8"/>
-            {[364,373,382,391].map(x=><rect key={`p2l${x}`} x={x} y={92} width={8} height={10} fill="#E090A8"/>)}
-          </svg>
         </div>
       </footer>
       
