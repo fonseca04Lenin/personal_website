@@ -48,7 +48,7 @@ const projects = [
     date: "September 2025",
     tech: ["React", "TypeScript", "D3.js", "Tailwind CSS", "Vite", "Vercel", "Graph Algorithms", "Sorting Algorithms"],
     images: ["/algorithm-visualizer-placeholder.jpg"],
-    screenshot: "/screenshots/Algorithm-visualizer.png",
+    screenshot: "/screenshots/algorith_visualizer.webm",
     details: "Built a comprehensive algorithm visualization platform that helps students and developers understand fundamental computer science algorithms through interactive demonstrations. Features sorting algorithms (Bubble Sort, Merge Sort, Quick Sort) and graph traversal algorithms (BFS, DFS) with step-by-step execution, real-time highlighting, and customizable input data. Implemented with React 19 and TypeScript for type safety, styled with Tailwind CSS for responsive design, and uses D3.js for advanced graph rendering. The application provides educational value for CS students, coding bootcamp participants, and interview preparation with clear visual feedback and explanations.",
     github: "https://github.com/fonseca04Lenin/collaborative-algorithm-visualizer",
     live: "https://frontend-sandy-six-30.vercel.app/"
@@ -1720,7 +1720,9 @@ function App() {
             >
               {projects[3].screenshot && (
                 <>
-                  <img src={projects[3].screenshot} alt={projects[3].name} style={screenshotImgStyle} />
+                  {/\.(webm|mp4|ogg)$/i.test(projects[3].screenshot)
+                    ? <video src={projects[3].screenshot} style={screenshotImgStyle} autoPlay muted loop playsInline />
+                    : <img src={projects[3].screenshot} alt={projects[3].name} style={screenshotImgStyle} />}
                   <div style={screenshotOverlayStyle} />
                 </>
               )}
