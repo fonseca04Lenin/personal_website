@@ -266,18 +266,18 @@ function App() {
 
   // Hoisted GitHub contribution color helpers
   const getContribColor = (count) => {
-    if (count === 0) return 'rgba(50, 50, 50, 0.8)';
-    if (count <= 2) return 'rgba(248, 87, 166, 0.35)';
-    if (count <= 5) return 'rgba(248, 87, 166, 0.55)';
-    if (count <= 8) return 'rgba(255, 88, 88, 0.75)';
-    return 'rgba(255, 204, 112, 0.9)';
+    if (count === 0) return 'rgba(14, 10, 8, 0.9)';
+    if (count <= 2) return 'rgba(120, 80, 20, 0.5)';
+    if (count <= 5) return 'rgba(160, 100, 30, 0.65)';
+    if (count <= 8) return 'rgba(196, 140, 50, 0.8)';
+    return 'rgba(212, 192, 154, 0.95)';
   };
   const getContribBorderColor = (count) => {
     if (count === 0) return 'transparent';
-    if (count <= 2) return 'rgba(248, 87, 166, 0.4)';
-    if (count <= 5) return 'rgba(248, 87, 166, 0.5)';
-    if (count <= 8) return 'rgba(255, 88, 88, 0.6)';
-    return 'rgba(255, 204, 112, 0.7)';
+    if (count <= 2) return 'rgba(120, 80, 20, 0.4)';
+    if (count <= 5) return 'rgba(160, 100, 30, 0.5)';
+    if (count <= 8) return 'rgba(196, 140, 50, 0.6)';
+    return 'rgba(212, 192, 154, 0.7)';
   };
 
   // Shared styles for project screenshot cards
@@ -949,8 +949,11 @@ function App() {
           justifyContent: 'center',
           alignItems: 'center',
           paddingTop: '80px',
+          background: '#080608',
         }}
       >
+        {/* Warm amber glow — bottom bleeds into About section */}
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 75% 45% at 50% 0%, rgba(160, 100, 30, 0.06) 0%, transparent 58%), radial-gradient(ellipse 60% 40% at 20% 40%, rgba(160, 100, 30, 0.05) 0%, transparent 55%), radial-gradient(ellipse 80% 50% at 50% 100%, rgba(160, 100, 30, 0.08) 0%, transparent 60%)', pointerEvents: 'none', zIndex: 1 }} />
         <video
           autoPlay
           loop
@@ -1071,15 +1074,18 @@ function App() {
         id="next-section"
         style={{
           minHeight: '100vh',
-          background: '#222',
+          background: 'linear-gradient(180deg, #080608 0%, #100c0a 50%, #080608 100%)',
           color: '#fff',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
           padding: '40px 20px',
+          position: 'relative',
+          overflow: 'hidden',
         }}
       >
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 75% 45% at 50% 0%, rgba(160, 100, 30, 0.07) 0%, transparent 60%), radial-gradient(ellipse 80% 55% at 35% 55%, rgba(160, 100, 30, 0.09) 0%, transparent 68%), radial-gradient(ellipse 55% 45% at 75% 20%, rgba(160, 100, 30, 0.05) 0%, transparent 60%), radial-gradient(ellipse 75% 45% at 50% 100%, rgba(160, 100, 30, 0.08) 0%, transparent 60%)', pointerEvents: 'none' }} />
         <div
           className="about-container"
           style={{
@@ -1132,74 +1138,76 @@ function App() {
       <section
         ref={skillsRef}
         style={{
-          background: '#222',
+          background: 'linear-gradient(180deg, #080608 0%, #100c0a 50%, #080608 100%)',
           color: '#fff',
           padding: '80px 20px',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          position: 'relative',
+          overflow: 'hidden',
         }}
       >
-        <h2 className="gradient_text technical-skills-heading" style={{
-          fontSize: '3.5rem',
-          marginBottom: '50px',
-          textAlign: 'center',
-          fontWeight: 'bold'
-        }}>
-          Technical Skills
-        </h2>
-        
-        <div style={{
-          maxWidth: '1200px',
-          width: '100%',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '30px',
-        }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 75% 45% at 50% 0%, rgba(160, 100, 30, 0.07) 0%, transparent 60%), radial-gradient(ellipse 85% 55% at 50% 50%, rgba(160, 100, 30, 0.08) 0%, transparent 70%), radial-gradient(ellipse 75% 45% at 50% 100%, rgba(160, 100, 30, 0.07) 0%, transparent 60%)', pointerEvents: 'none' }} />
+        {/* Section Header */}
+        <div style={{ textAlign: 'center', marginBottom: '64px', position: 'relative', zIndex: 2 }}>
+          <h2 className="gradient_text technical-skills-heading" style={{ fontSize: '3.5rem', fontWeight: 'bold', textAlign: 'center' }}>
+            Technical Skills
+          </h2>
+        </div>
+
+        {/* Skills Matrix */}
+        <div style={{ maxWidth: '900px', width: '100%', position: 'relative', zIndex: 2 }}>
           {Object.entries(skills).map(([category, skillList], index) => (
             <div key={index} style={{
-              background: 'linear-gradient(135deg, rgba(45, 45, 45, 0.8), rgba(25, 25, 25, 0.8))',
-              borderRadius: '15px',
-              padding: '25px',
-              border: '1px solid rgba(248, 87, 166, 0.3)',
-              backdropFilter: 'blur(10px)',
-              transition: 'all 0.3s ease',
-            }}
-            onMouseEnter={cardHoverEnter}
-            onMouseLeave={cardHoverLeave}
-            >
-              <h3 className="gradient_text" style={{
-                fontSize: '1.4rem',
-                marginBottom: '20px',
-                fontWeight: 'bold',
-              }}>
-                {category}
-              </h3>
-              <div style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '10px',
-              }}>
-                {skillList.map((skill, skillIndex) => (
+              display: 'flex',
+              alignItems: 'flex-start',
+              padding: '22px 0',
+              borderBottom: '1px solid rgba(160, 120, 60, 0.1)',
+              gap: '0',
+            }}>
+              {/* Category label */}
+              <div style={{ minWidth: '170px', paddingTop: '5px', paddingRight: '24px', flexShrink: 0 }}>
+                <div style={{
+                  fontSize: '0.62rem',
+                  letterSpacing: '2.5px',
+                  textTransform: 'uppercase',
+                  fontFamily: 'monospace',
+                  color: index === 0 ? '#C41E3A' : index <= 2 ? 'rgba(190, 145, 60, 0.75)' : 'rgba(140, 115, 75, 0.6)',
+                  lineHeight: '1.4',
+                }}>
+                  {category}
+                </div>
+              </div>
+
+              {/* Vertical rule */}
+              <div style={{ width: '1px', alignSelf: 'stretch', background: 'rgba(160, 120, 60, 0.13)', flexShrink: 0, marginRight: '24px' }} />
+
+              {/* Skill chips */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '7px', flex: 1 }}>
+                {skillList.map((skill, i) => (
                   <span
-                    key={skillIndex}
+                    key={i}
                     style={{
-                      background: 'rgba(248, 87, 166, 0.15)',
-                      color: '#f857a6',
-                      padding: '8px 16px',
-                      borderRadius: '20px',
-                      fontSize: '0.9rem',
+                      background: 'rgba(140, 110, 55, 0.07)',
+                      color: 'rgba(200, 175, 130, 0.7)',
+                      padding: '5px 12px',
+                      borderRadius: '3px',
+                      fontSize: '0.81rem',
                       fontWeight: '500',
-                      border: '1px solid rgba(248, 87, 166, 0.3)',
-                      transition: 'all 0.2s ease',
+                      border: '1px solid rgba(140, 110, 55, 0.14)',
+                      transition: 'all 0.18s ease',
+                      letterSpacing: '0.2px',
                     }}
                     onMouseEnter={(e) => {
-                      e.target.style.background = 'rgba(248, 87, 166, 0.25)';
-                      e.target.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.background = 'rgba(196, 30, 58, 0.1)';
+                      e.currentTarget.style.borderColor = 'rgba(196, 30, 58, 0.3)';
+                      e.currentTarget.style.color = '#ede0cc';
                     }}
                     onMouseLeave={(e) => {
-                      e.target.style.background = 'rgba(248, 87, 166, 0.15)';
-                      e.target.style.transform = 'translateY(0)';
+                      e.currentTarget.style.background = 'rgba(140, 110, 55, 0.07)';
+                      e.currentTarget.style.borderColor = 'rgba(140, 110, 55, 0.14)';
+                      e.currentTarget.style.color = 'rgba(200, 175, 130, 0.7)';
                     }}
                   >
                     {skill}
@@ -1208,6 +1216,7 @@ function App() {
               </div>
             </div>
           ))}
+
         </div>
       </section>
 
@@ -1216,421 +1225,229 @@ function App() {
         ref={workRef}
         className="work-experience-section"
         style={{
-          background: '#222',
+          background: 'linear-gradient(180deg, #080608 0%, #100c0a 50%, #080608 100%)',
           color: '#fff',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '80px 20px',
+          padding: '100px 20px 60px',
           position: 'relative',
+          overflow: 'hidden',
         }}
       >
-        <h2 className="gradient_text" style={{
-          fontSize: '3.5rem',
-          marginBottom: '50px',
-          textAlign: 'center',
-          fontWeight: 'bold'
-        }}>
-          Work Experience
-        </h2>
-        
+        {/* Warm ambient glow */}
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(160, 100, 30, 0.08) 0%, transparent 65%), radial-gradient(ellipse 70% 45% at 50% 100%, rgba(160, 100, 30, 0.06) 0%, transparent 60%)',
+          pointerEvents: 'none',
+        }} />
+
+        {/* Section Header */}
+        <div style={{ textAlign: 'center', marginBottom: '70px', position: 'relative', zIndex: 2 }}>
+          <h2 className="gradient_text" style={{
+            fontSize: '3.5rem',
+            fontWeight: 'bold',
+            textAlign: 'center',
+          }}>
+            Work Experience
+          </h2>
+        </div>
+
+        {/* Timeline Container */}
         <div style={{
           position: 'relative',
-          maxWidth: '800px',
+          maxWidth: '860px',
           width: '100%',
+          zIndex: 2,
         }}>
-          {/* Vertical Timeline Line */}
+          {/* Center vertical line */}
           <div className="timeline-line-vertical" style={{
             position: 'absolute',
             left: '50%',
-            top: '0',
-            bottom: '0',
-            width: '4px',
-            background: 'linear-gradient(to bottom, #f857a6, #ff5858)',
+            top: 0,
+            bottom: 0,
+            width: '1px',
+            background: 'linear-gradient(to bottom, transparent, rgba(160, 120, 50, 0.35) 8%, rgba(160, 120, 50, 0.35) 92%, transparent)',
             transform: 'translateX(-50%)',
-            boxShadow: '0 0 15px rgba(248, 87, 166, 0.6)',
-            borderRadius: '2px',
             zIndex: 1,
           }} />
-          
-          {/* Experience Items */}
-          <div className="experience-container" style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '60px',
-            padding: '20px 0',
-          }}>
-            
-            {/* Omaha Public Schools - Current Position */}
-            <div className="experience-item" style={{
-              display: 'flex',
-              alignItems: 'center',
-              width: '100%',
-              position: 'relative',
-            }}>
-              {/* Timeline Node */}
-              <div className="timeline-node" style={{
-                position: 'absolute',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                width: '24px',
-                height: '24px',
-                background: 'linear-gradient(45deg, #f857a6, #ff5858)',
-                borderRadius: '50%',
-                border: '4px solid #222',
-                zIndex: 3,
-                boxShadow: '0 0 20px rgba(248, 87, 166, 0.8), inset 0 2px 4px rgba(255, 255, 255, 0.2)',
-              }} />
 
-              {/* Experience Card - Right Side */}
+          <div className="experience-container" style={{ display: 'flex', flexDirection: 'column', gap: '80px', padding: '10px 0' }}>
+
+            {/* ── OMAHA PUBLIC SCHOOLS ── */}
+            <div className="experience-item" style={{ display: 'flex', alignItems: 'flex-start', width: '100%', position: 'relative' }}>
+              <div style={{ position: 'absolute', left: '50%', top: '28px', transform: 'translateX(-50%)', zIndex: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
+                <div style={{ width: '11px', height: '11px', borderRadius: '50%', background: '#C41E3A', border: '2px solid #080608', boxShadow: '0 0 0 3px rgba(196,30,58,0.2), 0 0 10px rgba(196,30,58,0.4)' }} />
+                <div style={{ fontSize: '0.55rem', letterSpacing: '2px', color: '#C41E3A', fontFamily: 'monospace', background: 'rgba(196,30,58,0.1)', border: '1px solid rgba(196,30,58,0.3)', borderRadius: '3px', padding: '2px 7px', whiteSpace: 'nowrap' }}>PRESENT</div>
+              </div>
+
               <div className="experience-card" style={{
-                width: '45%',
-                marginLeft: '55%',
-                padding: '25px',
-                background: 'linear-gradient(135deg, rgba(45, 45, 45, 0.95), rgba(25, 25, 25, 0.95))',
-                border: '1px solid rgba(248, 87, 166, 0.4)',
-                borderRadius: '15px',
-                backdropFilter: 'blur(8px)',
-                boxShadow: '0 15px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(248, 87, 166, 0.3)',
+                width: '44%', marginLeft: '56%',
+                padding: '28px',
+                background: 'linear-gradient(150deg, rgba(24,14,10,0.99), rgba(10,7,5,0.99))',
+                border: '1px solid rgba(196,30,58,0.2)',
+                borderRadius: '3px',
+                boxShadow: '0 20px 60px rgba(0,0,0,0.65), inset 0 1px 0 rgba(196,30,58,0.08)',
                 transition: 'all 0.3s ease',
                 position: 'relative',
                 overflow: 'hidden',
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-5px)';
-                e.currentTarget.style.boxShadow = '0 20px 50px rgba(248, 87, 166, 0.3), 0 0 0 2px rgba(248, 87, 166, 0.5)';
-                e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.6)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(248, 87, 166, 0.3)';
-                e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.4)';
-              }}
+              onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.borderColor = 'rgba(196,30,58,0.45)'; e.currentTarget.style.boxShadow = '0 30px 70px rgba(0,0,0,0.7), 0 0 0 1px rgba(196,30,58,0.3)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = 'rgba(196,30,58,0.2)'; e.currentTarget.style.boxShadow = '0 20px 60px rgba(0,0,0,0.65), inset 0 1px 0 rgba(196,30,58,0.08)'; }}
               >
-                {/* Gradient Overlay */}
-                <div style={{
-                  position: 'absolute',
-                  top: 0, left: 0, right: 0, bottom: 0,
-                  background: 'linear-gradient(135deg, rgba(248, 87, 166, 0.08) 0%, rgba(255, 88, 88, 0.05) 50%, rgba(255, 204, 112, 0.08) 100%)',
-                  borderRadius: '15px',
-                  pointerEvents: 'none',
-                  zIndex: -1,
-                }} />
+                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, #C41E3A, transparent)' }} />
+                <div style={{ position: 'absolute', top: '-8px', right: '14px', fontSize: '5.5rem', fontWeight: '900', color: 'rgba(196,30,58,0.05)', lineHeight: 1, fontFamily: 'Georgia, serif', pointerEvents: 'none', userSelect: 'none', letterSpacing: '-3px' }}>2026</div>
 
-                <h3 className="gradient_text" style={{ fontSize: '1.6rem', marginBottom: '8px', fontWeight: 'bold' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', marginBottom: '18px', padding: '3px 10px', border: '1px solid rgba(196,30,58,0.35)', borderRadius: '2px', fontSize: '0.58rem', letterSpacing: '3px', color: '#C41E3A', fontFamily: 'monospace', textTransform: 'uppercase' }}>
+                  <span style={{ width: '4px', height: '4px', background: '#C41E3A', borderRadius: '50%', display: 'inline-block' }} />
+                  Feb 2026 — Present
+                </div>
+
+                <h3 style={{ fontSize: '1.35rem', marginBottom: '5px', fontWeight: '700', color: '#ede0cc', letterSpacing: '0.3px' }}>
                   Omaha Public Schools
                 </h3>
-
-                <p style={{ color: '#f857a6', fontSize: '1.1rem', fontWeight: '600', marginBottom: '8px' }}>
-                  IT Systems &amp; Infrastructure Technician · Part-time
+                <p style={{ color: 'rgba(186, 156, 106, 0.75)', fontSize: '0.83rem', fontStyle: 'italic', marginBottom: '16px', letterSpacing: '0.3px' }}>
+                  IT Systems & Infrastructure Technician · Part-time
                 </p>
-
-                <p style={{ color: '#ffcc70', fontSize: '0.9rem', fontWeight: '500', marginBottom: '10px', letterSpacing: '0.5px' }}>
-                  Feb 2026 – Present
-                </p>
-
-                <p style={{ color: '#aaa', fontSize: '0.85rem', fontStyle: 'italic', marginBottom: '14px', lineHeight: '1.4' }}>
+                <div style={{ height: '1px', background: 'linear-gradient(90deg, rgba(196,30,58,0.25), transparent)', marginBottom: '14px' }} />
+                <p style={{ color: '#7a6a5a', fontSize: '0.8rem', fontStyle: 'italic', marginBottom: '12px', lineHeight: '1.55' }}>
                   Primary technology point of contact for a school building within Omaha Public Schools — managing infrastructure and device operations that support 500+ students and staff daily.
                 </p>
-
-                <ul style={{ color: '#ddd', fontSize: '0.95rem', lineHeight: '1.6', paddingLeft: '0', listStyle: 'none' }}>
-                  <li style={{ marginBottom: '10px', paddingLeft: '20px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: '0', color: '#f857a6', fontWeight: 'bold' }}>•</span>
-                    Deploy, configure, and maintain Windows/macOS endpoints, tablets, and network peripherals across a 500+ user fleet — applying the same environment setup and dependency management mindset used in software infrastructure.
-                  </li>
-                  <li style={{ marginBottom: '10px', paddingLeft: '20px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: '0', color: '#f857a6', fontWeight: 'bold' }}>•</span>
-                    Diagnose and resolve hardware/software failures using root-cause analysis, minimizing device downtime and ensuring uninterrupted access to educational tools — the same systematic debugging approach applied in software engineering.
-                  </li>
-                  <li style={{ marginBottom: '10px', paddingLeft: '20px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: '0', color: '#f857a6', fontWeight: 'bold' }}>•</span>
-                    Manage hardware and software asset inventory, tracking lifecycle and optimizing resource allocation across departments — mirroring dependency management and resource optimization in software systems.
-                  </li>
-                  <li style={{ marginBottom: '10px', paddingLeft: '20px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: '0', color: '#f857a6', fontWeight: 'bold' }}>•</span>
-                    Maintain secure, up-to-date computing environments by applying patches, updates, and infrastructure improvements — building security-first thinking directly transferable to backend and cloud engineering.
-                  </li>
-                  <li style={{ paddingLeft: '20px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: '0', color: '#f857a6', fontWeight: 'bold' }}>•</span>
-                    Translate end-user needs into actionable system solutions for 500+ staff and students, sharpening cross-functional communication essential to full-stack development.
-                  </li>
+                <ul style={{ color: '#b0a090', fontSize: '0.86rem', lineHeight: '1.65', paddingLeft: 0, listStyle: 'none' }}>
+                  {[
+                    'Deploy, configure, and maintain Windows/macOS endpoints, tablets, and network peripherals across a 500+ user fleet.',
+                    'Diagnose and resolve hardware/software failures using root-cause analysis, minimizing device downtime.',
+                    'Manage hardware and software asset inventory, tracking lifecycle and optimizing resource allocation.',
+                    'Maintain secure, up-to-date computing environments by applying patches, updates, and infrastructure improvements.',
+                    'Translate end-user needs into actionable system solutions for 500+ staff and students.',
+                  ].map((item, i) => (
+                    <li key={i} style={{ marginBottom: i < 4 ? '8px' : 0, paddingLeft: '16px', position: 'relative' }}>
+                      <span style={{ position: 'absolute', left: 0, color: 'rgba(196,30,58,0.55)', fontWeight: 'bold' }}>—</span>
+                      {item}
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
 
-            {/* Mutual of Omaha - Previous Position */}
-            <div className="experience-item" style={{
-              display: 'flex',
-              alignItems: 'center',
-              width: '100%',
-              position: 'relative',
-            }}>
-              {/* Timeline Node */}
-              <div className="timeline-node" style={{
-                position: 'absolute',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                width: '24px',
-                height: '24px',
-                background: 'linear-gradient(45deg, #f857a6, #ff5858)',
-                borderRadius: '50%',
-                border: '4px solid #222',
-                zIndex: 3,
-                boxShadow: '0 0 20px rgba(248, 87, 166, 0.8), inset 0 2px 4px rgba(255, 255, 255, 0.2)',
-              }} />
-              
-              {/* Experience Card - Left Side */}
+            {/* ── MUTUAL OF OMAHA ── */}
+            <div className="experience-item" style={{ display: 'flex', alignItems: 'flex-start', width: '100%', position: 'relative' }}>
+              <div style={{ position: 'absolute', left: '50%', top: '28px', transform: 'translateX(-50%)', zIndex: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
+                <div style={{ width: '11px', height: '11px', borderRadius: '50%', background: 'rgba(190,145,60,0.85)', border: '2px solid #080608', boxShadow: '0 0 0 3px rgba(190,145,60,0.15)' }} />
+                <div style={{ fontSize: '0.55rem', letterSpacing: '2px', color: 'rgba(190,145,60,0.8)', fontFamily: 'monospace', background: 'rgba(190,145,60,0.08)', border: '1px solid rgba(190,145,60,0.25)', borderRadius: '3px', padding: '2px 7px', whiteSpace: 'nowrap' }}>2025</div>
+              </div>
+
               <div className="experience-card" style={{
-                width: '45%',
-                marginRight: '55%',
-                padding: '25px',
-                background: 'linear-gradient(135deg, rgba(45, 45, 45, 0.95), rgba(25, 25, 25, 0.95))',
-                border: '1px solid rgba(248, 87, 166, 0.4)',
-                borderRadius: '15px',
-                backdropFilter: 'blur(8px)',
-                boxShadow: '0 15px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(248, 87, 166, 0.3)',
+                width: '44%', marginRight: '56%',
+                padding: '28px',
+                background: 'linear-gradient(150deg, rgba(22,14,8,0.99), rgba(10,7,4,0.99))',
+                border: '1px solid rgba(190,145,60,0.18)',
+                borderRadius: '3px',
+                boxShadow: '0 20px 60px rgba(0,0,0,0.65), inset 0 1px 0 rgba(190,145,60,0.07)',
                 transition: 'all 0.3s ease',
                 position: 'relative',
                 overflow: 'hidden',
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-5px)';
-                e.currentTarget.style.boxShadow = '0 20px 50px rgba(248, 87, 166, 0.3), 0 0 0 2px rgba(248, 87, 166, 0.5)';
-                e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.6)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(248, 87, 166, 0.3)';
-                e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.4)';
-              }}
+              onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.borderColor = 'rgba(190,145,60,0.4)'; e.currentTarget.style.boxShadow = '0 30px 70px rgba(0,0,0,0.7), 0 0 0 1px rgba(190,145,60,0.25)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = 'rgba(190,145,60,0.18)'; e.currentTarget.style.boxShadow = '0 20px 60px rgba(0,0,0,0.65), inset 0 1px 0 rgba(190,145,60,0.07)'; }}
               >
+                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, rgba(190,145,60,0.7), transparent)' }} />
+                <div style={{ position: 'absolute', top: '-8px', right: '14px', fontSize: '5.5rem', fontWeight: '900', color: 'rgba(190,145,60,0.05)', lineHeight: 1, fontFamily: 'Georgia, serif', pointerEvents: 'none', userSelect: 'none', letterSpacing: '-3px' }}>2025</div>
 
-                {/* Gradient Overlay */}
-                <div style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  background: 'linear-gradient(135deg, rgba(248, 87, 166, 0.08) 0%, rgba(255, 88, 88, 0.05) 50%, rgba(255, 204, 112, 0.08) 100%)',
-                  borderRadius: '15px',
-                  pointerEvents: 'none',
-                  zIndex: -1,
-                }} />
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', marginBottom: '18px', padding: '3px 10px', border: '1px solid rgba(190,145,60,0.28)', borderRadius: '2px', fontSize: '0.58rem', letterSpacing: '3px', color: 'rgba(190,145,60,0.85)', fontFamily: 'monospace', textTransform: 'uppercase' }}>
+                  <span style={{ width: '4px', height: '4px', background: 'rgba(190,145,60,0.85)', borderRadius: '50%', display: 'inline-block' }} />
+                  May 2025 — Aug 2025
+                </div>
 
-                <h3 className="gradient_text" style={{
-                  fontSize: '1.6rem',
-                  marginBottom: '8px',
-                  fontWeight: 'bold',
-                }}>
+                <h3 style={{ fontSize: '1.35rem', marginBottom: '5px', fontWeight: '700', color: '#ede0cc', letterSpacing: '0.3px' }}>
                   Mutual of Omaha
                 </h3>
-                
-                <p style={{
-                  color: '#f857a6',
-                  fontSize: '1.1rem',
-                  fontWeight: '600',
-                  marginBottom: '8px',
-                }}>
+                <p style={{ color: 'rgba(186, 156, 106, 0.75)', fontSize: '0.83rem', fontStyle: 'italic', marginBottom: '16px', letterSpacing: '0.3px' }}>
                   Full-Stack Software Development Intern
                 </p>
-                
-                <p style={{
-                  color: '#ffcc70',
-                  fontSize: '0.9rem',
-                  fontWeight: '500',
-                  marginBottom: '15px',
-                  letterSpacing: '0.5px',
-                }}>
-                  May 2025 – August 2025
-                </p>
-                
-                <ul style={{
-                  color: '#ddd',
-                  fontSize: '0.95rem',
-                  lineHeight: '1.6',
-                  paddingLeft: '0',
-                  listStyle: 'none',
-                }}>
-                  <li style={{ 
-                    marginBottom: '12px',
-                    paddingLeft: '20px',
-                    position: 'relative',
-                  }}>
-                    <span style={{
-                      position: 'absolute',
-                      left: '0',
-                      color: '#f857a6',
-                      fontWeight: 'bold',
-                    }}>•</span>
-                    Contributed full-stack feature development and bug fixes on life insurance websites using Laravel, Vue.js, and PHP serving thousands of daily senior users and supporting 19M+ customers by converting JPG to WebP for faster page loads, authoring SEO driven articles, optimizing metadata, and enhancing accessibility.
-                  </li>
-                  <li style={{ 
-                    marginBottom: '12px',
-                    paddingLeft: '20px',
-                    position: 'relative',
-                  }}>
-                    <span style={{
-                      position: 'absolute',
-                      left: '0',
-                      color: '#f857a6',
-                      fontWeight: 'bold',
-                    }}>•</span>
-                    Migrated Laravel ratings/reviews service from BazaarVoice to Yext proxy API, refactoring controllers/models, adding contract-driven fetch methods with caching, and implementing unit tests for reliability and scalability.
-                  </li>
-                  <li style={{ 
-                    paddingLeft: '20px',
-                    position: 'relative',
-                  }}>
-                    <span style={{
-                      position: 'absolute',
-                      left: '0',
-                      color: '#f857a6',
-                      fontWeight: 'bold',
-                    }}>•</span>
-                    Contribute to Mutual of Omaha's mission to serve 19+ million customers nationwide, building reliable and accessible digital experiences aligned with its 100+ year legacy of excellence.
-                  </li>
+                <div style={{ height: '1px', background: 'linear-gradient(90deg, rgba(190,145,60,0.25), transparent)', marginBottom: '14px' }} />
+                <ul style={{ color: '#b0a090', fontSize: '0.86rem', lineHeight: '1.65', paddingLeft: 0, listStyle: 'none' }}>
+                  {[
+                    'Contributed full-stack feature development and bug fixes on life insurance websites using Laravel, Vue.js, and PHP serving thousands of daily senior users and supporting 19M+ customers by converting JPG to WebP, authoring SEO-driven articles, optimizing metadata, and enhancing accessibility.',
+                    'Migrated Laravel ratings/reviews service from BazaarVoice to Yext proxy API, refactoring controllers/models, adding contract-driven fetch methods with caching, and implementing unit tests.',
+                    "Contributed to Mutual of Omaha's mission to serve 19+ million customers nationwide, building reliable and accessible digital experiences aligned with its 100+ year legacy.",
+                  ].map((item, i) => (
+                    <li key={i} style={{ marginBottom: i < 2 ? '8px' : 0, paddingLeft: '16px', position: 'relative' }}>
+                      <span style={{ position: 'absolute', left: 0, color: 'rgba(190,145,60,0.5)', fontWeight: 'bold' }}>—</span>
+                      {item}
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
 
-            {/* Take2 - Previous Position */}
-            <div className="experience-item" style={{
-              display: 'flex',
-              alignItems: 'center',
-              width: '100%',
-              position: 'relative',
-            }}>
-              {/* Timeline Node */}
-              <div className="timeline-node" style={{
-                position: 'absolute',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                width: '20px',
-                height: '20px',
-                background: 'linear-gradient(45deg, #ff5858, #ffcc70)',
-                borderRadius: '50%',
-                border: '3px solid #222',
-                zIndex: 3,
-                boxShadow: '0 0 15px rgba(255, 88, 88, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.2)',
-              }} />
-              
-              {/* Experience Card - Right Side */}
+            {/* ── TAKE2 ── */}
+            <div className="experience-item" style={{ display: 'flex', alignItems: 'flex-start', width: '100%', position: 'relative' }}>
+              <div style={{ position: 'absolute', left: '50%', top: '28px', transform: 'translateX(-50%)', zIndex: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
+                <div style={{ width: '11px', height: '11px', borderRadius: '50%', background: 'rgba(120,100,75,0.7)', border: '2px solid #080608', boxShadow: '0 0 0 3px rgba(120,100,75,0.12)' }} />
+                <div style={{ fontSize: '0.55rem', letterSpacing: '2px', color: 'rgba(120,100,75,0.75)', fontFamily: 'monospace', background: 'rgba(120,100,75,0.08)', border: '1px solid rgba(120,100,75,0.2)', borderRadius: '3px', padding: '2px 7px', whiteSpace: 'nowrap' }}>2024</div>
+              </div>
+
               <div className="experience-card" style={{
-                width: '45%',
-                marginLeft: '55%',
-                padding: '25px',
-                background: 'linear-gradient(135deg, rgba(45, 45, 45, 0.95), rgba(25, 25, 25, 0.95))',
-                border: '1px solid rgba(255, 88, 88, 0.4)',
-                borderRadius: '15px',
-                backdropFilter: 'blur(8px)',
-                boxShadow: '0 15px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 88, 88, 0.3)',
+                width: '44%', marginLeft: '56%',
+                padding: '28px',
+                background: 'linear-gradient(150deg, rgba(18,12,8,0.99), rgba(9,6,4,0.99))',
+                border: '1px solid rgba(120,100,75,0.16)',
+                borderRadius: '3px',
+                boxShadow: '0 20px 60px rgba(0,0,0,0.65), inset 0 1px 0 rgba(120,100,75,0.06)',
                 transition: 'all 0.3s ease',
                 position: 'relative',
                 overflow: 'hidden',
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-5px)';
-                e.currentTarget.style.boxShadow = '0 20px 50px rgba(255, 88, 88, 0.3), 0 0 0 2px rgba(255, 88, 88, 0.5)';
-                e.currentTarget.style.border = '1px solid rgba(255, 88, 88, 0.6)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 88, 88, 0.3)';
-                e.currentTarget.style.border = '1px solid rgba(255, 88, 88, 0.4)';
-              }}
+              onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.borderColor = 'rgba(120,100,75,0.35)'; e.currentTarget.style.boxShadow = '0 30px 70px rgba(0,0,0,0.7), 0 0 0 1px rgba(120,100,75,0.22)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = 'rgba(120,100,75,0.16)'; e.currentTarget.style.boxShadow = '0 20px 60px rgba(0,0,0,0.65), inset 0 1px 0 rgba(120,100,75,0.06)'; }}
               >
-                {/* Gradient Overlay */}
-                <div style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  background: 'linear-gradient(135deg, rgba(255, 88, 88, 0.08) 0%, rgba(255, 204, 112, 0.05) 50%, rgba(248, 87, 166, 0.08) 100%)',
-                  borderRadius: '15px',
-                  pointerEvents: 'none',
-                  zIndex: -1,
-                }} />
-                
-                <h3 className="gradient_text" style={{
-                  fontSize: '1.6rem',
-                  marginBottom: '8px',
-                  fontWeight: 'bold',
-                }}>
+                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, rgba(120,100,75,0.5), transparent)' }} />
+                <div style={{ position: 'absolute', top: '-8px', right: '14px', fontSize: '5.5rem', fontWeight: '900', color: 'rgba(120,100,75,0.04)', lineHeight: 1, fontFamily: 'Georgia, serif', pointerEvents: 'none', userSelect: 'none', letterSpacing: '-3px' }}>2024</div>
+
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', marginBottom: '18px', padding: '3px 10px', border: '1px solid rgba(120,100,75,0.22)', borderRadius: '2px', fontSize: '0.58rem', letterSpacing: '3px', color: 'rgba(120,100,75,0.75)', fontFamily: 'monospace', textTransform: 'uppercase' }}>
+                  <span style={{ width: '4px', height: '4px', background: 'rgba(120,100,75,0.75)', borderRadius: '50%', display: 'inline-block' }} />
+                  Dec 2024 — Mar 2025
+                </div>
+
+                <h3 style={{ fontSize: '1.35rem', marginBottom: '5px', fontWeight: '700', color: '#ede0cc', letterSpacing: '0.3px' }}>
                   Take2
                 </h3>
-                
-                <p style={{
-                  color: '#ff5858',
-                  fontSize: '1.1rem',
-                  fontWeight: '600',
-                  marginBottom: '8px',
-                }}>
+                <p style={{ color: 'rgba(186, 156, 106, 0.75)', fontSize: '0.83rem', fontStyle: 'italic', marginBottom: '16px', letterSpacing: '0.3px' }}>
                   Full-Stack Software Development Start Up Intern
                 </p>
-                
-                <p style={{
-                  color: '#ffcc70',
-                  fontSize: '0.9rem',
-                  fontWeight: '500',
-                  marginBottom: '15px',
-                  letterSpacing: '0.5px',
-                }}>
-                  Dec 2024 – Mar 2025
-                </p>
-                
-                <ul style={{
-                  color: '#ddd',
-                  fontSize: '0.95rem',
-                  lineHeight: '1.6',
-                  paddingLeft: '0',
-                  listStyle: 'none',
-                }}>
-                  <li style={{ 
-                    marginBottom: '12px',
-                    paddingLeft: '20px',
-                    position: 'relative',
-                  }}>
-                    <span style={{
-                      position: 'absolute',
-                      left: '0',
-                      color: '#ff5858',
-                      fontWeight: 'bold',
-                    }}>•</span>
-                    Collaborated with a team of 4 developers to build and deploy a cross-platform movie-tracking app using React, TypeScript, and Firebase, now used by 3,000+ users across iOS.
-                  </li>
-                  <li style={{ 
-                    marginBottom: '12px',
-                    paddingLeft: '20px',
-                    position: 'relative',
-                  }}>
-                    <span style={{
-                      position: 'absolute',
-                      left: '0',
-                      color: '#ff5858',
-                      fontWeight: 'bold',
-                    }}>•</span>
-                    Designed and implemented 10+ front-end components and their back end, enhancing mobile responsiveness and UI performance by 30%, based on user interaction metrics.
-                  </li>
-                  <li style={{ 
-                    paddingLeft: '20px',
-                    position: 'relative',
-                  }}>
-                    <span style={{
-                      position: 'absolute',
-                      left: '0',
-                      color: '#ff5858',
-                      fontWeight: 'bold',
-                    }}>•</span>
-                    Resolved 20+ pre-launch bugs and added critical features such as the import feature, notification tracking system and real-time updates, directly contributing to successful app deployment.
-                  </li>
+                <div style={{ height: '1px', background: 'linear-gradient(90deg, rgba(120,100,75,0.2), transparent)', marginBottom: '14px' }} />
+                <ul style={{ color: '#b0a090', fontSize: '0.86rem', lineHeight: '1.65', paddingLeft: 0, listStyle: 'none' }}>
+                  {[
+                    'Collaborated with a team of 4 developers to build and deploy a cross-platform movie-tracking app using React, TypeScript, and Firebase, now used by 3,000+ users across iOS.',
+                    'Designed and implemented 10+ front-end components and their back end, enhancing mobile responsiveness and UI performance by 30%, based on user interaction metrics.',
+                    'Resolved 20+ pre-launch bugs and added critical features such as the import feature, notification tracking system and real-time updates.',
+                  ].map((item, i) => (
+                    <li key={i} style={{ marginBottom: i < 2 ? '8px' : 0, paddingLeft: '16px', position: 'relative' }}>
+                      <span style={{ position: 'absolute', left: 0, color: 'rgba(120,100,75,0.5)', fontWeight: 'bold' }}>—</span>
+                      {item}
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
 
           </div>
+
+        </div>
+
+        {/* Section bridge — outside timeline so vertical line doesn't extend through it */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '40px' }}>
+          <div style={{ width: '1px', height: '48px', background: 'linear-gradient(to bottom, rgba(160,100,30,0.3), rgba(160,100,30,0.55))' }} />
+          <div style={{
+            width: '9px',
+            height: '9px',
+            border: '1px solid rgba(212,192,154,0.5)',
+            background: 'rgba(160,100,30,0.45)',
+            transform: 'rotate(45deg)',
+          }} />
         </div>
       </section>
 
@@ -1638,51 +1455,24 @@ function App() {
       <section
         ref={projectsRef}
         style={{
-          background: '#222',
+          background: 'linear-gradient(180deg, #080608 0%, #100c0a 50%, #080608 100%)',
           color: '#fff',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'flex-start',
-          padding: '40px 20px',
+          padding: '0px 20px 40px',
           position: 'relative',
+          overflow: 'hidden',
         }}
       >
-        {/* Timeline Connection from Work Experience */}
-        <div style={{
-          position: 'absolute',
-          top: '-100px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '4px',
-          height: '160px',
-          background: 'linear-gradient(to bottom, #f857a6, #ff5858)',
-          zIndex: 1,
-        }} />
-
-        {/* Curved Transition from Vertical to Horizontal */}
-        <div style={{
-          position: 'absolute',
-          top: '40px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '40px',
-          height: '40px',
-          borderRadius: '0 0 40px 40px',
-          border: '4px solid transparent',
-          borderBottomColor: '#ff5858',
-          borderLeftColor: '#ff5858',
-          borderRightColor: '#ffcc70',
-          background: 'transparent',
-          zIndex: 1,
-        }} />
-        
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 75% 45% at 50% 0%, rgba(160, 100, 30, 0.07) 0%, transparent 60%), radial-gradient(ellipse 90% 55% at 50% 50%, rgba(160, 100, 30, 0.08) 0%, transparent 70%), radial-gradient(ellipse 55% 40% at 15% 25%, rgba(196, 30, 58, 0.05) 0%, transparent 58%), radial-gradient(ellipse 70% 45% at 50% 100%, rgba(160, 100, 30, 0.06) 0%, transparent 60%)', pointerEvents: 'none' }} />
         <h2 className="gradient_text" style={{
           fontSize: '3.5rem',
           marginBottom: '20px',
           textAlign: 'center',
           fontWeight: 'bold',
-          marginTop: '40px'
+          marginTop: '16px'
         }}>
           My Projects
         </h2>
@@ -2254,14 +2044,17 @@ function App() {
       <section
         ref={certificationsRef}
         style={{
-          background: '#222',
+          background: 'linear-gradient(180deg, #080608 0%, #100c0a 50%, #080608 100%)',
           color: '#fff',
           padding: '80px 20px',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          position: 'relative',
+          overflow: 'hidden',
         }}
       >
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 75% 45% at 50% 0%, rgba(160, 100, 30, 0.07) 0%, transparent 60%), radial-gradient(ellipse 80% 55% at 50% 45%, rgba(160, 100, 30, 0.09) 0%, transparent 68%), radial-gradient(ellipse 70% 45% at 50% 100%, rgba(160, 100, 30, 0.06) 0%, transparent 60%)', pointerEvents: 'none' }} />
         <h2 className="gradient_text" style={{
           fontSize: '3.5rem',
           marginBottom: '50px',
@@ -2345,11 +2138,14 @@ function App() {
 
       <section
         style={{
-          background: '#222',
+          background: 'linear-gradient(180deg, #080608 0%, #100c0a 50%, #080608 100%)',
           color: '#fff',
           padding: '80px 20px',
+          position: 'relative',
+          overflow: 'hidden',
         }}
       >
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(160, 100, 30, 0.08) 0%, transparent 65%), radial-gradient(ellipse 80% 55% at 55% 50%, rgba(160, 100, 30, 0.08) 0%, transparent 68%), radial-gradient(ellipse 70% 45% at 50% 100%, rgba(160, 100, 30, 0.07) 0%, transparent 60%)', pointerEvents: 'none' }} />
         <div style={{
           maxWidth: '1000px',
           margin: '0 auto',
@@ -2373,12 +2169,9 @@ function App() {
           </p>
 
           <div style={{
-            background: 'linear-gradient(135deg, rgba(40, 40, 40, 0.95), rgba(25, 25, 25, 0.98))',
-            border: '1px solid rgba(248, 87, 166, 0.2)',
+            background: 'transparent',
             borderRadius: '20px',
             padding: '30px',
-            backdropFilter: 'blur(8px)',
-            boxShadow: '0 15px 40px rgba(0, 0, 0, 0.3)',
             position: 'relative',
             overflow: 'hidden',
           }}>
@@ -2386,9 +2179,9 @@ function App() {
               position: 'absolute',
               top: 0,
               right: 0,
-              width: '150px',
-              height: '150px',
-              background: 'radial-gradient(circle at top right, rgba(248, 87, 166, 0.08), transparent)',
+              width: '200px',
+              height: '200px',
+              background: 'radial-gradient(circle at top right, rgba(160, 100, 30, 0.06), transparent)',
               pointerEvents: 'none',
             }} />
 
@@ -2487,8 +2280,8 @@ function App() {
                     <div style={{
                       width: '30px',
                       height: '30px',
-                      border: '3px solid rgba(248, 87, 166, 0.2)',
-                      borderTopColor: '#f857a6',
+                      border: '3px solid rgba(160, 100, 30, 0.2)',
+                      borderTopColor: 'rgba(212, 192, 154, 0.9)',
                       borderRadius: '50%',
                       animation: 'spin 1s linear infinite',
                     }} />
@@ -2527,7 +2320,7 @@ function App() {
                                 transition: 'all 0.15s ease',
                                 transform: isHovered ? 'scale(1.4)' : 'scale(1)',
                                 boxShadow: isHovered
-                                  ? `0 0 12px ${day.count > 0 ? 'rgba(248, 87, 166, 0.6)' : 'rgba(100, 100, 100, 0.3)'}`
+                                  ? `0 0 12px ${day.count > 0 ? 'rgba(160, 100, 30, 0.7)' : 'rgba(100, 100, 100, 0.3)'}`
                                   : 'none',
                                 zIndex: isHovered ? 10 : 1,
                                 position: 'relative',
@@ -2551,7 +2344,7 @@ function App() {
               gap: '8px',
               marginTop: '15px',
               paddingTop: '15px',
-              borderTop: '1px solid rgba(248, 87, 166, 0.1)',
+              borderTop: '1px solid rgba(160, 100, 30, 0.15)',
             }}>
               <span style={{ fontSize: '0.75rem', color: '#666' }}>Less</span>
               {[0, 1, 3, 6, 10].map((level, i) => (
@@ -2562,7 +2355,7 @@ function App() {
                     height: '11px',
                     borderRadius: '3px',
                     background: getContribColor(level),
-                    border: '1px solid rgba(248, 87, 166, 0.2)',
+                    border: '1px solid rgba(160, 100, 30, 0.25)',
                   }}
                 />
               ))}
@@ -2586,18 +2379,18 @@ function App() {
                   fontSize: '0.9rem',
                   padding: '10px 20px',
                   borderRadius: '25px',
-                  border: '1px solid rgba(248, 87, 166, 0.2)',
+                  border: '1px solid rgba(160, 100, 30, 0.25)',
                   transition: 'all 0.3s ease',
                   background: 'transparent',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#f857a6';
-                  e.currentTarget.style.borderColor = '#f857a6';
-                  e.currentTarget.style.background = 'rgba(248, 87, 166, 0.1)';
+                  e.currentTarget.style.color = '#D4C09A';
+                  e.currentTarget.style.borderColor = 'rgba(212, 192, 154, 0.6)';
+                  e.currentTarget.style.background = 'rgba(160, 100, 30, 0.1)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.color = '#888';
-                  e.currentTarget.style.borderColor = 'rgba(248, 87, 166, 0.2)';
+                  e.currentTarget.style.borderColor = 'rgba(160, 100, 30, 0.25)';
                   e.currentTarget.style.background = 'transparent';
                 }}
               >
@@ -2614,12 +2407,14 @@ function App() {
       {/* Footer Section with Contributors */}
       <footer
         style={{
-          background: '#222',
+          background: 'linear-gradient(180deg, #080608 0%, #100c0a 50%, #080608 100%)',
           color: '#fff',
           padding: '80px 20px 40px',
-          borderTop: '1px solid rgba(248, 87, 166, 0.2)',
+          position: 'relative',
+          overflow: 'hidden',
         }}
       >
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(196, 30, 58, 0.06) 0%, rgba(160, 100, 30, 0.07) 45%, transparent 72%)', pointerEvents: 'none' }} />
         <div style={{
           maxWidth: '1200px',
           margin: '0 auto',

@@ -13,6 +13,13 @@ body {
   box-sizing: border-box;
 }
 
+/* Seamless section stacking — no gaps or borders between sections */
+section, footer {
+  margin: 0;
+  border: none;
+  outline: none;
+}
+
 /* Responsive base styles */
 img, video, iframe, object, embed {
   max-width: 100%;
