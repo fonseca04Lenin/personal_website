@@ -1231,7 +1231,7 @@ function App() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '100px 20px 60px',
+          padding: '100px 20px 0px',
           position: 'relative',
           overflow: 'hidden',
         }}
@@ -1438,16 +1438,8 @@ function App() {
 
         </div>
 
-        {/* Section bridge — outside timeline so vertical line doesn't extend through it */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '40px' }}>
-          <div style={{ width: '1px', height: '48px', background: 'linear-gradient(to bottom, rgba(160,100,30,0.3), rgba(160,100,30,0.55))' }} />
-          <div style={{
-            width: '9px',
-            height: '9px',
-            border: '1px solid rgba(212,192,154,0.5)',
-            background: 'rgba(160,100,30,0.45)',
-            transform: 'rotate(45deg)',
-          }} />
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '0px' }}>
+          <div style={{ width: '1px', height: '60px', background: 'linear-gradient(to bottom, rgba(160,100,30,0.3), rgba(160,120,50,0.5))' }} />
         </div>
       </section>
 
@@ -1467,36 +1459,34 @@ function App() {
         }}
       >
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 75% 45% at 50% 0%, rgba(160, 100, 30, 0.07) 0%, transparent 60%), radial-gradient(ellipse 90% 55% at 50% 50%, rgba(160, 100, 30, 0.08) 0%, transparent 70%), radial-gradient(ellipse 55% 40% at 15% 25%, rgba(196, 30, 58, 0.05) 0%, transparent 58%), radial-gradient(ellipse 70% 45% at 50% 100%, rgba(160, 100, 30, 0.06) 0%, transparent 60%)', pointerEvents: 'none' }} />
-        <h2 className="gradient_text" style={{
-          fontSize: '3.5rem',
-          marginBottom: '20px',
-          textAlign: 'center',
-          fontWeight: 'bold',
-          marginTop: '16px'
-        }}>
-          My Projects
-        </h2>
-        
-        <p style={{
-          textAlign: 'center',
-          color: '#ddd',
-          fontSize: '1.1rem',
-          marginBottom: '60px',
-          maxWidth: '600px',
-          margin: '0 auto 60px auto',
-        }}>
-          Things I've built — click any card to learn more
-        </p>
-        
         {isMobile ? (
-          /* Mobile: simple stacked cards via flexbox */
-          <div style={{
-            width: '100%',
-            padding: '0 16px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '16px',
-          }}>
+          <>
+
+            <h2 className="gradient_text" style={{
+              fontSize: '2.8rem',
+              textAlign: 'center',
+              fontWeight: 'bold',
+              marginTop: '40px',
+              marginBottom: '8px',
+            }}>
+              My Projects
+            </h2>
+            <p style={{
+              textAlign: 'center',
+              color: '#ddd',
+              fontSize: '1rem',
+              maxWidth: '600px',
+              margin: '0 auto 32px auto',
+            }}>
+              Things I've built — click any card to learn more
+            </p>
+            <div style={{
+              width: '100%',
+              padding: '0 16px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '16px',
+            }}>
             {[
               { project: projects[0], accentColor: '#f857a6', tagBg: 'rgba(248,87,166,0.15)', tagBorder: 'rgba(248,87,166,0.4)', tagColor: '#f9b8d8' },
               { project: projects[1], accentColor: '#ff5858', tagBg: 'rgba(255,88,88,0.15)', tagBorder: 'rgba(255,88,88,0.4)', tagColor: '#ffb3b3' },
@@ -1564,41 +1554,55 @@ function App() {
                   <p style={{ color: accentColor, fontSize: '0.7rem', marginBottom: '4px', letterSpacing: '0.3px' }}>
                     {project.date}
                   </p>
-                  <h3 style={{ color: '#fff', fontSize: '1.1rem', fontWeight: '600', marginBottom: '6px', lineHeight: '1.2' }}>
+                  <h3 style={{ color: '#fff', fontSize: '1.1rem', fontWeight: '600', marginBottom: '0', lineHeight: '1.2' }}>
                     {project.name}
                   </h3>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
-                    {project.tech.slice(0, 3).map((tech, i) => (
-                      <span key={i} style={{
-                        padding: '2px 7px',
-                        background: tagBg,
-                        border: `1px solid ${tagBorder}`,
-                        borderRadius: '4px',
-                        fontSize: '0.65rem',
-                        color: tagColor,
-                        fontFamily: 'monospace',
-                      }}>
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
                 </div>
               </div>
             ))}
           </div>
+          </>
         ) : (
-          /* Desktop: Bento Grid */
-          <div style={{
-            width: '100%',
-            maxWidth: '1400px',
-            margin: '0 auto',
-            padding: '20px',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(6, 1fr)',
-            gridTemplateRows: 'repeat(4, 200px)',
-            gap: '20px',
-          }}>
-            {/* Project 1 - Stock Market App */}
+          <>
+            <div style={{
+              width: '100%',
+              maxWidth: '1400px',
+              margin: '0 auto',
+              position: 'relative',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              paddingTop: '50px',
+              paddingBottom: '40px',
+              boxSizing: 'border-box',
+            }}>
+              <svg
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible' }}
+                viewBox="0 0 1000 240"
+                preserveAspectRatio="none"
+              >
+                <line x1="500" y1="0" x2="500" y2="58" stroke="rgba(160,100,30,0.5)" strokeWidth="1" />
+                <path d="M 500,58 C 500,140 14,185 14,240" fill="none" stroke="rgba(160,120,50,0.42)" strokeWidth="1" />
+                <path d="M 500,58 C 500,140 986,185 986,240" fill="none" stroke="rgba(160,120,50,0.42)" strokeWidth="1" />
+              </svg>
+              <div style={{ width: '9px', height: '9px', border: '1px solid rgba(212,192,154,0.5)', background: 'rgba(160,100,30,0.45)', transform: 'rotate(45deg)', flexShrink: 0, position: 'relative', zIndex: 3 }} />
+              <h2 className="gradient_text" style={{ fontSize: '3.5rem', fontWeight: 'bold', textAlign: 'center', marginTop: '28px', position: 'relative', zIndex: 2 }}>
+                My Projects
+              </h2>
+              <p style={{ textAlign: 'center', color: '#ddd', fontSize: '1.1rem', maxWidth: '600px', margin: '12px auto 0', position: 'relative', zIndex: 2 }}>
+                Things I've built — click any card to learn more
+              </p>
+            </div>
+            <div style={{
+              width: '100%',
+              maxWidth: '1400px',
+              margin: '0 auto',
+              padding: '0 20px 20px',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(6, 1fr)',
+              gridTemplateRows: 'repeat(4, 200px)',
+              gap: '20px',
+            }}>
             <div
               onClick={() => openProject(projects[0])}
               style={{
@@ -1622,16 +1626,10 @@ function App() {
               <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
                 <p style={{ color: '#f857a6', fontSize: '0.72rem', marginBottom: '6px' }}>{projects[0].date}</p>
                 <h3 style={{ color: '#fff', fontSize: '1.5rem', fontWeight: '600', marginBottom: '8px' }}>{projects[0].name}</h3>
-                <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '14px' }}>{projects[0].description}</p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                  {projects[0].tech.slice(0, 6).map((tech, i) => (
-                    <span key={i} style={{ padding: '3px 8px', background: 'rgba(248,87,166,0.15)', border: '1px solid rgba(248,87,166,0.4)', borderRadius: '4px', fontSize: '0.7rem', color: '#f9b8d8', fontFamily: 'monospace' }}>{tech}</span>
-                  ))}
-                </div>
+                <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '0' }}>{projects[0].description}</p>
               </div>
             </div>
 
-            {/* Project 2 - UV Index */}
             <div
               onClick={() => openProject(projects[1])}
               style={{
@@ -1658,16 +1656,10 @@ function App() {
               <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
                 <p style={{ color: '#ff5858', fontSize: '0.72rem', marginBottom: '6px' }}>{projects[1].date}</p>
                 <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '600', marginBottom: '8px' }}>{projects[1].name}</h3>
-                <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '14px' }}>{projects[1].description}</p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                  {projects[1].tech.slice(0, 3).map((tech, i) => (
-                    <span key={i} style={{ padding: '3px 8px', background: 'rgba(255,88,88,0.15)', border: '1px solid rgba(255,88,88,0.4)', borderRadius: '4px', fontSize: '0.7rem', color: '#ffb3b3', fontFamily: 'monospace' }}>{tech}</span>
-                  ))}
-                </div>
+                <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '0' }}>{projects[1].description}</p>
               </div>
             </div>
 
-            {/* Project 3 - Portfolio */}
             <div
               onClick={() => openProject(projects[2])}
               style={{
@@ -1694,16 +1686,10 @@ function App() {
               <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
                 <p style={{ color: '#ffcc70', fontSize: '0.72rem', marginBottom: '6px' }}>{projects[2].date}</p>
                 <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '600', marginBottom: '8px' }}>{projects[2].name}</h3>
-                <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '14px' }}>{projects[2].description}</p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                  {projects[2].tech.slice(0, 4).map((tech, i) => (
-                    <span key={i} style={{ padding: '3px 8px', background: 'rgba(255,204,112,0.15)', border: '1px solid rgba(255,204,112,0.4)', borderRadius: '4px', fontSize: '0.7rem', color: '#ffe4a8', fontFamily: 'monospace' }}>{tech}</span>
-                  ))}
-                </div>
+                <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '0' }}>{projects[2].description}</p>
               </div>
             </div>
 
-            {/* Project 4 - Algorithm Visualizer */}
             <div
               onClick={() => openProject(projects[3])}
               style={{
@@ -1729,15 +1715,33 @@ function App() {
               <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
                 <p style={{ color: '#667eea', fontSize: '0.72rem', marginBottom: '6px' }}>{projects[3].date}</p>
                 <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '600', marginBottom: '8px' }}>{projects[3].name}</h3>
-                <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '14px' }}>{projects[3].description}</p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                  {projects[3].tech.slice(0, 4).map((tech, i) => (
-                    <span key={i} style={{ padding: '3px 8px', background: 'rgba(102,126,234,0.15)', border: '1px solid rgba(102,126,234,0.4)', borderRadius: '4px', fontSize: '0.7rem', color: '#b3bcf5', fontFamily: 'monospace' }}>{tech}</span>
-                  ))}
-                </div>
+                <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '0' }}>{projects[3].description}</p>
               </div>
             </div>
+            <div style={{
+              width: '100%',
+              maxWidth: '1400px',
+              marginTop: '-20px',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              position: 'relative',
+              alignSelf: 'stretch',
+              boxSizing: 'border-box',
+              paddingTop: '0px',
+              paddingBottom: '50px',
+            }}>
+              <svg
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible' }}
+                viewBox="0 0 1000 240"
+                preserveAspectRatio="none"
+              >
+                <path d="M 14,0 C 14,55 500,100 500,182" fill="none" stroke="rgba(160,120,50,0.42)" strokeWidth="1" />
+                <path d="M 986,0 C 986,55 500,100 500,182" fill="none" stroke="rgba(160,120,50,0.42)" strokeWidth="1" />
+              </svg>
+              <div style={{ position: 'absolute', top: 'calc(182 / 240 * 100%)', left: '50%', transform: 'translate(-50%, -50%) rotate(45deg)', width: '9px', height: '9px', border: '1px solid rgba(212,192,154,0.5)', background: 'rgba(160,100,30,0.45)', zIndex: 3 }} />
+            </div>
           </div>
+          </>
         )}
       </section>
 
