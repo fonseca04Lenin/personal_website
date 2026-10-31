@@ -38,7 +38,7 @@ img, video, iframe, object, embed {
   background: linear-gradient(135deg, #ff6b6b 0%, #f857a6 25%, #ff5858 50%, #ffcc70 75%, #ffd93d 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text; 
+  background-clip: text;
   color: transparent;
   position: relative;
   transition: all 0.3s ease;
@@ -72,10 +72,6 @@ section h2.gradient_text {
   text-shadow: none !important;
   color: transparent !important;
 }
-
-
-
-
 
 
 /* Special styling for the "Let's Build Something Amazing Together" heading */
@@ -248,7 +244,7 @@ nav .gradient_text:hover {
 /* Horizontal timeline specific styles */
 .timeline-container {
   scrollbar-width: thin;
-  scrollbar-color: #f857a6 #222;
+  scrollbar-color: #8b1a2a #222;
 }
 .timeline-container::-webkit-scrollbar {
   height: 8px;
@@ -258,11 +254,11 @@ nav .gradient_text:hover {
   border-radius: 4px;
 }
 .timeline-container::-webkit-scrollbar-thumb {
-  background: linear-gradient(90deg, #f857a6, #ff5858);
+  background: linear-gradient(90deg, #8b1a2a, #9b1b30);
   border-radius: 4px;
 }
 .timeline-container::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(90deg, #ff5858, #ffcc70);
+  background: linear-gradient(90deg, #9b1b30, #D4C09A);
 }
 /* Mobile Responsive Styles - Only applies to screens smaller than 768px */
 @media (max-width: 768px) {
@@ -306,7 +302,7 @@ nav .gradient_text:hover {
   
   /* Mobile menu button hover effect */
   .mobile-menu-button:hover {
-    background: rgba(248, 87, 166, 0.1) !important;
+    background: rgba(212, 192, 154, 0.1) !important;
   }
   
   /* Touch-friendly mobile menu items */
@@ -321,8 +317,8 @@ nav .gradient_text:hover {
   .mobile-nav-menu button:hover,
   .mobile-nav-menu button:focus,
   .mobile-nav-menu button:active {
-    border-left: 3px solid #f857a6 !important;
-    background: rgba(248, 87, 166, 0.15) !important;
+    border-left: 3px solid #8b1a2a !important;
+    background: rgba(212, 192, 154, 0.15) !important;
     transform: translateX(5px) !important;
     outline: none !important;
   }
@@ -330,7 +326,7 @@ nav .gradient_text:hover {
   /* Mobile menu accessibility and animation improvements */
   .mobile-nav-menu {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
-    border-top: 1px solid rgba(248, 87, 166, 0.2) !important;
+    border-top: 1px solid rgba(212, 192, 154, 0.2) !important;
   }
   
   /* Prevent body scroll when mobile menu is open */
@@ -345,7 +341,7 @@ nav .gradient_text:hover {
   }
   
   .mobile-menu-button:focus {
-    outline: 2px solid rgba(248, 87, 166, 0.5) !important;
+    outline: 2px solid rgba(212, 192, 154, 0.5) !important;
     outline-offset: 2px !important;
   }
   
@@ -482,7 +478,7 @@ nav .gradient_text:hover {
     left: 30px !important;
     width: 3px !important;
     transform: none !important;
-    background: linear-gradient(to bottom, #f857a6, #ff5858) !important;
+    background: linear-gradient(to bottom, #8b1a2a, #9b1b30) !important;
   }
 
   /* Work experience container mobile layoutt */
@@ -611,7 +607,7 @@ nav .gradient_text:hover {
     bottom: 0 !important;
     width: 3px !important;
     height: auto !important;
-    background: linear-gradient(to bottom, #f857a6, #ff5858, #ffcc70) !important;
+    background: linear-gradient(to bottom, #8b1a2a, #9b1b30, #D4C09A) !important;
     transform: none !important;
   }
   
@@ -658,7 +654,7 @@ nav .gradient_text:hover {
     bottom: auto !important;
     width: 35px !important;
     height: 2px !important;
-    background: linear-gradient(90deg, #f857a6, transparent) !important;
+    background: linear-gradient(90deg, #8b1a2a, transparent) !important;
     transform: translateY(-50%) !important;
   }
   
@@ -896,7 +892,7 @@ nav .gradient_text:hover {
 }
 .contribution-grid {
   scrollbar-width: thin;
-  scrollbar-color: rgba(248, 87, 166, 0.4) #222;
+  scrollbar-color: rgba(212, 192, 154, 0.4) #222;
 }
 
 .contribution-grid::-webkit-scrollbar {
@@ -909,12 +905,12 @@ nav .gradient_text:hover {
 }
 
 .contribution-grid::-webkit-scrollbar-thumb {
-  background: linear-gradient(90deg, #f857a6, #ff5858);
+  background: linear-gradient(90deg, #8b1a2a, #9b1b30);
   border-radius: 3px;
 }
 
 .contribution-grid::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(90deg, #ff5858, #ffcc70);
+  background: linear-gradient(90deg, #9b1b30, #D4C09A);
 }
 
 /* Tablet styles */

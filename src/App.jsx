@@ -205,26 +205,24 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   useEffect(() => {
     const fullText = "Hello\nI'm Elvin";
     let currentIndex = 0;
-    
+    const timeouts = [];
+
     const animateText = () => {
       if (currentIndex <= fullText.length) {
         setAnimatedText(fullText.slice(0, currentIndex));
         currentIndex++;
-        setTimeout(animateText, 100);
+        timeouts.push(setTimeout(animateText, 100));
       } else {
         setIsAnimating(false);
-        setTimeout(() => setShowSubtitle(true), 300);
-        setTimeout(() => setShowSkills(true), 600);
+        timeouts.push(setTimeout(() => setShowSubtitle(true), 300));
+        timeouts.push(setTimeout(() => setShowSkills(true), 600));
       }
     };
-    
-    // Starsts animation after a short delay
-    const startDelay = setTimeout(() => {
-      animateText();
-    }, 500);
-    
-    return () => clearTimeout(startDelay);
-  }, []); // Empty dependency array means this runs only once on mount
+
+    timeouts.push(setTimeout(animateText, 500));
+
+    return () => timeouts.forEach(clearTimeout);
+  }, []);
 
   const currentHeroSkills = rotatingSkillSets[currentSkillSetIndex] || [];
 
@@ -236,23 +234,21 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
     setSelectedProject(null);
   };
 
-  // Shared hover handlers for standard cards
-  const cardHoverEnter = (e) => {
-    e.currentTarget.style.transform = 'translateY(-5px)';
-    e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.6)';
-  };
-  const cardHoverLeave = (e) => {
-    e.currentTarget.style.transform = 'translateY(0)';
-    e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.3)';
-  };
+  useEffect(() => {
+    if (!selectedProject) return;
+    const onKey = (e) => { if (e.key === 'Escape') closeProject(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [selectedProject]);
+
   const cardHoverEnterWithShadow = (e) => {
     e.currentTarget.style.transform = 'translateY(-5px)';
-    e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.6)';
-    e.currentTarget.style.boxShadow = '0 20px 50px rgba(248, 87, 166, 0.15)';
+    e.currentTarget.style.border = '1px solid rgba(212, 192, 154, 0.6)';
+    e.currentTarget.style.boxShadow = '0 20px 50px rgba(212, 192, 154, 0.15)';
   };
   const cardHoverLeaveWithShadow = (e) => {
     e.currentTarget.style.transform = 'translateY(0)';
-    e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.3)';
+    e.currentTarget.style.border = '1px solid rgba(212, 192, 154, 0.3)';
     e.currentTarget.style.boxShadow = 'none';
   };
 
@@ -294,7 +290,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
         right: 0,
         background: 'rgba(34, 34, 34, 0.95)',
         backdropFilter: 'blur(10px)',
-        borderBottom: '1px solid rgba(248, 87, 166, 0.3)',
+        borderBottom: '1px solid rgba(212, 192, 154, 0.3)',
         zIndex: 1000,
         padding: '15px 0',
       }}>
@@ -345,8 +341,8 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                   transition: 'all 0.3s ease',
                 }}
                 onMouseEnter={(e) => {
-                  e.target.style.background = 'rgba(248, 87, 166, 0.2)';
-                  e.target.style.color = '#f857a6';
+                  e.target.style.background = 'rgba(212, 192, 154, 0.2)';
+                  e.target.style.color = '#8b1a2a';
                 }}
                 onMouseLeave={(e) => {
                   e.target.style.background = 'transparent';
@@ -364,7 +360,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
               alignItems: 'center',
               marginLeft: '20px',
               paddingLeft: '20px',
-              borderLeft: '1px solid rgba(248, 87, 166, 0.3)'
+              borderLeft: '1px solid rgba(212, 192, 154, 0.3)'
             }}>
               {/* LinkedIn Icon */}
               <a
@@ -432,7 +428,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                 download="Elvin_Fonseca_Resume.pdf"
                 onClick={() => track('Resume Download', { source: 'header' })}
                 style={{
-                  background: 'linear-gradient(45deg, #f857a6, #ff5858)',
+                  background: 'linear-gradient(45deg, #8b1a2a, #9b1b30)',
                   color: '#fff',
                   padding: '8px 16px',
                   borderRadius: '20px',
@@ -448,12 +444,12 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                   marginLeft: '10px',
                 }}
                 onMouseEnter={(e) => {
-                  e.target.style.background = 'linear-gradient(45deg, #ff5858, #ffcc70)';
+                  e.target.style.background = 'linear-gradient(45deg, #9b1b30, #D4C09A)';
                   e.target.style.transform = 'translateY(-2px)';
-                  e.target.style.boxShadow = '0 4px 15px rgba(248, 87, 166, 0.4)';
+                  e.target.style.boxShadow = '0 4px 15px rgba(212, 192, 154, 0.4)';
                 }}
                 onMouseLeave={(e) => {
-                  e.target.style.background = 'linear-gradient(45deg, #f857a6, #ff5858)';
+                  e.target.style.background = 'linear-gradient(45deg, #8b1a2a, #9b1b30)';
                   e.target.style.transform = 'translateY(0)';
                   e.target.style.boxShadow = 'none';
                 }}
@@ -467,9 +463,11 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
           </div>
 
           {/* Mobile Hamburger Menu Button */}
-          <button 
+          <button
             className="mobile-menu-button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={mobileMenuOpen}
             style={{
               display: 'none',
               background: 'transparent',
@@ -529,7 +527,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
             right: 0,
             background: 'rgba(34, 34, 34, 0.98)',
             backdropFilter: 'blur(15px)',
-            borderBottom: '1px solid rgba(248, 87, 166, 0.3)',
+            borderBottom: '1px solid rgba(212, 192, 154, 0.3)',
             transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-100%)',
             opacity: mobileMenuOpen ? 1 : 0,
             visibility: mobileMenuOpen ? 'visible' : 'hidden',
@@ -567,8 +565,8 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                   width: '100%',
                 }}
                 onMouseEnter={(e) => {
-                  e.target.style.background = 'rgba(248, 87, 166, 0.2)';
-                  e.target.style.color = '#f857a6';
+                  e.target.style.background = 'rgba(212, 192, 154, 0.2)';
+                  e.target.style.color = '#8b1a2a';
                 }}
                 onMouseLeave={(e) => {
                   e.target.style.background = 'transparent';
@@ -586,7 +584,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
               gap: '20px',
               marginTop: '20px',
               paddingTop: '20px',
-              borderTop: '1px solid rgba(248, 87, 166, 0.3)'
+              borderTop: '1px solid rgba(212, 192, 154, 0.3)'
             }}>
               {/* LinkedIn Icon */}
               <a
@@ -662,7 +660,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                     setMobileMenuOpen(false)
                   }}
                   style={{
-                    background: 'linear-gradient(45deg, #f857a6, #ff5858)',
+                    background: 'linear-gradient(45deg, #8b1a2a, #9b1b30)',
                     color: '#fff',
                     padding: '12px 24px',
                     borderRadius: '25px',
@@ -677,12 +675,12 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                     cursor: 'pointer',
                   }}
                   onMouseEnter={(e) => {
-                    e.target.style.background = 'linear-gradient(45deg, #ff5858, #ffcc70)';
+                    e.target.style.background = 'linear-gradient(45deg, #9b1b30, #D4C09A)';
                     e.target.style.transform = 'translateY(-2px)';
-                    e.target.style.boxShadow = '0 6px 20px rgba(248, 87, 166, 0.4)';
+                    e.target.style.boxShadow = '0 6px 20px rgba(212, 192, 154, 0.4)';
                   }}
                   onMouseLeave={(e) => {
-                    e.target.style.background = 'linear-gradient(45deg, #f857a6, #ff5858)';
+                    e.target.style.background = 'linear-gradient(45deg, #8b1a2a, #9b1b30)';
                     e.target.style.transform = 'translateY(0)';
                     e.target.style.boxShadow = 'none';
                   }}
@@ -746,7 +744,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
           <h1 className="gradient_text hero-title" style={{ fontSize: '5rem', fontWeight: 'bold', margin: '0', lineHeight: 1.1, whiteSpace: 'pre-line' }}>
             {animatedText || "Hello\nI'm Elvin"}
             {isAnimating && <span style={{ 
-              borderRight: '3px solid #f857a6', 
+              borderRight: '3px solid #8b1a2a', 
               animation: 'blink 1s infinite',
               marginLeft: '2px'
             }}></span>}
@@ -871,8 +869,8 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
             }}
           >
             <img
-              src="head_shot.jpeg"
-              alt="Elvin"
+              src="/head_shot.jpeg"
+              alt="Elvin Fonseca headshot"
               style={{
                 width: '100%',
                 height: '100%',
@@ -1087,7 +1085,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                 </ul>
                 <div style={{ marginTop: '14px', display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                   {['Active Directory', 'PowerShell', 'SQL', 'Office 365', 'BeyondTrust', 'ServiceNow', 'Windows Server', 'VPN', 'Lenovo', 'Troubleshooting', 'Documentation'].map((tech) => (
-                    <span key={tech} style={{ fontSize: '0.68rem', letterSpacing: '1.5px', color: 'rgba(230,120,135,0.9)', fontFamily: 'monospace', background: 'rgba(196,30,58,0.06)', border: '1px solid rgba(196,30,58,0.28)', borderRadius: '2px', padding: '2px 8px', textTransform: 'uppercase' }}>
+                    <span key={tech} style={{ fontSize: '0.68rem', letterSpacing: '1.5px', color: 'rgba(230,120,135,0.9)', fontFamily: 'monospace', background: 'rgba(196,30,58,0.06)', border: '1px solid rgba(196,30,58,0.28)', borderRadius: '2px', padding: '2px 8px', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
                       {tech}
                     </span>
                   ))}
@@ -1148,7 +1146,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                 </ul>
                 <div style={{ marginTop: '14px', display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                   {['C#', 'ASP.NET Core', 'Angular', 'TypeScript', 'REST APIs', 'Token Auth'].map((tech) => (
-                    <span key={tech} style={{ fontSize: '0.68rem', letterSpacing: '1.5px', color: 'rgba(212,192,154,0.85)', fontFamily: 'monospace', background: 'rgba(212,192,154,0.06)', border: '1px solid rgba(212,192,154,0.22)', borderRadius: '2px', padding: '2px 8px', textTransform: 'uppercase' }}>
+                    <span key={tech} style={{ fontSize: '0.68rem', letterSpacing: '1.5px', color: 'rgba(212,192,154,0.85)', fontFamily: 'monospace', background: 'rgba(212,192,154,0.06)', border: '1px solid rgba(212,192,154,0.22)', borderRadius: '2px', padding: '2px 8px', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
                       {tech}
                     </span>
                   ))}
@@ -1211,7 +1209,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                 </ul>
                 <div style={{ marginTop: '14px', display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                   {['Windows', 'macOS', 'Networking', 'Hardware', 'Endpoint Deployment', 'Asset Management', 'Patch Management', 'Root-Cause Analysis'].map((tech) => (
-                    <span key={tech} style={{ fontSize: '0.68rem', letterSpacing: '1.5px', color: 'rgba(230,120,135,0.9)', fontFamily: 'monospace', background: 'rgba(196,30,58,0.06)', border: '1px solid rgba(196,30,58,0.28)', borderRadius: '2px', padding: '2px 8px', textTransform: 'uppercase' }}>
+                    <span key={tech} style={{ fontSize: '0.68rem', letterSpacing: '1.5px', color: 'rgba(230,120,135,0.9)', fontFamily: 'monospace', background: 'rgba(196,30,58,0.06)', border: '1px solid rgba(196,30,58,0.28)', borderRadius: '2px', padding: '2px 8px', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
                       {tech}
                     </span>
                   ))}
@@ -1269,7 +1267,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                 </ul>
                 <div style={{ marginTop: '14px', display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                   {['Laravel', 'Vue.js', 'PHP', 'Yext API', 'PHPUnit', 'SEO', 'WebP', 'Accessibility', 'Caching'].map((tech) => (
-                    <span key={tech} style={{ fontSize: '0.68rem', letterSpacing: '1.5px', color: 'rgba(210,170,90,0.9)', fontFamily: 'monospace', background: 'rgba(190,145,60,0.06)', border: '1px solid rgba(190,145,60,0.28)', borderRadius: '2px', padding: '2px 8px', textTransform: 'uppercase' }}>
+                    <span key={tech} style={{ fontSize: '0.68rem', letterSpacing: '1.5px', color: 'rgba(210,170,90,0.9)', fontFamily: 'monospace', background: 'rgba(190,145,60,0.06)', border: '1px solid rgba(190,145,60,0.28)', borderRadius: '2px', padding: '2px 8px', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
                       {tech}
                     </span>
                   ))}
@@ -1327,7 +1325,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                 </ul>
                 <div style={{ marginTop: '14px', display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                   {['React', 'TypeScript', 'Firebase', 'iOS', 'React Native', 'Agile', 'UI/UX', 'Git'].map((tech) => (
-                    <span key={tech} style={{ fontSize: '0.68rem', letterSpacing: '1.5px', color: 'rgba(190,160,120,0.9)', fontFamily: 'monospace', background: 'rgba(120,100,75,0.06)', border: '1px solid rgba(120,100,75,0.28)', borderRadius: '2px', padding: '2px 8px', textTransform: 'uppercase' }}>
+                    <span key={tech} style={{ fontSize: '0.68rem', letterSpacing: '1.5px', color: 'rgba(190,160,120,0.9)', fontFamily: 'monospace', background: 'rgba(120,100,75,0.06)', border: '1px solid rgba(120,100,75,0.28)', borderRadius: '2px', padding: '2px 8px', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
                       {tech}
                     </span>
                   ))}
@@ -1389,11 +1387,11 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
               gap: '16px',
             }}>
             {[
-              { project: projects[0], accentColor: '#f857a6', tagBg: 'rgba(248,87,166,0.15)', tagBorder: 'rgba(248,87,166,0.4)', tagColor: '#f9b8d8' },
-              { project: projects[1], accentColor: '#ff5858', tagBg: 'rgba(255,88,88,0.15)', tagBorder: 'rgba(255,88,88,0.4)', tagColor: '#ffb3b3' },
-              { project: projects[2], accentColor: '#ffcc70', tagBg: 'rgba(255,204,112,0.15)', tagBorder: 'rgba(255,204,112,0.4)', tagColor: '#ffe4a8' },
-              { project: projects[3], accentColor: '#667eea', tagBg: 'rgba(102,126,234,0.15)', tagBorder: 'rgba(102,126,234,0.4)', tagColor: '#b3bcf5' },
-            ].map(({ project, accentColor, tagBg, tagBorder, tagColor }) => (
+              { project: projects[0], accentColor: '#8b1a2a' },
+              { project: projects[1], accentColor: '#9b1b30' },
+              { project: projects[2], accentColor: '#D4C09A' },
+              { project: projects[3], accentColor: '#D4C09A' },
+            ].map(({ project, accentColor }) => (
               <div
                 key={project.id}
                 onClick={() => openProject(project)}
@@ -1525,7 +1523,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                 </>
               )}
               <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
-                <p style={{ color: '#f857a6', fontSize: '0.72rem', marginBottom: '6px' }}>{projects[0].date}</p>
+                <p style={{ color: '#8b1a2a', fontSize: '0.72rem', marginBottom: '6px' }}>{projects[0].date}</p>
                 <h3 style={{ color: '#fff', fontSize: '1.5rem', fontWeight: '600', marginBottom: '8px' }}>{projects[0].name}</h3>
                 <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '0' }}>{projects[0].description}</p>
               </div>
@@ -1555,7 +1553,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                 </>
               )}
               <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
-                <p style={{ color: '#ff5858', fontSize: '0.72rem', marginBottom: '6px' }}>{projects[1].date}</p>
+                <p style={{ color: '#9b1b30', fontSize: '0.72rem', marginBottom: '6px' }}>{projects[1].date}</p>
                 <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '600', marginBottom: '8px' }}>{projects[1].name}</h3>
                 <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '0' }}>{projects[1].description}</p>
               </div>
@@ -1585,7 +1583,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                 </>
               )}
               <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
-                <p style={{ color: '#ffcc70', fontSize: '0.72rem', marginBottom: '6px' }}>{projects[2].date}</p>
+                <p style={{ color: '#D4C09A', fontSize: '0.72rem', marginBottom: '6px' }}>{projects[2].date}</p>
                 <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '600', marginBottom: '8px' }}>{projects[2].name}</h3>
                 <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '0' }}>{projects[2].description}</p>
               </div>
@@ -1614,7 +1612,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                 </>
               )}
               <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
-                <p style={{ color: '#667eea', fontSize: '0.72rem', marginBottom: '6px' }}>{projects[3].date}</p>
+                <p style={{ color: '#D4C09A', fontSize: '0.72rem', marginBottom: '6px' }}>{projects[3].date}</p>
                 <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '600', marginBottom: '8px' }}>{projects[3].name}</h3>
                 <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '0' }}>{projects[3].description}</p>
               </div>
@@ -1696,6 +1694,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
             {/* Close Button */}
             <button
               onClick={closeProject}
+              aria-label="Close project details"
               style={{
                 position: 'absolute',
                 top: '16px',
@@ -1980,7 +1979,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
               background: 'linear-gradient(135deg, rgba(45, 45, 45, 0.8), rgba(25, 25, 25, 0.8))',
               borderRadius: '15px',
               padding: '28px',
-              border: '1px solid rgba(248, 87, 166, 0.3)',
+              border: '1px solid rgba(212, 192, 154, 0.3)',
               backdropFilter: 'blur(10px)',
               display: 'flex',
               alignItems: 'center',
@@ -2022,7 +2021,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                 AI Fluency: Framework &amp; Foundations
               </h3>
               <p style={{
-                color: '#ffcc70',
+                color: '#D4C09A',
                 fontSize: '0.82rem',
                 fontWeight: '500',
                 marginBottom: '4px',
@@ -2030,7 +2029,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                 Issued Feb 2026
               </p>
               <p style={{
-                color: '#f857a6',
+                color: '#8b1a2a',
                 fontSize: '0.82rem',
                 fontWeight: '600',
               }}>
@@ -2320,7 +2319,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
           overflow: 'hidden',
         }}
       >
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(196, 30, 58, 0.06) 0%, rgba(160, 100, 30, 0.07) 45%, transparent 72%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 70% 45% at 50% 0%, rgba(160, 100, 30, 0.07) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 50% 60%, rgba(196, 30, 58, 0.05) 0%, transparent 65%)', pointerEvents: 'none' }} />
         <div style={{
           maxWidth: '1200px',
           margin: '0 auto',
@@ -2379,7 +2378,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                   padding: isMobile ? '20px' : '30px',
                   background: 'linear-gradient(135deg, rgba(45, 45, 45, 0.8), rgba(25, 25, 25, 0.8))',
                   borderRadius: '15px',
-                  border: '1px solid rgba(248, 87, 166, 0.3)',
+                  border: '1px solid rgba(212, 192, 154, 0.3)',
                   backdropFilter: 'blur(10px)',
                   boxShadow: '0 8px 20px rgba(0, 0, 0, 0.3)',
                   transition: 'all 0.3s ease',
@@ -2390,13 +2389,13 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-3px)';
-                  e.currentTarget.style.boxShadow = '0 12px 25px rgba(248, 87, 166, 0.2)';
-                  e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.5)';
+                  e.currentTarget.style.boxShadow = '0 12px 25px rgba(212, 192, 154, 0.2)';
+                  e.currentTarget.style.border = '1px solid rgba(212, 192, 154, 0.5)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
                   e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.3)';
-                  e.currentTarget.style.border = '1px solid rgba(248, 87, 166, 0.3)';
+                  e.currentTarget.style.border = '1px solid rgba(212, 192, 154, 0.3)';
                 }}
                 >
                   {/* Dog aka Maggie the great Image Container */}
@@ -2406,8 +2405,8 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                     borderRadius: '50%',
                     overflow: 'hidden',
                     marginBottom: '15px',
-                    border: '2px solid rgba(248, 87, 166, 0.5)',
-                    background: 'linear-gradient(45deg, rgba(248, 87, 166, 0.1), rgba(255, 88, 88, 0.1))',
+                    border: '2px solid rgba(212, 192, 154, 0.5)',
+                    background: 'linear-gradient(45deg, rgba(212, 192, 154, 0.1), rgba(139, 26, 42, 0.1))',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -2430,7 +2429,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                       display: 'none',
                       width: '100%',
                       height: '100%',
-                      backgroundColor: 'rgba(248, 87, 166, 0.2)',
+                      backgroundColor: 'rgba(212, 192, 154, 0.2)',
                       alignItems: 'center',
                       justifyContent: 'center',
                       fontSize: '2rem',
@@ -2449,7 +2448,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                   </h4>
                   
                   <p style={{
-                    color: '#f857a6',
+                    color: '#8b1a2a',
                     fontSize: '0.85rem',
                     fontWeight: '600',
                     marginBottom: '8px',
@@ -2476,7 +2475,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
           
           {/* Footer Bottom */}
           <div style={{
-            borderTop: '1px solid rgba(248, 87, 166, 0.2)',
+            borderTop: '1px solid rgba(212, 192, 154, 0.2)',
             paddingTop: '30px',
             display: 'flex',
             justifyContent: 'center',
@@ -2489,7 +2488,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
               fontSize: '0.9rem',
               margin: 0,
             }}>
-              © 2024 Elvin Fonseca. Built with React & lots of redbull
+              © {new Date().getFullYear()} Elvin Fonseca. Built with React & lots of redbull
             </p>
             
             {/* Small Social Media Icons */}
