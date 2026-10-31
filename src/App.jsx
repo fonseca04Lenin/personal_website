@@ -1037,11 +1037,130 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
           <div className="experience-container" style={{ display: 'flex', flexDirection: 'column', gap: '80px', padding: '10px 0' }}>
 
-            {/* ── OMAHA PUBLIC SCHOOLS ── */}
+            {/* ── MILLIMAN ── */}
             <div className="experience-item" style={{ display: 'flex', alignItems: 'flex-start', width: '100%', position: 'relative' }}>
               <div style={{ position: 'absolute', left: '50%', top: '28px', transform: 'translateX(-50%)', zIndex: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
                 <div style={{ width: '11px', height: '11px', borderRadius: '50%', background: '#C41E3A', border: '2px solid #080608', boxShadow: '0 0 0 3px rgba(196,30,58,0.2), 0 0 10px rgba(196,30,58,0.4)' }} />
                 <div style={{ fontSize: '0.55rem', letterSpacing: '2px', color: '#C41E3A', fontFamily: 'monospace', background: 'rgba(196,30,58,0.1)', border: '1px solid rgba(196,30,58,0.3)', borderRadius: '3px', padding: '2px 7px', whiteSpace: 'nowrap' }}>PRESENT</div>
+              </div>
+
+              <div className="experience-card" style={{
+                width: '44%', marginLeft: '56%',
+                padding: '28px',
+                background: 'linear-gradient(150deg, rgba(24,14,10,0.99), rgba(10,7,5,0.99))',
+                border: '1px solid rgba(196,30,58,0.2)',
+                borderRadius: '3px',
+                boxShadow: '0 20px 60px rgba(0,0,0,0.65), inset 0 1px 0 rgba(196,30,58,0.08)',
+                transition: 'all 0.3s ease',
+                position: 'relative',
+                overflow: 'hidden',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.borderColor = 'rgba(196,30,58,0.45)'; e.currentTarget.style.boxShadow = '0 30px 70px rgba(0,0,0,0.7), 0 0 0 1px rgba(196,30,58,0.3)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = 'rgba(196,30,58,0.2)'; e.currentTarget.style.boxShadow = '0 20px 60px rgba(0,0,0,0.65), inset 0 1px 0 rgba(196,30,58,0.08)'; }}
+              >
+                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, #C41E3A, transparent)' }} />
+                <div style={{ position: 'absolute', top: '-8px', right: '14px', fontSize: '5.5rem', fontWeight: '900', color: 'rgba(196,30,58,0.05)', lineHeight: 1, fontFamily: 'Georgia, serif', pointerEvents: 'none', userSelect: 'none', letterSpacing: '-3px' }}>2026</div>
+
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', marginBottom: '18px', padding: '3px 10px', border: '1px solid rgba(196,30,58,0.35)', borderRadius: '2px', fontSize: '0.58rem', letterSpacing: '3px', color: '#C41E3A', fontFamily: 'monospace', textTransform: 'uppercase' }}>
+                  <span style={{ width: '4px', height: '4px', background: '#C41E3A', borderRadius: '50%', display: 'inline-block' }} />
+                  Aug 2026 — Present
+                </div>
+
+                <h3 style={{ fontSize: '1.35rem', marginBottom: '5px', fontWeight: '700', color: '#ede0cc', letterSpacing: '0.3px' }}>
+                  Milliman
+                </h3>
+                <p style={{ color: 'rgba(186, 156, 106, 0.75)', fontSize: '0.83rem', fontStyle: 'italic', marginBottom: '16px', letterSpacing: '0.3px' }}>
+                  Information & Technology Analyst
+                </p>
+                <div style={{ height: '1px', background: 'linear-gradient(90deg, rgba(196,30,58,0.25), transparent)', marginBottom: '14px' }} />
+                <ul style={{ color: '#b0a090', fontSize: '0.86rem', lineHeight: '1.65', paddingLeft: 0, listStyle: 'none' }}>
+                  {[
+                    "Serve as the on-site technology point of contact for Milliman's Omaha office, resolving in-person hardware, software, and workstation issues for consultants and staff.",
+                    'Provide remote technical support to Milliman practices across the country, troubleshooting across diverse environments, system configurations, and security requirements.',
+                    'Triage, document, and resolve help desk tickets end-to-end — maintaining operational continuity for a highly specialized actuarial and consulting workforce.',
+                  ].map((item, i) => (
+                    <li key={i} style={{ marginBottom: i < 2 ? '8px' : 0, paddingLeft: '16px', position: 'relative' }}>
+                      <span style={{ position: 'absolute', left: 0, color: 'rgba(196,30,58,0.55)', fontWeight: 'bold' }}>—</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <div style={{ marginTop: '14px', display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                  {['Active Directory', 'PowerShell', 'SQL', 'Office 365', 'BeyondTrust', 'ServiceNow', 'Windows Server', 'VPN', 'Lenovo', 'Troubleshooting', 'Documentation'].map((tech) => (
+                    <span key={tech} style={{ fontSize: '0.68rem', letterSpacing: '1.5px', color: 'rgba(230,120,135,0.9)', fontFamily: 'monospace', background: 'rgba(196,30,58,0.06)', border: '1px solid rgba(196,30,58,0.28)', borderRadius: '2px', padding: '2px 8px', textTransform: 'uppercase' }}>
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* ── ELECTION SYSTEMS & SOFTWARE ── */}
+            <div className="experience-item" style={{ display: 'flex', alignItems: 'flex-start', width: '100%', position: 'relative' }}>
+              <div style={{ position: 'absolute', left: '50%', top: '28px', transform: 'translateX(-50%)', zIndex: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
+                <div style={{ width: '11px', height: '11px', borderRadius: '50%', background: 'rgba(212,192,154,0.9)', border: '2px solid #080608', boxShadow: '0 0 0 3px rgba(212,192,154,0.18)' }} />
+                <div style={{ fontSize: '0.55rem', letterSpacing: '2px', color: 'rgba(212,192,154,0.85)', fontFamily: 'monospace', background: 'rgba(212,192,154,0.08)', border: '1px solid rgba(212,192,154,0.3)', borderRadius: '3px', padding: '2px 7px', whiteSpace: 'nowrap' }}>2026</div>
+              </div>
+
+              <div className="experience-card" style={{
+                width: '44%', marginRight: '56%',
+                padding: '28px',
+                background: 'linear-gradient(150deg, rgba(22,16,10,0.99), rgba(10,7,5,0.99))',
+                border: '1px solid rgba(212,192,154,0.2)',
+                borderRadius: '3px',
+                boxShadow: '0 20px 60px rgba(0,0,0,0.65), inset 0 1px 0 rgba(212,192,154,0.08)',
+                transition: 'all 0.3s ease',
+                position: 'relative',
+                overflow: 'hidden',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.borderColor = 'rgba(212,192,154,0.45)'; e.currentTarget.style.boxShadow = '0 30px 70px rgba(0,0,0,0.7), 0 0 0 1px rgba(212,192,154,0.3)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = 'rgba(212,192,154,0.2)'; e.currentTarget.style.boxShadow = '0 20px 60px rgba(0,0,0,0.65), inset 0 1px 0 rgba(212,192,154,0.08)'; }}
+              >
+                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, rgba(212,192,154,0.8), transparent)' }} />
+                <div style={{ position: 'absolute', top: '-8px', right: '14px', fontSize: '5.5rem', fontWeight: '900', color: 'rgba(212,192,154,0.05)', lineHeight: 1, fontFamily: 'Georgia, serif', pointerEvents: 'none', userSelect: 'none', letterSpacing: '-3px' }}>2026</div>
+
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', marginBottom: '18px', padding: '3px 10px', border: '1px solid rgba(212,192,154,0.32)', borderRadius: '2px', fontSize: '0.58rem', letterSpacing: '3px', color: 'rgba(212,192,154,0.9)', fontFamily: 'monospace', textTransform: 'uppercase' }}>
+                  <span style={{ width: '4px', height: '4px', background: 'rgba(212,192,154,0.9)', borderRadius: '50%', display: 'inline-block' }} />
+                  May 2026 — Aug 2026
+                </div>
+
+                <h3 style={{ fontSize: '1.35rem', marginBottom: '5px', fontWeight: '700', color: '#ede0cc', letterSpacing: '0.3px' }}>
+                  Election Systems & Software
+                </h3>
+                <p style={{ color: 'rgba(186, 156, 106, 0.75)', fontSize: '0.83rem', fontStyle: 'italic', marginBottom: '16px', letterSpacing: '0.3px' }}>
+                  Software Engineer · Internship
+                </p>
+                <div style={{ height: '1px', background: 'linear-gradient(90deg, rgba(212,192,154,0.28), transparent)', marginBottom: '14px' }} />
+                <p style={{ color: '#7a6a5a', fontSize: '0.8rem', fontStyle: 'italic', marginBottom: '12px', lineHeight: '1.55' }}>
+                  Built the API layer for a licensable ballot printing module used in election infrastructure — full-stack work spanning a C# backend, an Angular frontend, and physical hardware integration.
+                </p>
+                <ul style={{ color: '#b0a090', fontSize: '0.86rem', lineHeight: '1.65', paddingLeft: 0, listStyle: 'none' }}>
+                  {[
+                    'Built an ASP.NET Core (C#) REST API bridging an Angular frontend and a hardware print agent, with endpoints for job submission, status polling, and token-based authentication.',
+                    'Integrated the Angular/TypeScript UI with the backend end-to-end, implementing the complete ballot print workflow from browser action to physical printer output.',
+                    'Developed and tested across Visual Studio and VS Code with hardware-in-the-loop systems — a step beyond typical CRUD web development — in a security-conscious, high-reliability domain where correctness and auditability are non-negotiable.',
+                  ].map((item, i) => (
+                    <li key={i} style={{ marginBottom: i < 2 ? '8px' : 0, paddingLeft: '16px', position: 'relative' }}>
+                      <span style={{ position: 'absolute', left: 0, color: 'rgba(212,192,154,0.55)', fontWeight: 'bold' }}>—</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <div style={{ marginTop: '14px', display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                  {['C#', 'ASP.NET Core', 'Angular', 'TypeScript', 'REST APIs', 'Token Auth'].map((tech) => (
+                    <span key={tech} style={{ fontSize: '0.68rem', letterSpacing: '1.5px', color: 'rgba(212,192,154,0.85)', fontFamily: 'monospace', background: 'rgba(212,192,154,0.06)', border: '1px solid rgba(212,192,154,0.22)', borderRadius: '2px', padding: '2px 8px', textTransform: 'uppercase' }}>
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* ── OMAHA PUBLIC SCHOOLS ── */}
+            <div className="experience-item" style={{ display: 'flex', alignItems: 'flex-start', width: '100%', position: 'relative' }}>
+              <div style={{ position: 'absolute', left: '50%', top: '28px', transform: 'translateX(-50%)', zIndex: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
+                <div style={{ width: '11px', height: '11px', borderRadius: '50%', background: '#C41E3A', border: '2px solid #080608', boxShadow: '0 0 0 3px rgba(196,30,58,0.2), 0 0 10px rgba(196,30,58,0.4)' }} />
+                <div style={{ fontSize: '0.55rem', letterSpacing: '2px', color: '#C41E3A', fontFamily: 'monospace', background: 'rgba(196,30,58,0.1)', border: '1px solid rgba(196,30,58,0.3)', borderRadius: '3px', padding: '2px 7px', whiteSpace: 'nowrap' }}>2026</div>
               </div>
 
               <div className="experience-card" style={{
@@ -1090,6 +1209,13 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                     </li>
                   ))}
                 </ul>
+                <div style={{ marginTop: '14px', display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                  {['Windows', 'macOS', 'Networking', 'Hardware', 'Endpoint Deployment', 'Asset Management', 'Patch Management', 'Root-Cause Analysis'].map((tech) => (
+                    <span key={tech} style={{ fontSize: '0.68rem', letterSpacing: '1.5px', color: 'rgba(230,120,135,0.9)', fontFamily: 'monospace', background: 'rgba(196,30,58,0.06)', border: '1px solid rgba(196,30,58,0.28)', borderRadius: '2px', padding: '2px 8px', textTransform: 'uppercase' }}>
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -1141,6 +1267,13 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                     </li>
                   ))}
                 </ul>
+                <div style={{ marginTop: '14px', display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                  {['Laravel', 'Vue.js', 'PHP', 'Yext API', 'PHPUnit', 'SEO', 'WebP', 'Accessibility', 'Caching'].map((tech) => (
+                    <span key={tech} style={{ fontSize: '0.68rem', letterSpacing: '1.5px', color: 'rgba(210,170,90,0.9)', fontFamily: 'monospace', background: 'rgba(190,145,60,0.06)', border: '1px solid rgba(190,145,60,0.28)', borderRadius: '2px', padding: '2px 8px', textTransform: 'uppercase' }}>
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -1192,6 +1325,13 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                     </li>
                   ))}
                 </ul>
+                <div style={{ marginTop: '14px', display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                  {['React', 'TypeScript', 'Firebase', 'iOS', 'React Native', 'Agile', 'UI/UX', 'Git'].map((tech) => (
+                    <span key={tech} style={{ fontSize: '0.68rem', letterSpacing: '1.5px', color: 'rgba(190,160,120,0.9)', fontFamily: 'monospace', background: 'rgba(120,100,75,0.06)', border: '1px solid rgba(120,100,75,0.28)', borderRadius: '2px', padding: '2px 8px', textTransform: 'uppercase' }}>
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
 
