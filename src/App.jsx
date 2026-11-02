@@ -6,6 +6,39 @@ import './App.css'
 
 const projects = [
   {
+    id: 5,
+    name: "SMA Crossover Trading Bot",
+    description: "Automated paper trading bot that detects moving-average crossovers and executes orders through Alpaca.",
+    date: "November 2026",
+    tech: ["Python", "pandas", "yfinance", "Alpaca API", "python-dotenv", "macOS launchd"],
+    screenshot: "/screenshots/sma-trading-bot.svg",
+    visualAlt: "Illustration of SMA20 and SMA50 crossover signals feeding an Alpaca paper trading workflow",
+    details: "Built a configurable Python trading bot that compares 20-day and 50-day simple moving averages using completed daily price data from yfinance. Detects golden and death crosses and submits buy or sell orders through the Alpaca API, using a simulated paper account by default. Includes market-calendar checks, position checks before selling, dry-run support, and detailed decision and order logging. Supports automated weekday execution through macOS launchd. The preview illustrates the strategy rather than historical trading performance.",
+    github: "https://github.com/fonseca04Lenin/sma-crossover-trading-bot"
+  },
+  {
+    id: 6,
+    name: "BERT vs. DistilBERT Sentiment Analysis",
+    description: "Fine-tuning and evaluating transformer models for binary sentiment classification on IMDB movie reviews.",
+    date: "May 2026",
+    tech: ["Python", "BERT", "DistilBERT", "Natural Language Processing", "Model Evaluation"],
+    screenshot: "/screenshots/transformer-sentiment.svg",
+    visualAlt: "Illustration of movie reviews passing through BERT and DistilBERT for sentiment classification and evaluation",
+    details: "Fine-tuned BERT and DistilBERT on the IMDB movie review dataset for positive and negative sentiment classification. Compared the models across accuracy, F1 score, parameter count, and training time to explore the tradeoffs between model size and classification performance. Organized the project into data preparation, model, training, and evaluation modules, with figures and an accompanying analysis report. The preview illustrates the comparison workflow without inventing benchmark results.",
+    github: "https://github.com/fonseca04Lenin/TransformerNLP"
+  },
+  {
+    id: 7,
+    name: "Dispatch — Route Optimizer",
+    description: "Field-service planning prototype with job management, driver assignments, and priority-aware route optimization.",
+    date: "March 2026",
+    tech: ["Python", "Django", "SQLite", "NetworkX", "Leaflet.js", "OpenStreetMap", "OSRM"],
+    screenshot: "/screenshots/dispatch-route-optimizer.svg",
+    visualAlt: "Illustration of an optimized route connecting numbered service stops on a stylized map",
+    details: "Developed a Django prototype for small field-service teams to manage jobs, assign drivers, and plan multi-stop routes. Uses a priority-weighted nearest-neighbor heuristic with geographic distances to order stops, while Leaflet and OSRM provide interactive road-following route maps. Includes job status tracking, driver availability, saved routes, and dashboard summaries. Duration and fuel savings are estimates; live traffic, authentication, and delivery time-window enforcement remain future improvements. The preview is a conceptual route illustration.",
+    github: "https://github.com/fonseca04Lenin/ai-traffic-optimizer"
+  },
+  {
     id: 1,
     name: "Stock Market App",
     description: "Real-time portfolio tracker with live stock prices, visual animations, and AI-powered investment advice.",
@@ -16,6 +49,7 @@ const projects = [
     images: ["/stock-app-placeholder.jpg"],
     screenshot: "/screenshots/Stock-Watchlist.png",
     details: "Spearheaded the conceptualization and development of a stock market app by integrating modules such as Tkinter, Matplotlib, datetime, pickle and an API resulting in a streamlined user experience that improved information retrieval speed by 40%. Executed a systematic timeline for app development, including idea generation, concept creation, building the app with real-time data visualization and user-friendly interface design.",
+    github: "https://github.com/fonseca04Lenin/Project-2",
     live: "https://www.aistocksage.com/"
   },
   {
@@ -1386,12 +1420,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
               flexDirection: 'column',
               gap: '16px',
             }}>
-            {[
-              { project: projects[0], accentColor: '#8b1a2a' },
-              { project: projects[1], accentColor: '#9b1b30' },
-              { project: projects[2], accentColor: '#D4C09A' },
-              { project: projects[3], accentColor: '#D4C09A' },
-            ].map(({ project, accentColor }) => (
+            {projects.map((project) => (
               <div
                 key={project.id}
                 onClick={() => openProject(project)}
@@ -1424,7 +1453,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                         />
                       : <img
                           src={project.screenshot}
-                          alt={`${project.name} screenshot`}
+                          alt={project.visualAlt || `${project.name} screenshot`}
                           style={{
                             position: 'absolute',
                             top: 0, left: 0,
@@ -1450,7 +1479,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                   padding: '18px',
                   zIndex: 2,
                 }}>
-                  <p style={{ color: accentColor, fontSize: '0.7rem', marginBottom: '4px', letterSpacing: '0.3px' }}>
+                  <p style={{ color: '#D4C09A', fontSize: '0.7rem', marginBottom: '4px', letterSpacing: '0.3px' }}>
                     {project.date}
                   </p>
                   <h3 style={{ color: '#fff', fontSize: '1.1rem', fontWeight: '600', marginBottom: '0', lineHeight: '1.2' }}>
@@ -1499,127 +1528,53 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
               padding: '0 20px 20px',
               display: 'grid',
               gridTemplateColumns: 'repeat(6, 1fr)',
-              gridTemplateRows: 'repeat(4, 200px)',
+              gridAutoRows: '200px',
               gap: '20px',
             }}>
-            <div
-              onClick={() => openProject(projects[0])}
-              style={{
-                gridColumn: 'span 3',
-                gridRow: 'span 2',
-                background: '#111',
-                borderRadius: '12px',
-                cursor: 'pointer',
-                position: 'relative',
-                overflow: 'hidden',
-                transition: 'transform 0.3s ease',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-              }}
-            >
-              {projects[0].screenshot && (
-                <>
-                  <img src={projects[0].screenshot} alt={projects[0].name} style={screenshotImgStyle} />
-                  <div style={screenshotOverlayStyle} />
-                </>
-              )}
-              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
-                <p style={{ color: '#8b1a2a', fontSize: '0.72rem', marginBottom: '6px' }}>{projects[0].date}</p>
-                <h3 style={{ color: '#fff', fontSize: '1.5rem', fontWeight: '600', marginBottom: '8px' }}>{projects[0].name}</h3>
-                <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '0' }}>{projects[0].description}</p>
-              </div>
-            </div>
-
-            <div
-              onClick={() => openProject(projects[1])}
-              style={{
-                gridColumn: 'span 3',
-                gridRow: 'span 2',
-                background: '#111',
-                borderRadius: '12px',
-                cursor: 'pointer',
-                position: 'relative',
-                overflow: 'hidden',
-                transition: 'transform 0.3s ease',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-              }}
-            >
-              {projects[1].screenshot && (
-                <>
-                  {/\.(webm|mp4|ogg)$/i.test(projects[1].screenshot)
-                    ? <video src={projects[1].screenshot} style={screenshotImgStyle} autoPlay muted loop playsInline />
-                    : <img src={projects[1].screenshot} alt={projects[1].name} style={screenshotImgStyle} />
+            {projects.map((project) => (
+              <div
+                key={project.id}
+                role="button"
+                tabIndex={0}
+                onClick={() => openProject(project)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    openProject(project);
                   }
-                  <div style={screenshotOverlayStyle} />
-                </>
-              )}
-              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
-                <p style={{ color: '#9b1b30', fontSize: '0.72rem', marginBottom: '6px' }}>{projects[1].date}</p>
-                <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '600', marginBottom: '8px' }}>{projects[1].name}</h3>
-                <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '0' }}>{projects[1].description}</p>
+                }}
+                style={{
+                  gridColumn: projects.length % 2 !== 0 && project === projects[0] ? 'span 6' : 'span 3',
+                  gridRow: 'span 2',
+                  background: '#111',
+                  borderRadius: '12px',
+                  cursor: 'pointer',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  transition: 'transform 0.3s ease',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+                }}
+              >
+                {project.screenshot && (
+                  <>
+                    {/\.(webm|mp4|ogg)$/i.test(project.screenshot)
+                      ? <video src={project.screenshot} style={screenshotImgStyle} autoPlay muted loop playsInline />
+                      : <img src={project.screenshot} alt={project.visualAlt || project.name} style={screenshotImgStyle} />
+                    }
+                    <div style={screenshotOverlayStyle} />
+                  </>
+                )}
+                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
+                  <p style={{ color: '#D4C09A', fontSize: '0.72rem', marginBottom: '6px' }}>{project.date}</p>
+                  <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '600', marginBottom: '8px' }}>{project.name}</h3>
+                  <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '0' }}>{project.description}</p>
+                </div>
               </div>
-            </div>
-
-            <div
-              onClick={() => openProject(projects[2])}
-              style={{
-                gridColumn: 'span 3',
-                gridRow: 'span 2',
-                background: '#111',
-                borderRadius: '12px',
-                cursor: 'pointer',
-                position: 'relative',
-                overflow: 'hidden',
-                transition: 'transform 0.3s ease',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-              }}
-            >
-              {projects[2].screenshot && (
-                <>
-                  {/\.(webm|mp4|ogg)$/i.test(projects[2].screenshot)
-                    ? <video src={projects[2].screenshot} style={screenshotImgStyle} autoPlay muted loop playsInline />
-                    : <img src={projects[2].screenshot} alt={projects[2].name} style={screenshotImgStyle} />
-                  }
-                  <div style={screenshotOverlayStyle} />
-                </>
-              )}
-              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
-                <p style={{ color: '#D4C09A', fontSize: '0.72rem', marginBottom: '6px' }}>{projects[2].date}</p>
-                <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '600', marginBottom: '8px' }}>{projects[2].name}</h3>
-                <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '0' }}>{projects[2].description}</p>
-              </div>
-            </div>
-
-            <div
-              onClick={() => openProject(projects[3])}
-              style={{
-                gridColumn: 'span 3',
-                gridRow: 'span 2',
-                background: '#111',
-                borderRadius: '12px',
-                cursor: 'pointer',
-                position: 'relative',
-                overflow: 'hidden',
-                transition: 'transform 0.3s ease',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-              }}
-            >
-              {projects[3].screenshot && (
-                <>
-                  {/\.(webm|mp4|ogg)$/i.test(projects[3].screenshot)
-                    ? <video src={projects[3].screenshot} style={screenshotImgStyle} autoPlay muted loop playsInline />
-                    : <img src={projects[3].screenshot} alt={projects[3].name} style={screenshotImgStyle} />}
-                  <div style={screenshotOverlayStyle} />
-                </>
-              )}
-              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
-                <p style={{ color: '#D4C09A', fontSize: '0.72rem', marginBottom: '6px' }}>{projects[3].date}</p>
-                <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '600', marginBottom: '8px' }}>{projects[3].name}</h3>
-                <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '0' }}>{projects[3].description}</p>
-              </div>
-            </div>
+            ))}
             <div style={{
               width: '100%',
               maxWidth: '1400px',
+              gridColumn: '1 / -1',
               marginTop: '-20px',
               marginLeft: 'auto',
               marginRight: 'auto',
@@ -1760,7 +1715,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
                 ) : (
                   <img
                     src={selectedProject.screenshot}
-                    alt={selectedProject.name}
+                    alt={selectedProject.visualAlt || selectedProject.name}
                     style={{
                       width: '100%',
                       maxHeight: '340px',
