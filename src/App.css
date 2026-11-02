@@ -926,3 +926,92 @@ nav .gradient_text:hover {
     min-width: 250px !important;
   }
 }
+/* Full previews and readable project summaries on phones. */
+@media (max-width: 768px) {
+  .mobile-project-list {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .mobile-project-card {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid rgba(212, 192, 154, 0.2);
+    border-radius: 12px;
+    background: #111;
+    color: #fff;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .mobile-project-card:focus-visible {
+    outline: 2px solid #D4C09A;
+    outline-offset: 4px;
+  }
+
+  .mobile-project-preview {
+    display: block;
+    aspect-ratio: 1200 / 680;
+    background: #0c1117;
+  }
+
+  .mobile-project-preview img,
+  .mobile-project-preview video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .mobile-project-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 18px;
+  }
+
+  .mobile-project-date {
+    color: #D4C09A;
+    font-size: 0.75rem;
+  }
+
+  .mobile-project-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+
+  .mobile-project-description {
+    color: #bbb;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .mobile-project-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 32px;
+    color: #D4C09A;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .project-modal .modal-preview img {
+    max-height: none !important;
+    object-fit: contain !important;
+  }
+
+  .project-modal .modal-preview {
+    max-height: none !important;
+  }
+}

@@ -1413,82 +1413,30 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
             }}>
               Personal Projects I've built through the years
             </p>
-            <div style={{
-              width: '100%',
-              padding: '0 16px',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '16px',
-            }}>
-            {projects.map((project) => (
-              <div
-                key={project.id}
-                onClick={() => openProject(project)}
-                style={{
-                  width: '100%',
-                  height: '220px',
-                  background: '#111',
-                  borderRadius: '12px',
-                  cursor: 'pointer',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-                  flexShrink: 0,
-                }}
-              >
-                {project.screenshot && (
-                  <>
+            <div className="mobile-project-list">
+              {projects.map((project) => (
+                <button
+                  key={project.id}
+                  type="button"
+                  className="mobile-project-card"
+                  onClick={() => openProject(project)}
+                  aria-label={`View ${project.name} project details`}
+                >
+                  <span className="mobile-project-preview">
                     {/\.(webm|mp4|ogg)$/i.test(project.screenshot)
-                      ? <video
-                          src={project.screenshot}
-                          autoPlay muted loop playsInline
-                          style={{
-                            position: 'absolute',
-                            top: 0, left: 0,
-                            width: '100%', height: '100%',
-                            objectFit: 'cover',
-                            borderRadius: '12px',
-                            zIndex: 0,
-                          }}
-                        />
-                      : <img
-                          src={project.screenshot}
-                          alt={project.visualAlt || `${project.name} screenshot`}
-                          style={{
-                            position: 'absolute',
-                            top: 0, left: 0,
-                            width: '100%', height: '100%',
-                            objectFit: 'cover',
-                            borderRadius: '12px',
-                            zIndex: 0,
-                          }}
-                        />
+                      ? <video src={project.screenshot} autoPlay muted loop playsInline aria-hidden="true" />
+                      : <img src={project.screenshot} alt={project.visualAlt || `${project.name} screenshot`} loading="lazy" />
                     }
-                    <div style={{
-                      position: 'absolute',
-                      top: 0, left: 0, right: 0, bottom: 0,
-                      background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.15) 100%)',
-                      zIndex: 1,
-                      borderRadius: '12px',
-                    }} />
-                  </>
-                )}
-                <div style={{
-                  position: 'absolute',
-                  bottom: 0, left: 0, right: 0,
-                  padding: '18px',
-                  zIndex: 2,
-                }}>
-                  <p style={{ color: '#D4C09A', fontSize: '0.7rem', marginBottom: '4px', letterSpacing: '0.3px' }}>
-                    {project.date}
-                  </p>
-                  <h3 style={{ color: '#fff', fontSize: '1.1rem', fontWeight: '600', marginBottom: '0', lineHeight: '1.2' }}>
-                    {project.name}
-                  </h3>
-                </div>
-              </div>
-            ))}
-          </div>
+                  </span>
+                  <span className="mobile-project-info">
+                    <span className="mobile-project-date">{project.date}</span>
+                    <span className="mobile-project-title" role="heading" aria-level={3}>{project.name}</span>
+                    <span className="mobile-project-description">{project.description}</span>
+                    <span className="mobile-project-action">View project <span aria-hidden="true">↗</span></span>
+                  </span>
+                </button>
+              ))}
+            </div>
           </>
         ) : (
           <>
