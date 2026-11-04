@@ -87,6 +87,18 @@ const projects = [
     details: "Built a comprehensive algorithm visualization platform that helps students and developers understand fundamental computer science algorithms through interactive demonstrations. Features sorting algorithms (Bubble Sort, Merge Sort, Quick Sort) and graph traversal algorithms (BFS, DFS) with step-by-step execution, real-time highlighting, and customizable input data. Implemented with React 19 and TypeScript for type safety, styled with Tailwind CSS for responsive design, and uses D3.js for advanced graph rendering. The application provides educational value for CS students, coding bootcamp participants, and interview preparation with clear visual feedback and explanations.",
     github: "https://github.com/fonseca04Lenin/collaborative-algorithm-visualizer",
     live: "https://frontend-sandy-six-30.vercel.app/"
+  },
+  {
+    id: 5,
+    name: "Paper Trading Arena",
+    description: "A live, newspaper-style website where five rule-based trading bots race with paper money on real market data, and every trade comes with a plain-English reason.",
+    date: "November 2026",
+    tech: ["Rust", "Axum", "sqlx", "Python", "FastAPI", "WebSockets", "PostgreSQL", "LISTEN/NOTIFY", "Next.js", "TypeScript", "Alpaca API", "Docker", "Railway", "Neon", "Vercel", "GitHub Actions"],
+    images: ["/trading-arena-placeholder.jpg"],
+    screenshot: "/screenshots/Trading-Arena.png",
+    details: "Built an event-driven paper-trading platform end to end. Python workers ingest live Alpaca bars into Postgres, five rule-based bots (a moving-average crossover, a mean-reverting Rubber Band, a Breakout, an Index benchmark and a scorecard-based Analyst) turn them into signals, and a Rust (Axum, sqlx, rust_decimal) execution service applies the risk rules and records each fill, position and cash change in a single database transaction. It is idempotent and refuses to start unless it points at Alpaca's paper endpoint. Plain Postgres LISTEN/NOTIFY streams bar, trade and equity events to a FastAPI WebSocket gateway, so there is no Redis or Kafka. The Next.js front end is laid out as a daily newspaper: a leaderboard (The Form), a trade feed with the reason behind every trade (The Wire), and a backtester (The Handicapper's Desk) that runs the same pure strategy functions as the live workers. Deployed as five Railway services with a Neon database and a Vercel front end, with CI running the Python, Rust and TypeScript tests.",
+    github: "https://github.com/fonseca04Lenin/bot-trading-arena",
+    live: "https://bot-trading-arena.vercel.app"
   }
 ];
 
