@@ -6,7 +6,7 @@ import './App.css'
 
 const projects = [
   {
-    id: 5,
+    id: 9,
     name: "SMA Crossover Trading Bot",
     description: "Automated paper trading bot that detects moving-average crossovers and executes orders through Alpaca.",
     date: "November 2026",
