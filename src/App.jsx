@@ -99,6 +99,19 @@ const projects = [
     details: "Built an event-driven paper-trading platform end to end. Python workers ingest live Alpaca bars into Postgres, five rule-based bots (a moving-average crossover, a mean-reverting Rubber Band, a Breakout, an Index benchmark and a scorecard-based Analyst) turn them into signals, and a Rust (Axum, sqlx, rust_decimal) execution service applies the risk rules and records each fill, position and cash change in a single database transaction. It is idempotent and refuses to start unless it points at Alpaca's paper endpoint. Plain Postgres LISTEN/NOTIFY streams bar, trade and equity events to a FastAPI WebSocket gateway, so there is no Redis or Kafka. The Next.js front end is laid out as a daily newspaper: a leaderboard (The Form), a trade feed with the reason behind every trade (The Wire), and a backtester (The Handicapper's Desk) that runs the same pure strategy functions as the live workers. Deployed as five Railway services with a Neon database and a Vercel front end, with CI running the Python, Rust and TypeScript tests.",
     github: "https://github.com/fonseca04Lenin/bot-trading-arena",
     live: "https://bot-trading-arena.vercel.app"
+  },
+  {
+    id: 8,
+    name: "Parks I've Wandered",
+    description: "An interactive 3D satellite map of the national parks I've visited, built from my Google Maps history, with each place shown as a glowing game-style pickup.",
+    date: "November 2026",
+    tech: ["JavaScript", "MapLibre GL JS", "three.js", "WebGL", "D3.js", "TopoJSON", "Node.js", "Google Maps Timeline", "Esri World Imagery", "AWS Terrain Tiles", "Vercel"],
+    images: ["/parks-ive-wandered-placeholder.jpg"],
+    screenshot: "/screenshots/Parks-Ive-Wandered.png",
+    visualAlt: "3D satellite view of Yellowstone and Grand Teton with glowing park beacons, low-poly pine markers and an orange road-trip route",
+    details: "Built a full-screen 3D map on MapLibre GL JS with Esri satellite imagery, AWS elevation tiles, hillshading and sky, so mountains and canyons stand up when you fly in. Visited parks, nature spots and other places are low-poly three.js models drawn in a custom WebGL layer: they float, spin and run a recurring 'pick me up' glow that sweeps up through each piece and flashes at the top. Clicking one flies the camera down into the terrain and shows the visit date and which day of the road trip it was, while the trip route draws itself across the landscape. A Node.js importer reads my Google Maps Timeline export, matches GPS points against park areas, groups visits into road trips, simplifies the routes and trims them near home for privacy. Visits from before the Timeline started were dated from photo locations in Google Photos. The raw location export never leaves my computer, and hand edits live in a separate overrides file.",
+    github: "https://github.com/fonseca04Lenin/parks-ive-wandered",
+    live: "https://parks-ive-wandered.vercel.app"
   }
 ];
 
