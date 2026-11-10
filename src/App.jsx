@@ -6,7 +6,7 @@ import './App.css'
 
 const projects = [
   {
-    id: 5,
+    id: 9,
     name: "SMA Crossover Trading Bot",
     description: "Automated paper trading bot that detects moving-average crossovers and executes orders through Alpaca.",
     date: "November 2026",
@@ -15,6 +15,31 @@ const projects = [
     visualAlt: "Illustration of SMA20 and SMA50 crossover signals feeding an Alpaca paper trading workflow",
     details: "Built a configurable Python trading bot that compares 20-day and 50-day simple moving averages using completed daily price data from yfinance. Detects golden and death crosses and submits buy or sell orders through the Alpaca API, using a simulated paper account by default. Includes market-calendar checks, position checks before selling, dry-run support, and detailed decision and order logging. Supports automated weekday execution through macOS launchd. The preview illustrates the strategy rather than historical trading performance.",
     github: "https://github.com/fonseca04Lenin/sma-crossover-trading-bot"
+  },
+  {
+    id: 8,
+    name: "Parks I've Wandered",
+    description: "An interactive 3D satellite map of the national parks I've visited, built from my Google Maps history, with each place shown as a glowing game-style pickup.",
+    date: "November 2026",
+    tech: ["JavaScript", "MapLibre GL JS", "three.js", "WebGL", "D3.js", "TopoJSON", "Node.js", "Google Maps Timeline", "Esri World Imagery", "AWS Terrain Tiles", "Vercel"],
+    images: ["/parks-ive-wandered-placeholder.jpg"],
+    screenshot: "/screenshots/Parks-Ive-Wandered.png",
+    visualAlt: "3D satellite view of Yellowstone and Grand Teton with glowing park beacons, low-poly pine markers and an orange road-trip route",
+    details: "Built a full-screen 3D map on MapLibre GL JS with Esri satellite imagery, AWS elevation tiles, hillshading and sky, so mountains and canyons stand up when you fly in. Visited parks, nature spots and other places are low-poly three.js models drawn in a custom WebGL layer: they float, spin and run a recurring 'pick me up' glow that sweeps up through each piece and flashes at the top. Clicking one flies the camera down into the terrain and shows the visit date and which day of the road trip it was, while the trip route draws itself across the landscape. A Node.js importer reads my Google Maps Timeline export, matches GPS points against park areas, groups visits into road trips, simplifies the routes and trims them near home for privacy. Visits from before the Timeline started were dated from photo locations in Google Photos. The raw location export never leaves my computer, and hand edits live in a separate overrides file.",
+    github: "https://github.com/fonseca04Lenin/parks-ive-wandered",
+    live: "https://parks-ive-wandered.vercel.app"
+  },
+  {
+    id: 5,
+    name: "Paper Trading Arena",
+    description: "A live, newspaper-style website where five rule-based trading bots race with paper money on real market data, and every trade comes with a plain-English reason.",
+    date: "November 2026",
+    tech: ["Rust", "Axum", "sqlx", "Python", "FastAPI", "WebSockets", "PostgreSQL", "LISTEN/NOTIFY", "Next.js", "TypeScript", "Alpaca API", "Docker", "Railway", "Neon", "Vercel", "GitHub Actions"],
+    images: ["/trading-arena-placeholder.jpg"],
+    screenshot: "/screenshots/Trading-Arena.png",
+    details: "Built an event-driven paper-trading platform end to end. Python workers ingest live Alpaca bars into Postgres, five rule-based bots (a moving-average crossover, a mean-reverting Rubber Band, a Breakout, an Index benchmark and a scorecard-based Analyst) turn them into signals, and a Rust (Axum, sqlx, rust_decimal) execution service applies the risk rules and records each fill, position and cash change in a single database transaction. It is idempotent and refuses to start unless it points at Alpaca's paper endpoint. Plain Postgres LISTEN/NOTIFY streams bar, trade and equity events to a FastAPI WebSocket gateway, so there is no Redis or Kafka. The Next.js front end is laid out as a daily newspaper: a leaderboard (The Form), a trade feed with the reason behind every trade (The Wire), and a backtester (The Handicapper's Desk) that runs the same pure strategy functions as the live workers. Deployed as five Railway services with a Neon database and a Vercel front end, with CI running the Python, Rust and TypeScript tests.",
+    github: "https://github.com/fonseca04Lenin/bot-trading-arena",
+    live: "https://bot-trading-arena.vercel.app"
   },
   {
     id: 6,
@@ -39,30 +64,16 @@ const projects = [
     github: "https://github.com/fonseca04Lenin/ai-traffic-optimizer"
   },
   {
-    id: 1,
-    name: "Stock Market App",
-    description: "Real-time portfolio tracker with live stock prices, visual animations, and AI-powered investment advice.",
-    status: "Currently Working On",
-    progress: 85,
-    date: "April 2024 - May 2024",
-    tech: ["Python", "Flask", "Flask-SocketIO", "Flask-CORS", "React 19", "JavaScript", "HTML", "CSS", "Firebase", "Firestore", "Yahoo Finance API", "Alpaca API", "Google Gemini AI", "Recharts", "WebSockets", "REST APIs", "Railway", "Vercel", "Gunicorn"],
-    images: ["/stock-app-placeholder.jpg"],
-    screenshot: "/screenshots/Stock-Watchlist.png",
-    details: "Spearheaded the conceptualization and development of a stock market app by integrating modules such as Tkinter, Matplotlib, datetime, pickle and an API resulting in a streamlined user experience that improved information retrieval speed by 40%. Executed a systematic timeline for app development, including idea generation, concept creation, building the app with real-time data visualization and user-friendly interface design.",
-    github: "https://github.com/fonseca04Lenin/Project-2",
-    live: "https://www.aistocksage.com/"
-  },
-  {
-    id: 2,
-    name: "UV Index Checker Web App",
-    description: "Interactive web application providing instant UV index updates through geolocation",
-    date: "August 2024",
-    tech: ["Python", "Flask", "HTML", "CSS", "Jinja2", "RESTful APIs", "JSON", "Geolocation"],
-    images: ["/uv-checker-placeholder.jpg"],
-    screenshot: "/screenshots/Uv-app-video.webm",
-    details: "Designed an interactive web application employing Python and Flask to provide instant UV index updates through geolocation services; streamlined data retrieval process, reducing load times by 60% and increasing user satisfaction. Created an intuitive and user-friendly interface with HTML, CSS, and Jinja2 templating to provide users with clear visual indicators of UV levels using color-coded categories for low, moderate, and high UV indexes. Implemented RESTful API calls to obtain current and forecasted UV index data, leveraging JSON data parsing to handle and display relevant information.",
-    github: "https://github.com/fonseca04Lenin/UV-Index-Web-Project",
-    live: "https://uv-index-web-project.vercel.app/"
+    id: 4,
+    name: "Algorithm Visualizer",
+    description: "Interactive educational tool for learning computer science algorithms through step-by-step visual demonstrations",
+    date: "September 2025",
+    tech: ["React", "TypeScript", "D3.js", "Tailwind CSS", "Vite", "Vercel", "Graph Algorithms", "Sorting Algorithms"],
+    images: ["/algorithm-visualizer-placeholder.jpg"],
+    screenshot: "/screenshots/algorith_visualizer.webm",
+    details: "Built a comprehensive algorithm visualization platform that helps students and developers understand fundamental computer science algorithms through interactive demonstrations. Features sorting algorithms (Bubble Sort, Merge Sort, Quick Sort) and graph traversal algorithms (BFS, DFS) with step-by-step execution, real-time highlighting, and customizable input data. Implemented with React 19 and TypeScript for type safety, styled with Tailwind CSS for responsive design, and uses D3.js for advanced graph rendering. The application provides educational value for CS students, coding bootcamp participants, and interview preparation with clear visual feedback and explanations.",
+    github: "https://github.com/fonseca04Lenin/collaborative-algorithm-visualizer",
+    live: "https://frontend-sandy-six-30.vercel.app/"
   },
   {
     id: 3,
@@ -77,28 +88,30 @@ const projects = [
     live: "https://elvinfonseca.com"
   },
   {
-    id: 4,
-    name: "Algorithm Visualizer",
-    description: "Interactive educational tool for learning computer science algorithms through step-by-step visual demonstrations",
-    date: "September 2025",
-    tech: ["React", "TypeScript", "D3.js", "Tailwind CSS", "Vite", "Vercel", "Graph Algorithms", "Sorting Algorithms"],
-    images: ["/algorithm-visualizer-placeholder.jpg"],
-    screenshot: "/screenshots/algorith_visualizer.webm",
-    details: "Built a comprehensive algorithm visualization platform that helps students and developers understand fundamental computer science algorithms through interactive demonstrations. Features sorting algorithms (Bubble Sort, Merge Sort, Quick Sort) and graph traversal algorithms (BFS, DFS) with step-by-step execution, real-time highlighting, and customizable input data. Implemented with React 19 and TypeScript for type safety, styled with Tailwind CSS for responsive design, and uses D3.js for advanced graph rendering. The application provides educational value for CS students, coding bootcamp participants, and interview preparation with clear visual feedback and explanations.",
-    github: "https://github.com/fonseca04Lenin/collaborative-algorithm-visualizer",
-    live: "https://frontend-sandy-six-30.vercel.app/"
+    id: 2,
+    name: "UV Index Checker Web App",
+    description: "Interactive web application providing instant UV index updates through geolocation",
+    date: "August 2024",
+    tech: ["Python", "Flask", "HTML", "CSS", "Jinja2", "RESTful APIs", "JSON", "Geolocation"],
+    images: ["/uv-checker-placeholder.jpg"],
+    screenshot: "/screenshots/Uv-app-video.webm",
+    details: "Designed an interactive web application employing Python and Flask to provide instant UV index updates through geolocation services; streamlined data retrieval process, reducing load times by 60% and increasing user satisfaction. Created an intuitive and user-friendly interface with HTML, CSS, and Jinja2 templating to provide users with clear visual indicators of UV levels using color-coded categories for low, moderate, and high UV indexes. Implemented RESTful API calls to obtain current and forecasted UV index data, leveraging JSON data parsing to handle and display relevant information.",
+    github: "https://github.com/fonseca04Lenin/UV-Index-Web-Project",
+    live: "https://uv-index-web-project.vercel.app/"
   },
   {
-    id: 5,
-    name: "Paper Trading Arena",
-    description: "A live, newspaper-style website where five rule-based trading bots race with paper money on real market data, and every trade comes with a plain-English reason.",
-    date: "November 2026",
-    tech: ["Rust", "Axum", "sqlx", "Python", "FastAPI", "WebSockets", "PostgreSQL", "LISTEN/NOTIFY", "Next.js", "TypeScript", "Alpaca API", "Docker", "Railway", "Neon", "Vercel", "GitHub Actions"],
-    images: ["/trading-arena-placeholder.jpg"],
-    screenshot: "/screenshots/Trading-Arena.png",
-    details: "Built an event-driven paper-trading platform end to end. Python workers ingest live Alpaca bars into Postgres, five rule-based bots (a moving-average crossover, a mean-reverting Rubber Band, a Breakout, an Index benchmark and a scorecard-based Analyst) turn them into signals, and a Rust (Axum, sqlx, rust_decimal) execution service applies the risk rules and records each fill, position and cash change in a single database transaction. It is idempotent and refuses to start unless it points at Alpaca's paper endpoint. Plain Postgres LISTEN/NOTIFY streams bar, trade and equity events to a FastAPI WebSocket gateway, so there is no Redis or Kafka. The Next.js front end is laid out as a daily newspaper: a leaderboard (The Form), a trade feed with the reason behind every trade (The Wire), and a backtester (The Handicapper's Desk) that runs the same pure strategy functions as the live workers. Deployed as five Railway services with a Neon database and a Vercel front end, with CI running the Python, Rust and TypeScript tests.",
-    github: "https://github.com/fonseca04Lenin/bot-trading-arena",
-    live: "https://bot-trading-arena.vercel.app"
+    id: 1,
+    name: "Stock Market App",
+    description: "Real-time portfolio tracker with live stock prices, visual animations, and AI-powered investment advice.",
+    status: "Currently Working On",
+    progress: 85,
+    date: "April 2024 - May 2024",
+    tech: ["Python", "Flask", "Flask-SocketIO", "Flask-CORS", "React 19", "JavaScript", "HTML", "CSS", "Firebase", "Firestore", "Yahoo Finance API", "Alpaca API", "Google Gemini AI", "Recharts", "WebSockets", "REST APIs", "Railway", "Vercel", "Gunicorn"],
+    images: ["/stock-app-placeholder.jpg"],
+    screenshot: "/screenshots/Stock-Watchlist.png",
+    details: "Spearheaded the conceptualization and development of a stock market app by integrating modules such as Tkinter, Matplotlib, datetime, pickle and an API resulting in a streamlined user experience that improved information retrieval speed by 40%. Executed a systematic timeline for app development, including idea generation, concept creation, building the app with real-time data visualization and user-friendly interface design.",
+    github: "https://github.com/fonseca04Lenin/Project-2",
+    live: "https://www.aistocksage.com/"
   }
 ];
 
