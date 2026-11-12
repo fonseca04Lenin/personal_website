@@ -677,7 +677,11 @@ nav .gradient_text:hover {
     padding: 0 !important;
     margin: 10px !important;
     max-height: calc(100vh - 40px) !important;
+    /* dvh keeps the bottom of the modal above the mobile browser toolbar */
+    max-height: calc(100dvh - 40px) !important;
     overflow-y: auto !important;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
   }
 
   .modal-preview {
@@ -698,15 +702,32 @@ nav .gradient_text:hover {
     line-height: 1.3 !important;
   }
 
-  .modal-body > div:last-child {
-    flex-direction: column !important;
+  /* Keep View Code / Live Demo pinned to the bottom of the modal with big tap targets */
+  .project-modal-content .modal-actions {
+    max-width: none !important;
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    flex-wrap: nowrap !important;
     gap: 10px !important;
+    margin: 0 -16px -24px !important;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom)) !important;
+    background: #0a0a0a;
+    border-top: 1px solid rgba(212, 192, 154, 0.15);
   }
 
-  .modal-body > div:last-child a {
+  .modal-actions a {
+    flex: 1 1 0;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 12px 16px !important;
     text-align: center !important;
-    width: 100% !important;
+    font-size: 1rem !important;
     box-sizing: border-box !important;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
   
   /* Contact section mobile improvements */

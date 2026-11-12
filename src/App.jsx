@@ -297,7 +297,13 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
     if (!selectedProject) return;
     const onKey = (e) => { if (e.key === 'Escape') closeProject(); };
     window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    // Stop the page behind the modal from scrolling, so swipes on phones scroll the modal itself
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prevOverflow;
+    };
   }, [selectedProject]);
 
   const cardHoverEnterWithShadow = (e) => {
@@ -1798,7 +1804,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
               </div>
 
               {/* Action Buttons */}
-              <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+              <div className="modal-actions" style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
                 {selectedProject.github && selectedProject.name !== "Stock Market App" && (
                   <a
                     href={selectedProject.github}
