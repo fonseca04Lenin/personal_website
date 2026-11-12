@@ -333,18 +333,6 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
     return 'rgba(212, 192, 154, 0.7)';
   };
 
-  // Shared styles for project screenshot cards
-  const screenshotImgStyle = {
-    position: 'absolute', top: 0, left: 0,
-    width: '100%', height: '100%',
-    objectFit: 'cover', zIndex: 0,
-  };
-  const screenshotOverlayStyle = {
-    position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-    background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.15) 100%)',
-    zIndex: 1,
-  };
-
   return (
     <div>
       {/* Professional Navigation Header */}
@@ -1423,158 +1411,49 @@ const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
         }}
       >
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 75% 45% at 50% 0%, rgba(160, 100, 30, 0.07) 0%, transparent 60%), radial-gradient(ellipse 90% 55% at 50% 50%, rgba(160, 100, 30, 0.08) 0%, transparent 70%), radial-gradient(ellipse 55% 40% at 15% 25%, rgba(196, 30, 58, 0.05) 0%, transparent 58%), radial-gradient(ellipse 70% 45% at 50% 100%, rgba(160, 100, 30, 0.06) 0%, transparent 60%)', pointerEvents: 'none' }} />
-        {isMobile ? (
-          <>
-
-            <h2 className="gradient_text" style={{
-              fontSize: '2.8rem',
-              textAlign: 'center',
-              fontWeight: 'bold',
-              marginTop: '40px',
-              marginBottom: '8px',
-            }}>
-              My Projects
-            </h2>
-            <p style={{
-              textAlign: 'center',
-              color: '#ddd',
-              fontSize: '1rem',
-              maxWidth: '600px',
-              margin: '0 auto 32px auto',
-            }}>
-              Personal Projects I've built through the years
-            </p>
-            <div className="mobile-project-list">
-              {projects.map((project) => (
-                <button
-                  key={project.id}
-                  type="button"
-                  className="mobile-project-card"
-                  onClick={() => openProject(project)}
-                  aria-label={`View ${project.name} project details`}
-                >
-                  <span className="mobile-project-preview">
+        <div className="project-index">
+          <header className="project-index-head">
+            <h2 className="gradient_text">My Projects</h2>
+            <p>Personal projects I've built through the years</p>
+          </header>
+          <div className="project-index-grid">
+            {projects.map((project, i) => {
+              const showCode = project.github && project.name !== "Stock Market App";
+              return (
+                <article key={project.id} className="project-item">
+                  <div className="project-item-shot" onClick={() => openProject(project)}>
                     {/\.(webm|mp4|ogg)$/i.test(project.screenshot)
                       ? <video src={project.screenshot} autoPlay muted loop playsInline aria-hidden="true" />
                       : <img src={project.screenshot} alt={project.visualAlt || `${project.name} screenshot`} loading="lazy" />
                     }
-                  </span>
-                  <span className="mobile-project-info">
-                    <span className="mobile-project-date">{project.date}</span>
-                    <span className="mobile-project-title" role="heading" aria-level={3}>{project.name}</span>
-                    <span className="mobile-project-description">{project.description}</span>
-                    <span className="mobile-project-action">View project <span aria-hidden="true">↗</span></span>
-                  </span>
-                </button>
-              ))}
-            </div>
-          </>
-        ) : (
-          <>
-            <div style={{
-              width: '100%',
-              maxWidth: '1400px',
-              margin: '0 auto',
-              position: 'relative',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              paddingTop: '50px',
-              paddingBottom: '40px',
-              boxSizing: 'border-box',
-            }}>
-              <svg
-                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible' }}
-                viewBox="0 0 1000 240"
-                preserveAspectRatio="none"
-              >
-                <line x1="500" y1="0" x2="500" y2="58" stroke="rgba(160,100,30,0.5)" strokeWidth="1" />
-                <path d="M 500,58 C 500,140 14,185 14,240" fill="none" stroke="rgba(160,120,50,0.42)" strokeWidth="1" />
-                <path d="M 500,58 C 500,140 986,185 986,240" fill="none" stroke="rgba(160,120,50,0.42)" strokeWidth="1" />
-              </svg>
-              <div style={{ width: '9px', height: '9px', border: '1px solid rgba(212,192,154,0.5)', background: 'rgba(160,100,30,0.45)', transform: 'rotate(45deg)', flexShrink: 0, position: 'relative', zIndex: 3 }} />
-              <h2 className="gradient_text" style={{ fontSize: '3.5rem', fontWeight: 'bold', textAlign: 'center', marginTop: '28px', position: 'relative', zIndex: 2 }}>
-                My Projects
-              </h2>
-              <p style={{ textAlign: 'center', color: '#ddd', fontSize: '1.1rem', maxWidth: '600px', margin: '12px auto 0', position: 'relative', zIndex: 2 }}>
-                Personal Projects I've built through the years
-              </p>
-            </div>
-            <div style={{
-              width: '100%',
-              maxWidth: '1400px',
-              margin: '0 auto',
-              padding: '0 20px 20px',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(6, 1fr)',
-              gridAutoRows: '200px',
-              gap: '20px',
-            }}>
-            {projects.map((project) => (
-              <div
-                key={project.id}
-                role="button"
-                tabIndex={0}
-                onClick={() => openProject(project)}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault();
-                    openProject(project);
-                  }
-                }}
-                style={{
-                  gridColumn: projects.length % 2 !== 0 && project === projects[0] ? 'span 6' : 'span 3',
-                  gridRow: 'span 2',
-                  background: '#111',
-                  borderRadius: '12px',
-                  cursor: 'pointer',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  transition: 'transform 0.3s ease',
-                  boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-                }}
-              >
-                {project.screenshot && (
-                  <>
-                    {/\.(webm|mp4|ogg)$/i.test(project.screenshot)
-                      ? <video src={project.screenshot} style={screenshotImgStyle} autoPlay muted loop playsInline />
-                      : <img src={project.screenshot} alt={project.visualAlt || project.name} style={screenshotImgStyle} />
-                    }
-                    <div style={screenshotOverlayStyle} />
-                  </>
-                )}
-                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '24px', zIndex: 2 }}>
-                  <p style={{ color: '#D4C09A', fontSize: '0.72rem', marginBottom: '6px' }}>{project.date}</p>
-                  <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: '600', marginBottom: '8px' }}>{project.name}</h3>
-                  <p style={{ color: '#bbb', fontSize: '0.875rem', marginBottom: '0' }}>{project.description}</p>
-                </div>
-              </div>
-            ))}
-            <div style={{
-              width: '100%',
-              maxWidth: '1400px',
-              gridColumn: '1 / -1',
-              marginTop: '-20px',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              position: 'relative',
-              alignSelf: 'stretch',
-              boxSizing: 'border-box',
-              paddingTop: '0px',
-              paddingBottom: '50px',
-            }}>
-              <svg
-                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', overflow: 'visible' }}
-                viewBox="0 0 1000 240"
-                preserveAspectRatio="none"
-              >
-                <path d="M 14,0 C 14,55 500,100 500,182" fill="none" stroke="rgba(160,120,50,0.42)" strokeWidth="1" />
-                <path d="M 986,0 C 986,55 500,100 500,182" fill="none" stroke="rgba(160,120,50,0.42)" strokeWidth="1" />
-              </svg>
-            </div>
+                  </div>
+                  <div className="project-item-meta">
+                    <span>{String(i + 1).padStart(2, '0')}</span>
+                    <span>{project.date}</span>
+                  </div>
+                  <h3 className="project-item-title">
+                    <button type="button" onClick={() => openProject(project)}>
+                      {project.name}
+                    </button>
+                  </h3>
+                  <p className="project-item-desc">{project.description}</p>
+                  <p className="project-item-stack">{project.tech.slice(0, 5).join(' · ')}</p>
+                  <div className="project-item-links">
+                    {showCode && (
+                      <a href={project.github} target="_blank" rel="noopener noreferrer">Code <span aria-hidden="true">↗</span></a>
+                    )}
+                    {project.live && (
+                      <a href={project.live} target="_blank" rel="noopener noreferrer">Live <span aria-hidden="true">↗</span></a>
+                    )}
+                    <button type="button" className="project-item-more" onClick={() => openProject(project)}>
+                      Details <span aria-hidden="true">→</span>
+                    </button>
+                  </div>
+                </article>
+              );
+            })}
           </div>
-          </>
-        )}
+        </div>
       </section>
 
       {/* Project Modal */}
